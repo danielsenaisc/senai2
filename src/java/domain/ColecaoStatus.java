@@ -3,71 +3,70 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package domain;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
-
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-import control.Conexao;
-import control.GenericDao;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.SequenceGenerator;
-
+/**
+ *
+ * @author IST-08-PC
+ */
 @Entity
-@Table(name = "COLECAO_STATUS")
+@Table(name = "COLECAO_STATUS", catalog = "", schema = "RIGHTSIZE")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "ColecaoStatus.findAll", query = "SELECT c FROM ColecaoStatus c"),
-    @NamedQuery(name = "ColecaoStatus.findByCodigo", query = "SELECT c FROM ColecaoStatus c WHERE c.codigo = :codigo"),
+    @NamedQuery(name = "ColecaoStatus.findById", query = "SELECT c FROM ColecaoStatus c WHERE c.id = :id"),
     @NamedQuery(name = "ColecaoStatus.findByDescricao", query = "SELECT c FROM ColecaoStatus c WHERE c.descricao = :descricao")})
-public class ColecaoStatus extends GenericDao implements Serializable {
+public class ColecaoStatus implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "COLECAO_STATUS_SEQ")
-    @SequenceGenerator(name = "COLECAO_STATUS_SEQ", sequenceName = "COLECAO_STATUS_SEQ")
+    @SequenceGenerator(name = "COLECAO_STATUS_SEQ", sequenceName="COLECAO_STATUS_SEQ")
+
     @Basic(optional = false)
-    @Column(name = "CODIGO")
-    private Long codigo;
+    @Column(name = "ID", nullable = false)
+    private Long id;
     @Basic(optional = false)
-    @Column(name = "DESCRICAO")
+    @Column(name = "DESCRICAO", nullable = false, length = 100)
     private String descricao;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "colecaoStatusCodigo", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "colecaoStatusId", fetch = FetchType.LAZY)
     private List<Colecao> colecaoList;
 
     public ColecaoStatus() {
     }
 
-    public ColecaoStatus(Long codigo) {
-        this.codigo = codigo;
+    public ColecaoStatus(Long id) {
+        this.id = id;
     }
 
-    public ColecaoStatus(Long codigo, String descricao) {
-        this.codigo = codigo;
+    public ColecaoStatus(Long id, String descricao) {
+        this.id = id;
         this.descricao = descricao;
     }
 
-    public Long getCodigo() {
-        return codigo;
+    public Long getId() {
+        return id;
     }
 
-    public void setCodigo(Long codigo) {
-        this.codigo = codigo;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getDescricao() {
@@ -90,7 +89,7 @@ public class ColecaoStatus extends GenericDao implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (codigo != null ? codigo.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -101,7 +100,7 @@ public class ColecaoStatus extends GenericDao implements Serializable {
             return false;
         }
         ColecaoStatus other = (ColecaoStatus) object;
-        if ((this.codigo == null && other.codigo != null) || (this.codigo != null && !this.codigo.equals(other.codigo))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -109,15 +108,7 @@ public class ColecaoStatus extends GenericDao implements Serializable {
 
     @Override
     public String toString() {
-        return "domain.ColecaoStatus[ codigo=" + codigo + " ]";
+        return "domain.ColecaoStatus[ id=" + id + " ]";
     }
-    
-//    public ArrayList<ColecaoStatus> listaColecaoStatus() {
-//    	return new ArrayList(super.list());
-//    }
-    
-//	public ColecaoStatus findByDescricao(String descricao){
-//    	return (ColecaoStatus) Conexao.singleResultNamedQuery(getEntityName()+".findByDescricao", descricao, "descricao");
-//    }
     
 }

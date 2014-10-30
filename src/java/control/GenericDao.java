@@ -48,7 +48,7 @@ public abstract class GenericDao {
         
     }
     
-    //TODO problemas com findByCOdigo
-    //public abstract Object findByCodigo(String codigo);
+    //TODO problemas com findById
+    //public abstract Object findById(String id);
     
 }

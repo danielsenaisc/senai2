@@ -3,16 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package domain;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -35,16 +31,16 @@ import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-import utils.Genero;
-import control.Conexao;
-import control.GenericDao;
-
+/**
+ *
+ * @author IST-08-PC
+ */
 @Entity
-@Table(name = "COLECAO")
+@Table(name = "COLECAO", catalog = "", schema = "RIGHTSIZE")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Colecao.findAll", query = "SELECT c FROM Colecao c"),
-    @NamedQuery(name = "Colecao.findByCodigo", query = "SELECT c FROM Colecao c WHERE c.codigo = :codigo"),
+    @NamedQuery(name = "Colecao.findById", query = "SELECT c FROM Colecao c WHERE c.id = :id"),
     @NamedQuery(name = "Colecao.findByNome", query = "SELECT c FROM Colecao c WHERE c.nome = :nome"),
     @NamedQuery(name = "Colecao.findByVigenciaInicial", query = "SELECT c FROM Colecao c WHERE c.vigenciaInicial = :vigenciaInicial"),
     @NamedQuery(name = "Colecao.findByVigenciaFinal", query = "SELECT c FROM Colecao c WHERE c.vigenciaFinal = :vigenciaFinal"),
@@ -52,24 +48,22 @@ import control.GenericDao;
     @NamedQuery(name = "Colecao.findByIdadeInicial", query = "SELECT c FROM Colecao c WHERE c.idadeInicial = :idadeInicial"),
     @NamedQuery(name = "Colecao.findByIdadeFinal", query = "SELECT c FROM Colecao c WHERE c.idadeFinal = :idadeFinal"),
     @NamedQuery(name = "Colecao.findByGenero", query = "SELECT c FROM Colecao c WHERE c.genero = :genero"),
-    @NamedQuery(name = "Colecao.findByCodigoLivre", query = "SELECT c FROM Colecao c WHERE c.codigoLivre = :codigoLivre"),
-    @NamedQuery(name = "Colecao.selectOrderByLikes", query = "SELECT c FROM Colecao c order by likes desc")
-    })
+    @NamedQuery(name = "Colecao.findByIdLivre", query = "SELECT c FROM Colecao c WHERE c.idLivre = :idLivre"),
+    @NamedQuery(name = "Colecao.findByLikes", query = "SELECT c FROM Colecao c WHERE c.likes = :likes"),
+    @NamedQuery(name = "Colecao.findByDislikes", query = "SELECT c FROM Colecao c WHERE c.dislikes = :dislikes")})
+    @NamedQuery(name = "Colecao.selectOrderByLikes", query = "SELECT c FROM Colecao c ORDER BY likes")
 public class Colecao implements Serializable {
-    @Column(name = "LIKES")
-    private Long likes;
-    @Column(name = "DISLIKES")
-    private Long dislikes;
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "COLECAO_SEQ")
-    @SequenceGenerator(name = "COLECAO_SEQ", sequenceName = "COLECAO_SEQ")
+    @SequenceGenerator(name = "COLECAO_SEQ", sequenceName="COLECAO_SEQ")
+
     @Basic(optional = false)
-    @Column(name = "CODIGO")
-    private BigDecimal codigo;
+    @Column(name = "ID", nullable = false, precision = 19, scale = 0)
+    private BigDecimal id;
     @Basic(optional = false)
-    @Column(name = "NOME")
+    @Column(name = "NOME", nullable = false, length = 100)
     private String nome;
     @Column(name = "VIGENCIA_INICIAL")
     @Temporal(TemporalType.TIMESTAMP)
@@ -77,7 +71,7 @@ public class Colecao implements Serializable {
     @Column(name = "VIGENCIA_FINAL")
     @Temporal(TemporalType.TIMESTAMP)
     private Date vigenciaFinal;
-    @Column(name = "DESCRICAO")
+    @Column(name = "DESCRICAO", length = 200)
     private String descricao;
     @Column(name = "IDADE_INICIAL")
     private Long idadeInicial;
@@ -85,75 +79,56 @@ public class Colecao implements Serializable {
     private Long idadeFinal;
     @Column(name = "GENERO")
     private Character genero;
-    @Column(name = "CODIGO_LIVRE")
-    private String codigoLivre;
+    @Column(name = "ID_LIVRE", length = 45)
+    private String idLivre;
+    @Column(name = "LIKES")
+    private Long likes;
+    @Column(name = "DISLIKES")
+    private Long dislikes;
     @JoinTable(name = "TAG_COLECAO", joinColumns = {
-        @JoinColumn(name = "COLECAO_CODIGO", referencedColumnName = "CODIGO")}, inverseJoinColumns = {
-        @JoinColumn(name = "TAG_CODIGO", referencedColumnName = "CODIGO")})
+        @JoinColumn(name = "COLECAO_ID", referencedColumnName = "ID", nullable = false)}, inverseJoinColumns = {
+        @JoinColumn(name = "TAG_ID", referencedColumnName = "ID", nullable = false)})
     @ManyToMany(fetch = FetchType.LAZY)
     private List<Tag> tagList;
     @JoinTable(name = "PAIS_COLECAO", joinColumns = {
-        @JoinColumn(name = "COLECAO_CODIGO", referencedColumnName = "CODIGO")}, inverseJoinColumns = {
-        @JoinColumn(name = "PAIS_CODIGO", referencedColumnName = "CODIGO")})
+        @JoinColumn(name = "COLECAO_ID", referencedColumnName = "ID", nullable = false)}, inverseJoinColumns = {
+        @JoinColumn(name = "PAIS_ID", referencedColumnName = "ID", nullable = false)})
     @ManyToMany(fetch = FetchType.LAZY)
     private List<Pais> paisList;
     @JoinTable(name = "ESTILO_COLECAO", joinColumns = {
-        @JoinColumn(name = "COLECAO_CODIGO", referencedColumnName = "CODIGO")}, inverseJoinColumns = {
-        @JoinColumn(name = "ESTILO_CODIGO", referencedColumnName = "CODIGO")})
+        @JoinColumn(name = "COLECAO_ID", referencedColumnName = "ID", nullable = false)}, inverseJoinColumns = {
+        @JoinColumn(name = "ESTILO_ID", referencedColumnName = "ID", nullable = false)})
     @ManyToMany(fetch = FetchType.LAZY)
     private List<Estilo> estiloList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "colecaoCodigo", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "colecaoId", fetch = FetchType.LAZY)
     private List<AnexoColecao> anexoColecaoList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "colecaoCodigo", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "colecaoId", fetch = FetchType.LAZY)
     private List<Produtos> produtosList;
-    @JoinColumn(name = "MARCA_CODIGO", referencedColumnName = "CODIGO")
+    @JoinColumn(name = "MARCA_ID", referencedColumnName = "ID", nullable = false)
     @ManyToOne(optional = false)
-    private Marca marcaCodigo;
-    @JoinColumn(name = "COLECAO_STATUS_CODIGO", referencedColumnName = "CODIGO")
+    private Marca marcaId;
+    @JoinColumn(name = "COLECAO_STATUS_ID", referencedColumnName = "ID", nullable = false)
     @ManyToOne(optional = false)
-    private ColecaoStatus colecaoStatusCodigo;
+    private ColecaoStatus colecaoStatusId;
 
     public Colecao() {
     }
 
-    public Colecao(BigDecimal codigo) {
-        this.codigo = codigo;
-    }
-    
-    public Colecao(String nome, Marca marca, ColecaoStatus colecaoStatus){
-    	this.nome = nome;
-    	this.marcaCodigo = marca;
-    	this.colecaoStatusCodigo = colecaoStatus;
+    public Colecao(BigDecimal id) {
+        this.id = id;
     }
 
-    public Colecao(BigDecimal codigo, String nome) {
-        this.codigo = codigo;
+    public Colecao(BigDecimal id, String nome) {
+        this.id = id;
         this.nome = nome;
     }
-    
-    public Colecao(BigDecimal codigo, String nome, Date vigenciaInicial,
-			Date vigenciaFinal, String descricao, Long idadeInicial,
-			Long idadeFinal, Genero genero, String codigoLivre,
-			Marca marcaCodigo, ColecaoStatus colecaoStatusCodigo) {
-		this.codigo = codigo;
-		this.nome = nome;
-		this.vigenciaInicial = vigenciaInicial;
-		this.vigenciaFinal = vigenciaFinal;
-		this.descricao = descricao;
-		this.idadeInicial = idadeInicial;
-		this.idadeFinal = idadeFinal;
-		this.genero = genero.getDescricao();
-		this.codigoLivre = codigoLivre;
-		this.marcaCodigo = marcaCodigo;
-		this.colecaoStatusCodigo = colecaoStatusCodigo;
-	}
 
-	public BigDecimal getCodigo() {
-        return codigo;
+    public BigDecimal getId() {
+        return id;
     }
 
-    public void setCodigo(BigDecimal codigo) {
-        this.codigo = codigo;
+    public void setId(BigDecimal id) {
+        this.id = id;
     }
 
     public String getNome() {
@@ -204,22 +179,36 @@ public class Colecao implements Serializable {
         this.idadeFinal = idadeFinal;
     }
 
-    //TODO GENERO
     public Character getGenero() {
         return genero;
     }
 
-    //TODO GENERO
     public void setGenero(Character genero) {
         this.genero = genero;
     }
 
-    public String getCodigoLivre() {
-        return codigoLivre;
+    public String getIdLivre() {
+        return idLivre;
     }
 
-    public void setCodigoLivre(String codigoLivre) {
-        this.codigoLivre = codigoLivre;
+    public void setIdLivre(String idLivre) {
+        this.idLivre = idLivre;
+    }
+
+    public Long getLikes() {
+        return likes;
+    }
+
+    public void setLikes(Long likes) {
+        this.likes = likes;
+    }
+
+    public Long getDislikes() {
+        return dislikes;
+    }
+
+    public void setDislikes(Long dislikes) {
+        this.dislikes = dislikes;
     }
 
     @XmlTransient
@@ -267,26 +256,26 @@ public class Colecao implements Serializable {
         this.produtosList = produtosList;
     }
 
-    public Marca getMarcaCodigo() {
-        return marcaCodigo;
+    public Marca getMarcaId() {
+        return marcaId;
     }
 
-    public void setMarcaCodigo(Marca marcaCodigo) {
-        this.marcaCodigo = marcaCodigo;
+    public void setMarcaId(Marca marcaId) {
+        this.marcaId = marcaId;
     }
 
-    public ColecaoStatus getColecaoStatusCodigo() {
-        return colecaoStatusCodigo;
+    public ColecaoStatus getColecaoStatusId() {
+        return colecaoStatusId;
     }
 
-    public void setColecaoStatusCodigo(ColecaoStatus colecaoStatusCodigo) {
-        this.colecaoStatusCodigo = colecaoStatusCodigo;
+    public void setColecaoStatusId(ColecaoStatus colecaoStatusId) {
+        this.colecaoStatusId = colecaoStatusId;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (codigo != null ? codigo.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -297,7 +286,7 @@ public class Colecao implements Serializable {
             return false;
         }
         Colecao other = (Colecao) object;
-        if ((this.codigo == null && other.codigo != null) || (this.codigo != null && !this.codigo.equals(other.codigo))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -305,24 +294,8 @@ public class Colecao implements Serializable {
 
     @Override
     public String toString() {
-        return "domain.Colecao[ codigo=" + codigo + " ]";
-    }
-
-    public Long getLikes() {
-        return likes;
-    }
-
-    public void setLikes(Long likes) {
-        this.likes = likes;
-    }
-
-    public Long getDislikes() {
-        return dislikes;
-    }
-
-    public void setDislikes(Long dislikes) {
-        this.dislikes = dislikes;
-    }
+        return "domain.Colecao[ id=" + id + " ]";
+    }    
     
     public String getVigencia(){
     	if(vigenciaInicial == null) return "N/A";

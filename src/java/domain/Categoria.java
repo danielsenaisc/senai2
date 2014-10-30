@@ -3,12 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package domain;
 
-import control.GenericDao;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -32,63 +29,64 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Gustavo Calandrini
+ * @author IST-08-PC
  */
 @Entity
-@Table(name = "CATEGORIA")
+@Table(name = "CATEGORIA", catalog = "", schema = "RIGHTSIZE")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Categoria.findAll", query = "SELECT c FROM Categoria c"),
-    @NamedQuery(name = "Categoria.findByCodigo", query = "SELECT c FROM Categoria c WHERE c.codigo = :codigo"),
+    @NamedQuery(name = "Categoria.findById", query = "SELECT c FROM Categoria c WHERE c.id = :id"),
     @NamedQuery(name = "Categoria.findByIncone", query = "SELECT c FROM Categoria c WHERE c.incone = :incone"),
     @NamedQuery(name = "Categoria.findByImagem", query = "SELECT c FROM Categoria c WHERE c.imagem = :imagem"),
     @NamedQuery(name = "Categoria.findByDescricao", query = "SELECT c FROM Categoria c WHERE c.descricao = :descricao")})
-public class Categoria extends GenericDao implements Serializable {
+public class Categoria implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CATEGORIA_SEQ")
-    @SequenceGenerator(name = "CATEGORIA_SEQ", sequenceName = "CATEGORIA_SEQ")
+    @SequenceGenerator(name = "CATEGORIA_SEQ", sequenceName="CATEGORIA_SEQ")
+
     @Basic(optional = false)
-    @Column(name = "CODIGO")
-    private Long codigo;
-    @Column(name = "INCONE")
+    @Column(name = "ID", nullable = false)
+    private Long id;
+    @Column(name = "INCONE", length = 500)
     private String incone;
-    @Column(name = "IMAGEM")
+    @Column(name = "IMAGEM", length = 500)
     private String imagem;
     @Basic(optional = false)
-    @Column(name = "DESCRICAO")
+    @Column(name = "DESCRICAO", nullable = false, length = 500)
     private String descricao;
     @JoinTable(name = "MODELAGEM_CATEGORIA", joinColumns = {
-        @JoinColumn(name = "CATEGORIA_CODIGO", referencedColumnName = "CODIGO")}, inverseJoinColumns = {
-        @JoinColumn(name = "MODELAGEM_CODIGO", referencedColumnName = "CODIGO")})
+        @JoinColumn(name = "CATEGORIA_ID", referencedColumnName = "ID", nullable = false)}, inverseJoinColumns = {
+        @JoinColumn(name = "MODELAGEM_ID", referencedColumnName = "ID", nullable = false)})
     @ManyToMany(fetch = FetchType.LAZY)
     private List<Modelagem> modelagemList;
-    @OneToMany(mappedBy = "categoriaCodigo", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "categoriaId", fetch = FetchType.LAZY)
     private List<Categoria> categoriaList;
-    @JoinColumn(name = "CATEGORIA_CODIGO", referencedColumnName = "CODIGO")
+    @JoinColumn(name = "CATEGORIA_ID", referencedColumnName = "ID")
     @ManyToOne
-    private Categoria categoriaCodigo;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "categoriaCodigo", fetch = FetchType.LAZY)
+    private Categoria categoriaId;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "categoriaId", fetch = FetchType.LAZY)
     private List<Produtos> produtosList;
 
     public Categoria() {
     }
 
-    public Categoria(Long codigo) {
-        this.codigo = codigo;
+    public Categoria(Long id) {
+        this.id = id;
     }
 
-    public Categoria(Long codigo, String descricao) {
-        this.codigo = codigo;
+    public Categoria(Long id, String descricao) {
+        this.id = id;
         this.descricao = descricao;
     }
 
-    public Long getCodigo() {
-        return codigo;
+    public Long getId() {
+        return id;
     }
 
-    public void setCodigo(Long codigo) {
-        this.codigo = codigo;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getIncone() {
@@ -133,12 +131,12 @@ public class Categoria extends GenericDao implements Serializable {
         this.categoriaList = categoriaList;
     }
 
-    public Categoria getCategoriaCodigo() {
-        return categoriaCodigo;
+    public Categoria getCategoriaId() {
+        return categoriaId;
     }
 
-    public void setCategoriaCodigo(Categoria categoriaCodigo) {
-        this.categoriaCodigo = categoriaCodigo;
+    public void setCategoriaId(Categoria categoriaId) {
+        this.categoriaId = categoriaId;
     }
 
     @XmlTransient
@@ -153,7 +151,7 @@ public class Categoria extends GenericDao implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (codigo != null ? codigo.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -164,7 +162,7 @@ public class Categoria extends GenericDao implements Serializable {
             return false;
         }
         Categoria other = (Categoria) object;
-        if ((this.codigo == null && other.codigo != null) || (this.codigo != null && !this.codigo.equals(other.codigo))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -172,10 +170,7 @@ public class Categoria extends GenericDao implements Serializable {
 
     @Override
     public String toString() {
-        return "domain.Categoria[ codigo=" + codigo + " ]";
+        return "domain.Categoria[ id=" + id + " ]";
     }
     
-    public ArrayList<Categoria> listaCategorias() {
-        return new ArrayList(super.list()); 
-    }
 }

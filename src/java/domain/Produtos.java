@@ -3,14 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package domain;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
-
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -25,80 +22,77 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.Query;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-import utils.OracleBoolean;
-import control.Conexao;
-import control.GenericDao;
-
 /**
  *
- * @author Gustavo Calandrini
+ * @author IST-08-PC
  */
 @Entity
-@Table(name = "PRODUTOS")
+@Table(name = "PRODUTOS", catalog = "", schema = "RIGHTSIZE")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Produtos.findAll", query = "SELECT p FROM Produtos p"),
-    @NamedQuery(name = "Produtos.findByCodigo", query = "SELECT p FROM Produtos p WHERE p.codigo = :codigo"),
+    @NamedQuery(name = "Produtos.findById", query = "SELECT p FROM Produtos p WHERE p.id = :id"),
     @NamedQuery(name = "Produtos.findByNome", query = "SELECT p FROM Produtos p WHERE p.nome = :nome"),
     @NamedQuery(name = "Produtos.findByStatus", query = "SELECT p FROM Produtos p WHERE p.status = :status"),
     @NamedQuery(name = "Produtos.findByGenero", query = "SELECT p FROM Produtos p WHERE p.genero = :genero"),
     @NamedQuery(name = "Produtos.findByReferencia", query = "SELECT p FROM Produtos p WHERE p.referencia = :referencia"),
     @NamedQuery(name = "Produtos.findByDescricao", query = "SELECT p FROM Produtos p WHERE p.descricao = :descricao"),
+    @NamedQuery(name = "Produtos.findByLikes", query = "SELECT p FROM Produtos p WHERE p.likes = :likes"),
+    @NamedQuery(name = "Produtos.findByDislikes", query = "SELECT p FROM Produtos p WHERE p.dislikes = :dislikes")})
     @NamedQuery(name = "Produtos.selectOrderByLikes", query = "SELECT p FROM Produtos p ORDER BY likes")
-    })
 public class Produtos implements Serializable {
-    @Column(name = "LIKES")
-    private Long likes;
-    @Column(name = "DISLIKES")
-    private Long dislikes;
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PRODUTOS_SEQ")
-    @SequenceGenerator(name = "PRODUTOS_SEQ", sequenceName = "PRODUTOS_SEQ")
+    @SequenceGenerator(name = "PRODUTOS_SEQ", sequenceName="PRODUTOS_SEQ")
+
     @Basic(optional = false)
-    @Column(name = "CODIGO")
-    private BigDecimal codigo;
-    @Column(name = "NOME")
+    @Column(name = "ID", nullable = false, precision = 19, scale = 0)
+    private BigDecimal id;
+    @Column(name = "NOME", length = 100)
     private String nome;
     @Column(name = "STATUS")
     private Character status;
     @Column(name = "GENERO")
     private Character genero;
-    @Column(name = "REFERENCIA")
+    @Column(name = "REFERENCIA", length = 500)
     private String referencia;
-    @Column(name = "DESCRICAO")
+    @Column(name = "DESCRICAO", length = 500)
     private String descricao;
+    @Column(name = "LIKES")
+    private Long likes;
+    @Column(name = "DISLIKES")
+    private Long dislikes;
     @ManyToMany(mappedBy = "produtosList", fetch = FetchType.LAZY)
     private List<Tag> tagList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "produtosCodigo", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "produtosId", fetch = FetchType.LAZY)
     private List<TipoMedidaProdutos> tipoMedidaProdutosList;
-    @JoinColumn(name = "COLECAO_CODIGO", referencedColumnName = "CODIGO")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Colecao colecaoCodigo;
-    @JoinColumn(name = "CATEGORIA_CODIGO", referencedColumnName = "CODIGO")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Categoria categoriaCodigo;
+    @JoinColumn(name = "COLECAO_ID", referencedColumnName = "ID", nullable = false)
+    @ManyToOne(optional = false)
+    private Colecao colecaoId;
+    @JoinColumn(name = "CATEGORIA_ID", referencedColumnName = "ID", nullable = false)
+    @ManyToOne(optional = false)
+    private Categoria categoriaId;
 
     public Produtos() {
     }
 
-    public Produtos(BigDecimal codigo) {
-        this.codigo = codigo;
+    public Produtos(BigDecimal id) {
+        this.id = id;
     }
 
-    public BigDecimal getCodigo() {
-        return codigo;
+    public BigDecimal getId() {
+        return id;
     }
 
-    public void setCodigo(BigDecimal codigo) {
-        this.codigo = codigo;
+    public void setId(BigDecimal id) {
+        this.id = id;
     }
 
     public String getNome() {
@@ -141,6 +135,22 @@ public class Produtos implements Serializable {
         this.descricao = descricao;
     }
 
+    public Long getLikes() {
+        return likes;
+    }
+
+    public void setLikes(Long likes) {
+        this.likes = likes;
+    }
+
+    public Long getDislikes() {
+        return dislikes;
+    }
+
+    public void setDislikes(Long dislikes) {
+        this.dislikes = dislikes;
+    }
+
     @XmlTransient
     public List<Tag> getTagList() {
         return tagList;
@@ -159,26 +169,26 @@ public class Produtos implements Serializable {
         this.tipoMedidaProdutosList = tipoMedidaProdutosList;
     }
 
-    public Colecao getColecaoCodigo() {
-        return colecaoCodigo;
+    public Colecao getColecaoId() {
+        return colecaoId;
     }
 
-    public void setColecaoCodigo(Colecao colecaoCodigo) {
-        this.colecaoCodigo = colecaoCodigo;
+    public void setColecaoId(Colecao colecaoId) {
+        this.colecaoId = colecaoId;
     }
 
-    public Categoria getCategoriaCodigo() {
-        return categoriaCodigo;
+    public Categoria getCategoriaId() {
+        return categoriaId;
     }
 
-    public void setCategoriaCodigo(Categoria categoriaCodigo) {
-        this.categoriaCodigo = categoriaCodigo;
+    public void setCategoriaId(Categoria categoriaId) {
+        this.categoriaId = categoriaId;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (codigo != null ? codigo.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -189,7 +199,7 @@ public class Produtos implements Serializable {
             return false;
         }
         Produtos other = (Produtos) object;
-        if ((this.codigo == null && other.codigo != null) || (this.codigo != null && !this.codigo.equals(other.codigo))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -197,36 +207,7 @@ public class Produtos implements Serializable {
 
     @Override
     public String toString() {
-        return "domain.Produtos[ codigo=" + codigo + " ]";
-    }
-
-    public Long getLikes() {
-        return likes;
-    }
-
-    public void setLikes(Long likes) {
-        this.likes = likes;
-    }
-
-    public Long getDislikes() {
-        return dislikes;
-    }
-
-    public void setDislikes(Long dislikes) {
-        this.dislikes = dislikes;
-    }
-    
-    public int getQuantidadeVariantes(){
-    	int quantidadeDeVariantes = 0;
-    	for (TipoMedidaProdutos tipoMedidaProdutos : getTipoMedidaProdutosList()) {
-			quantidadeDeVariantes += tipoMedidaProdutos.getAnexosVarianteProdutoList().size();
-		}
-    	return quantidadeDeVariantes;
-    }
-    
-    public String getStatusTratado(){
-    	if(OracleBoolean.TRUE.getValue() == getStatus()) return "Ativa";
-    	return "Inativa";
+        return "domain.Produtos[ id=" + id + " ]";
     }
     
 }

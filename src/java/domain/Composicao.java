@@ -3,12 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package domain;
 
-import control.GenericDao;
 import java.io.Serializable;
-import java.util.ArrayList;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -23,45 +20,46 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Gustavo Calandrini
+ * @author IST-08-PC
  */
 @Entity
-@Table(name = "COMPOSICAO")
+@Table(name = "COMPOSICAO", catalog = "", schema = "RIGHTSIZE")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Composicao.findAll", query = "SELECT c FROM Composicao c"),
-    @NamedQuery(name = "Composicao.findByCodigo", query = "SELECT c FROM Composicao c WHERE c.codigo = :codigo"),
+    @NamedQuery(name = "Composicao.findById", query = "SELECT c FROM Composicao c WHERE c.id = :id"),
     @NamedQuery(name = "Composicao.findByDescricao", query = "SELECT c FROM Composicao c WHERE c.descricao = :descricao")})
-public class Composicao extends GenericDao implements Serializable {
+public class Composicao implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "COMPOSICAO_SEQ")
-    @SequenceGenerator(name = "COMPOSICAO_SEQ", sequenceName = "COMPOSICAO_SEQ")
+    @SequenceGenerator(name = "COMPOSICAO_SEQ", sequenceName="COMPOSICAO_SEQ")
+
     @Basic(optional = false)
-    @Column(name = "CODIGO")
-    private Long codigo;
+    @Column(name = "ID", nullable = false)
+    private Long id;
     @Basic(optional = false)
-    @Column(name = "DESCRICAO")
+    @Column(name = "DESCRICAO", nullable = false, length = 200)
     private String descricao;
 
     public Composicao() {
     }
 
-    public Composicao(Long codigo) {
-        this.codigo = codigo;
+    public Composicao(Long id) {
+        this.id = id;
     }
 
-    public Composicao(Long codigo, String descricao) {
-        this.codigo = codigo;
+    public Composicao(Long id, String descricao) {
+        this.id = id;
         this.descricao = descricao;
     }
 
-    public Long getCodigo() {
-        return codigo;
+    public Long getId() {
+        return id;
     }
 
-    public void setCodigo(Long codigo) {
-        this.codigo = codigo;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getDescricao() {
@@ -71,10 +69,30 @@ public class Composicao extends GenericDao implements Serializable {
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
-    
-    public ArrayList<Composicao> listaComposicoes() {
-        return new ArrayList(super.list());
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
     }
-    
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Composicao)) {
+            return false;
+        }
+        Composicao other = (Composicao) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "domain.Composicao[ id=" + id + " ]";
+    }
     
 }

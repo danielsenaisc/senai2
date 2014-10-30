@@ -71,7 +71,7 @@
 					 ${collection.getGenero()}</a>
 				</td>
 				<td><a href="${createLink(controller:'collection',action:'edit',params:[id:i])}" class="t-column">
-					 ${collection.getMarcaCodigo().getNome()} </a>
+					 ${collection.getMarcaId().getNome()} </a>
 				</td>
 				<td><a href="${createLink(controller:'collection',action:'edit',params:[id:i])}" class="t-column">
 					 ${collection.getVigencia()} </a>
@@ -80,7 +80,7 @@
 					 ${collection.getProdutosList().size()} </a>
 				</td>
 				<td><a href="${createLink(controller:'collection',action:'edit',params:[id:i])}" class="t-column">
-					 ${collection.getColecaoStatusCodigo().getDescricao()} </a>
+					 ${collection.getColecaoStatusId().getDescricao()} </a>
 				</td>
 				
 				<td>

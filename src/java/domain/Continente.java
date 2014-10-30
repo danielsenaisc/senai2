@@ -3,12 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package domain;
 
-import control.GenericDao;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -28,57 +25,53 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Gustavo Calandrini
+ * @author IST-08-PC
  */
 @Entity
-@Table(name = "CONTINENTE")
+@Table(name = "CONTINENTE", catalog = "", schema = "RIGHTSIZE")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Continente.findAll", query = "SELECT c FROM Continente c"),
-    @NamedQuery(name = "Continente.findByCodigo", query = "SELECT c FROM Continente c WHERE c.codigo = :codigo"),
+    @NamedQuery(name = "Continente.findById", query = "SELECT c FROM Continente c WHERE c.id = :id"),
     @NamedQuery(name = "Continente.findByNome", query = "SELECT c FROM Continente c WHERE c.nome = :nome"),
     @NamedQuery(name = "Continente.findBySigla", query = "SELECT c FROM Continente c WHERE c.sigla = :sigla")})
-public class Continente extends GenericDao implements Serializable {
+public class Continente implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CONTINENTE_SEQ")
-    @SequenceGenerator(name = "CONTINENTE_SEQ", sequenceName = "CONTINENTE_SEQ")
+    @SequenceGenerator(name = "CONTINENTE_SEQ", sequenceName="CONTINENTE_SEQ")
+
     @Basic(optional = false)
-    @Column(name = "CODIGO")
-    private Long codigo;
+    @Column(name = "ID", nullable = false)
+    private Long id;
     @Basic(optional = false)
-    @Column(name = "NOME")
+    @Column(name = "NOME", nullable = false, length = 45)
     private String nome;
     @Basic(optional = false)
-    @Column(name = "SIGLA")
+    @Column(name = "SIGLA", nullable = false, length = 3)
     private String sigla;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "continenteCodigo", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "continenteId", fetch = FetchType.LAZY)
     private List<Pais> paisList;
 
     public Continente() {
     }
 
-    public Continente(Long codigo) {
-        this.codigo = codigo;
+    public Continente(Long id) {
+        this.id = id;
     }
 
-    public Continente( String nome, String sigla) {
+    public Continente(Long id, String nome, String sigla) {
+        this.id = id;
         this.nome = nome;
         this.sigla = sigla;
     }
 
-    public Continente(Long codigo, String nome, String sigla) {
-        this.codigo = codigo;
-        this.nome = nome;
-        this.sigla = sigla;
+    public Long getId() {
+        return id;
     }
 
-    public Long getCodigo() {
-        return codigo;
-    }
-
-    public void setCodigo(Long codigo) {
-        this.codigo = codigo;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getNome() {
@@ -105,11 +98,30 @@ public class Continente extends GenericDao implements Serializable {
     public void setPaisList(List<Pais> paisList) {
         this.paisList = paisList;
     }
-    
-    public ArrayList<Continente> listaContinentes() {
-        return new ArrayList(super.list()); 
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
     }
-    
-    
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Continente)) {
+            return false;
+        }
+        Continente other = (Continente) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "domain.Continente[ id=" + id + " ]";
+    }
     
 }

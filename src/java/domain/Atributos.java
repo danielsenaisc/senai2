@@ -3,13 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package domain;
 
-import control.GenericDao;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -30,60 +27,52 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Gustavo Calandrini
+ * @author IST-08-PC
  */
 @Entity
-@Table(name = "ATRIBUTOS")
+@Table(name = "ATRIBUTOS", catalog = "", schema = "RIGHTSIZE")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Atributos.findAll", query = "SELECT a FROM Atributos a"),
-    @NamedQuery(name = "Atributos.findByCodigo", query = "SELECT a FROM Atributos a WHERE a.codigo = :codigo"),
+    @NamedQuery(name = "Atributos.findById", query = "SELECT a FROM Atributos a WHERE a.id = :id"),
     @NamedQuery(name = "Atributos.findByDescricao", query = "SELECT a FROM Atributos a WHERE a.descricao = :descricao")})
-public class Atributos extends GenericDao implements Serializable {
+public class Atributos implements Serializable {
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ATRIBUTOS_SEQ")
-    @SequenceGenerator(name = "ATRIBUTOS_SEQ", sequenceName = "ATRIBUTOS_SEQ")
+    @SequenceGenerator(name = "ATRIBUTOS_SEQ", sequenceName="ATRIBUTOS_SEQ")
+
     @Basic(optional = false)
-    @Column(name = "CODIGO")
-    private BigDecimal codigo;
+    @Column(name = "ID", nullable = false, precision = 19, scale = 0)
+    private BigDecimal id;
     @Basic(optional = false)
-    @Column(name = "DESCRICAO")
+    @Column(name = "DESCRICAO", nullable = false, length = 200)
     private String descricao;
-    @OneToMany(mappedBy = "atributosCodigo", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "atributosId", fetch = FetchType.LAZY)
     private List<Atributos> atributosList;
-    @JoinColumn(name = "ATRIBUTOS_CODIGO", referencedColumnName = "CODIGO")
+    @JoinColumn(name = "ATRIBUTOS_ID", referencedColumnName = "ID")
     @ManyToOne
-    private Atributos atributosCodigo;
+    private Atributos atributosId;
 
     public Atributos() {
     }
 
-    public Atributos(BigDecimal codigo) {
-        this.codigo = codigo;
+    public Atributos(BigDecimal id) {
+        this.id = id;
     }
 
-    public Atributos(String descricao) {
+    public Atributos(BigDecimal id, String descricao) {
+        this.id = id;
         this.descricao = descricao;
     }
 
-    public Atributos(String descricao, Atributos atributosCodigo) {
-        this.descricao = descricao;
-        this.atributosCodigo = atributosCodigo;
+    public BigDecimal getId() {
+        return id;
     }
 
-    public Atributos(BigDecimal codigo, String descricao) {
-        this.codigo = codigo;
-        this.descricao = descricao;
-    }
-
-    public BigDecimal getCodigo() {
-        return codigo;
-    }
-
-    public void setCodigo(BigDecimal codigo) {
-        this.codigo = codigo;
+    public void setId(BigDecimal id) {
+        this.id = id;
     }
 
     public String getDescricao() {
@@ -103,18 +92,18 @@ public class Atributos extends GenericDao implements Serializable {
         this.atributosList = atributosList;
     }
 
-    public Atributos getAtributosCodigo() {
-        return atributosCodigo;
+    public Atributos getAtributosId() {
+        return atributosId;
     }
 
-    public void setAtributosCodigo(Atributos atributosCodigo) {
-        this.atributosCodigo = atributosCodigo;
+    public void setAtributosId(Atributos atributosId) {
+        this.atributosId = atributosId;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (codigo != null ? codigo.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -125,7 +114,7 @@ public class Atributos extends GenericDao implements Serializable {
             return false;
         }
         Atributos other = (Atributos) object;
-        if ((this.codigo == null && other.codigo != null) || (this.codigo != null && !this.codigo.equals(other.codigo))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -133,11 +122,7 @@ public class Atributos extends GenericDao implements Serializable {
 
     @Override
     public String toString() {
-        return "domain.Atributos[ codigo=" + codigo + " ]";
-    }
-    
-    public ArrayList<Atributos> listaAtributos() {
-        return new ArrayList(super.list()); //To change body of generated methods, choose Tools | Templates.
+        return "domain.Atributos[ id=" + id + " ]";
     }
     
 }

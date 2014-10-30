@@ -3,13 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package domain;
 
-import control.GenericDao;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -29,51 +26,52 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Gustavo Calandrini
+ * @author IST-08-PC
  */
 @Entity
-@Table(name = "CARGO")
+@Table(name = "CARGO", catalog = "", schema = "RIGHTSIZE")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Cargo.findAll", query = "SELECT c FROM Cargo c"),
-    @NamedQuery(name = "Cargo.findByCodigo", query = "SELECT c FROM Cargo c WHERE c.codigo = :codigo"),
+    @NamedQuery(name = "Cargo.findById", query = "SELECT c FROM Cargo c WHERE c.id = :id"),
     @NamedQuery(name = "Cargo.findByNomeFuncao", query = "SELECT c FROM Cargo c WHERE c.nomeFuncao = :nomeFuncao"),
     @NamedQuery(name = "Cargo.findByDescricaoFuncao", query = "SELECT c FROM Cargo c WHERE c.descricaoFuncao = :descricaoFuncao")})
-public class Cargo extends GenericDao implements Serializable {
+public class Cargo implements Serializable {
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CARGO_SEQ")
-    @SequenceGenerator(name = "CARGO_SEQ", sequenceName = "CARGO_SEQ")
+    @SequenceGenerator(name = "CARGO_SEQ", sequenceName="CARGO_SEQ")
+
     @Basic(optional = false)
-    @Column(name = "CODIGO")
-    private BigDecimal codigo;
+    @Column(name = "ID", nullable = false, precision = 19, scale = 0)
+    private BigDecimal id;
     @Basic(optional = false)
-    @Column(name = "NOME_FUNCAO")
+    @Column(name = "NOME_FUNCAO", nullable = false, length = 100)
     private String nomeFuncao;
-    @Column(name = "DESCRICAO_FUNCAO")
+    @Column(name = "DESCRICAO_FUNCAO", length = 200)
     private String descricaoFuncao;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cargoCodigo", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cargoId", fetch = FetchType.LAZY)
     private List<Profissional> profissionalList;
 
     public Cargo() {
     }
 
-    public Cargo(BigDecimal codigo) {
-        this.codigo = codigo;
+    public Cargo(BigDecimal id) {
+        this.id = id;
     }
 
-    public Cargo(BigDecimal codigo, String nomeFuncao) {
-        this.codigo = codigo;
+    public Cargo(BigDecimal id, String nomeFuncao) {
+        this.id = id;
         this.nomeFuncao = nomeFuncao;
     }
 
-    public BigDecimal getCodigo() {
-        return codigo;
+    public BigDecimal getId() {
+        return id;
     }
 
-    public void setCodigo(BigDecimal codigo) {
-        this.codigo = codigo;
+    public void setId(BigDecimal id) {
+        this.id = id;
     }
 
     public String getNomeFuncao() {
@@ -104,7 +102,7 @@ public class Cargo extends GenericDao implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (codigo != null ? codigo.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -115,7 +113,7 @@ public class Cargo extends GenericDao implements Serializable {
             return false;
         }
         Cargo other = (Cargo) object;
-        if ((this.codigo == null && other.codigo != null) || (this.codigo != null && !this.codigo.equals(other.codigo))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -123,11 +121,7 @@ public class Cargo extends GenericDao implements Serializable {
 
     @Override
     public String toString() {
-        return "domain.Cargo[ codigo=" + codigo + " ]";
-    }
-    
-    public ArrayList<Cargo> listaCargos() {
-        return new ArrayList(super.list()); 
+        return "domain.Cargo[ id=" + id + " ]";
     }
     
 }

@@ -3,13 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package domain;
 
-import control.GenericDao;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -26,66 +23,67 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Gustavo Calandrini
+ * @author IST-08-PC
  */
 @Entity
-@Table(name = "MODELAGEM_DADOS_TAMANHO")
+@Table(name = "MODELAGEM_DADOS_TAMANHO", catalog = "", schema = "RIGHTSIZE")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "ModelagemDadosTamanho.findAll", query = "SELECT m FROM ModelagemDadosTamanho m"),
-    @NamedQuery(name = "ModelagemDadosTamanho.findByCodigoSequencialOrdem", query = "SELECT m FROM ModelagemDadosTamanho m WHERE m.codigoSequencialOrdem = :codigoSequencialOrdem"),
+    @NamedQuery(name = "ModelagemDadosTamanho.findByIdSequencialOrdem", query = "SELECT m FROM ModelagemDadosTamanho m WHERE m.idSequencialOrdem = :idSequencialOrdem"),
     @NamedQuery(name = "ModelagemDadosTamanho.findByValorMedidaInicial", query = "SELECT m FROM ModelagemDadosTamanho m WHERE m.valorMedidaInicial = :valorMedidaInicial"),
     @NamedQuery(name = "ModelagemDadosTamanho.findByValorMedidaFinal", query = "SELECT m FROM ModelagemDadosTamanho m WHERE m.valorMedidaFinal = :valorMedidaFinal")})
-public class ModelagemDadosTamanho extends GenericDao implements Serializable {
+public class ModelagemDadosTamanho implements Serializable {
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "MODELAGEM_DADOS_TAMANHO_SEQ")
-    @SequenceGenerator(name = "MODELAGEM_DADOS_TAMANHO_SEQ", sequenceName = "MODELAGEM_DADOS_TAMANHO_SEQ")
+    @SequenceGenerator(name = "MODELAGEM_DADOS_TAMANHO_SEQ", sequenceName="MODELAGEM_DADOS_TAMANHO_SEQ")
+
     @Basic(optional = false)
-    @Column(name = "CODIGO_SEQUENCIAL_ORDEM")
-    private BigDecimal codigoSequencialOrdem;
+    @Column(name = "ID_SEQUENCIAL_ORDEM", nullable = false, precision = 19, scale = 0)
+    private BigDecimal idSequencialOrdem;
     @Basic(optional = false)
-    @Column(name = "VALOR_MEDIDA_INICIAL")
+    @Column(name = "VALOR_MEDIDA_INICIAL", nullable = false)
     private double valorMedidaInicial;
     @Basic(optional = false)
-    @Column(name = "VALOR_MEDIDA_FINAL")
+    @Column(name = "VALOR_MEDIDA_FINAL", nullable = false)
     private double valorMedidaFinal;
-    @JoinColumn(name = "TIPO_MEDIDA_CODIGO", referencedColumnName = "CODIGO")
+    @JoinColumn(name = "TIPO_MEDIDA_ID", referencedColumnName = "ID", nullable = false)
     @ManyToOne(optional = false)
-    private TipoMedida tipoMedidaCodigo;
-    @JoinColumn(name = "TIPO_GRADE_CODIGO", referencedColumnName = "CODIGO")
+    private TipoMedida tipoMedidaId;
+    @JoinColumn(name = "TIPO_GRADE_ID", referencedColumnName = "ID", nullable = false)
     @ManyToOne(optional = false)
-    private TipoGrade tipoGradeCodigo;
-    @JoinColumn(name = "TAMANHO_TIPO_GRADE_CODIGO", referencedColumnName = "CODIGO")
+    private TipoGrade tipoGradeId;
+    @JoinColumn(name = "TAMANHO_TIPO_GRADE_ID", referencedColumnName = "ID", nullable = false)
     @ManyToOne(optional = false)
-    private TamanhoTipoGrade tamanhoTipoGradeCodigo;
-    @JoinColumn(name = "PADRAO_MEDIDA_CODIGO", referencedColumnName = "CODIGO")
+    private TamanhoTipoGrade tamanhoTipoGradeId;
+    @JoinColumn(name = "PADRAO_MEDIDA_ID", referencedColumnName = "ID", nullable = false)
     @ManyToOne(optional = false)
-    private PadraoMedida padraoMedidaCodigo;
-    @JoinColumn(name = "MODELAGEM_CODIGO", referencedColumnName = "CODIGO")
+    private PadraoMedida padraoMedidaId;
+    @JoinColumn(name = "MODELAGEM_ID", referencedColumnName = "ID", nullable = false)
     @ManyToOne(optional = false)
-    private Modelagem modelagemCodigo;
+    private Modelagem modelagemId;
 
     public ModelagemDadosTamanho() {
     }
 
-    public ModelagemDadosTamanho(BigDecimal codigoSequencialOrdem) {
-        this.codigoSequencialOrdem = codigoSequencialOrdem;
+    public ModelagemDadosTamanho(BigDecimal idSequencialOrdem) {
+        this.idSequencialOrdem = idSequencialOrdem;
     }
 
-    public ModelagemDadosTamanho(BigDecimal codigoSequencialOrdem, double valorMedidaInicial, double valorMedidaFinal) {
-        this.codigoSequencialOrdem = codigoSequencialOrdem;
+    public ModelagemDadosTamanho(BigDecimal idSequencialOrdem, double valorMedidaInicial, double valorMedidaFinal) {
+        this.idSequencialOrdem = idSequencialOrdem;
         this.valorMedidaInicial = valorMedidaInicial;
         this.valorMedidaFinal = valorMedidaFinal;
     }
 
-    public BigDecimal getCodigoSequencialOrdem() {
-        return codigoSequencialOrdem;
+    public BigDecimal getIdSequencialOrdem() {
+        return idSequencialOrdem;
     }
 
-    public void setCodigoSequencialOrdem(BigDecimal codigoSequencialOrdem) {
-        this.codigoSequencialOrdem = codigoSequencialOrdem;
+    public void setIdSequencialOrdem(BigDecimal idSequencialOrdem) {
+        this.idSequencialOrdem = idSequencialOrdem;
     }
 
     public double getValorMedidaInicial() {
@@ -104,50 +102,50 @@ public class ModelagemDadosTamanho extends GenericDao implements Serializable {
         this.valorMedidaFinal = valorMedidaFinal;
     }
 
-    public TipoMedida getTipoMedidaCodigo() {
-        return tipoMedidaCodigo;
+    public TipoMedida getTipoMedidaId() {
+        return tipoMedidaId;
     }
 
-    public void setTipoMedidaCodigo(TipoMedida tipoMedidaCodigo) {
-        this.tipoMedidaCodigo = tipoMedidaCodigo;
+    public void setTipoMedidaId(TipoMedida tipoMedidaId) {
+        this.tipoMedidaId = tipoMedidaId;
     }
 
-    public TipoGrade getTipoGradeCodigo() {
-        return tipoGradeCodigo;
+    public TipoGrade getTipoGradeId() {
+        return tipoGradeId;
     }
 
-    public void setTipoGradeCodigo(TipoGrade tipoGradeCodigo) {
-        this.tipoGradeCodigo = tipoGradeCodigo;
+    public void setTipoGradeId(TipoGrade tipoGradeId) {
+        this.tipoGradeId = tipoGradeId;
     }
 
-    public TamanhoTipoGrade getTamanhoTipoGradeCodigo() {
-        return tamanhoTipoGradeCodigo;
+    public TamanhoTipoGrade getTamanhoTipoGradeId() {
+        return tamanhoTipoGradeId;
     }
 
-    public void setTamanhoTipoGradeCodigo(TamanhoTipoGrade tamanhoTipoGradeCodigo) {
-        this.tamanhoTipoGradeCodigo = tamanhoTipoGradeCodigo;
+    public void setTamanhoTipoGradeId(TamanhoTipoGrade tamanhoTipoGradeId) {
+        this.tamanhoTipoGradeId = tamanhoTipoGradeId;
     }
 
-    public PadraoMedida getPadraoMedidaCodigo() {
-        return padraoMedidaCodigo;
+    public PadraoMedida getPadraoMedidaId() {
+        return padraoMedidaId;
     }
 
-    public void setPadraoMedidaCodigo(PadraoMedida padraoMedidaCodigo) {
-        this.padraoMedidaCodigo = padraoMedidaCodigo;
+    public void setPadraoMedidaId(PadraoMedida padraoMedidaId) {
+        this.padraoMedidaId = padraoMedidaId;
     }
 
-    public Modelagem getModelagemCodigo() {
-        return modelagemCodigo;
+    public Modelagem getModelagemId() {
+        return modelagemId;
     }
 
-    public void setModelagemCodigo(Modelagem modelagemCodigo) {
-        this.modelagemCodigo = modelagemCodigo;
+    public void setModelagemId(Modelagem modelagemId) {
+        this.modelagemId = modelagemId;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (codigoSequencialOrdem != null ? codigoSequencialOrdem.hashCode() : 0);
+        hash += (idSequencialOrdem != null ? idSequencialOrdem.hashCode() : 0);
         return hash;
     }
 
@@ -158,7 +156,7 @@ public class ModelagemDadosTamanho extends GenericDao implements Serializable {
             return false;
         }
         ModelagemDadosTamanho other = (ModelagemDadosTamanho) object;
-        if ((this.codigoSequencialOrdem == null && other.codigoSequencialOrdem != null) || (this.codigoSequencialOrdem != null && !this.codigoSequencialOrdem.equals(other.codigoSequencialOrdem))) {
+        if ((this.idSequencialOrdem == null && other.idSequencialOrdem != null) || (this.idSequencialOrdem != null && !this.idSequencialOrdem.equals(other.idSequencialOrdem))) {
             return false;
         }
         return true;
@@ -166,11 +164,7 @@ public class ModelagemDadosTamanho extends GenericDao implements Serializable {
 
     @Override
     public String toString() {
-        return "domain.ModelagemDadosTamanho[ codigoSequencialOrdem=" + codigoSequencialOrdem + " ]";
-    }
-    
-    public ArrayList<ModelagemDadosTamanho> listaModelagemDadosTamanhos() {
-        return new ArrayList(super.list());
+        return "domain.ModelagemDadosTamanho[ idSequencialOrdem=" + idSequencialOrdem + " ]";
     }
     
 }

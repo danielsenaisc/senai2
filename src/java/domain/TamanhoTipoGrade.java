@@ -3,18 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package domain;
 
-import control.GenericDao;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -30,53 +28,54 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Gustavo Calandrini
+ * @author IST-08-PC
  */
 @Entity
-@Table(name = "TAMANHO_TIPO_GRADE")
+@Table(name = "TAMANHO_TIPO_GRADE", catalog = "", schema = "RIGHTSIZE")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "TamanhoTipoGrade.findAll", query = "SELECT t FROM TamanhoTipoGrade t"),
-    @NamedQuery(name = "TamanhoTipoGrade.findByCodigo", query = "SELECT t FROM TamanhoTipoGrade t WHERE t.codigo = :codigo"),
+    @NamedQuery(name = "TamanhoTipoGrade.findById", query = "SELECT t FROM TamanhoTipoGrade t WHERE t.id = :id"),
     @NamedQuery(name = "TamanhoTipoGrade.findByDescricao", query = "SELECT t FROM TamanhoTipoGrade t WHERE t.descricao = :descricao")})
-public class TamanhoTipoGrade extends GenericDao implements Serializable {
+public class TamanhoTipoGrade implements Serializable {
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "TAMANHO_TIPO_GRADE_SEQ")
-    @SequenceGenerator(name = "TAMANHO_TIPO_GRADE_SEQ", sequenceName = "TAMANHO_TIPO_GRADE_SEQ")
+    @SequenceGenerator(name = "TAMANHO_TIPO_GRADE_SEQ", sequenceName="TAMANHO_TIPO_GRADE_SEQ")
+
     @Basic(optional = false)
-    @Column(name = "CODIGO")
-    private BigDecimal codigo;
+    @Column(name = "ID", nullable = false, precision = 19, scale = 0)
+    private BigDecimal id;
     @Basic(optional = false)
-    @Column(name = "DESCRICAO")
+    @Column(name = "DESCRICAO", nullable = false, length = 500)
     private String descricao;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tamanhoTipoGradeCodigo")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tamanhoTipoGradeId", fetch = FetchType.LAZY)
     private List<ModelagemDadosTamanho> modelagemDadosTamanhoList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tamanhoTipoGradeCodigo")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tamanhoTipoGradeId", fetch = FetchType.LAZY)
     private List<TipoMedidaProdutos> tipoMedidaProdutosList;
-    @JoinColumn(name = "TIPO_GRADE_CODIGO", referencedColumnName = "CODIGO")
+    @JoinColumn(name = "TIPO_GRADE_ID", referencedColumnName = "ID", nullable = false)
     @ManyToOne(optional = false)
-    private TipoGrade tipoGradeCodigo;
+    private TipoGrade tipoGradeId;
 
     public TamanhoTipoGrade() {
     }
 
-    public TamanhoTipoGrade(BigDecimal codigo) {
-        this.codigo = codigo;
+    public TamanhoTipoGrade(BigDecimal id) {
+        this.id = id;
     }
 
-    public TamanhoTipoGrade(BigDecimal codigo, String descricao) {
-        this.codigo = codigo;
+    public TamanhoTipoGrade(BigDecimal id, String descricao) {
+        this.id = id;
         this.descricao = descricao;
     }
 
-    public BigDecimal getCodigo() {
-        return codigo;
+    public BigDecimal getId() {
+        return id;
     }
 
-    public void setCodigo(BigDecimal codigo) {
-        this.codigo = codigo;
+    public void setId(BigDecimal id) {
+        this.id = id;
     }
 
     public String getDescricao() {
@@ -105,18 +104,18 @@ public class TamanhoTipoGrade extends GenericDao implements Serializable {
         this.tipoMedidaProdutosList = tipoMedidaProdutosList;
     }
 
-    public TipoGrade getTipoGradeCodigo() {
-        return tipoGradeCodigo;
+    public TipoGrade getTipoGradeId() {
+        return tipoGradeId;
     }
 
-    public void setTipoGradeCodigo(TipoGrade tipoGradeCodigo) {
-        this.tipoGradeCodigo = tipoGradeCodigo;
+    public void setTipoGradeId(TipoGrade tipoGradeId) {
+        this.tipoGradeId = tipoGradeId;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (codigo != null ? codigo.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -127,7 +126,7 @@ public class TamanhoTipoGrade extends GenericDao implements Serializable {
             return false;
         }
         TamanhoTipoGrade other = (TamanhoTipoGrade) object;
-        if ((this.codigo == null && other.codigo != null) || (this.codigo != null && !this.codigo.equals(other.codigo))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -135,11 +134,7 @@ public class TamanhoTipoGrade extends GenericDao implements Serializable {
 
     @Override
     public String toString() {
-        return "domain.TamanhoTipoGrade[ codigo=" + codigo + " ]";
-    }
-    
-    public ArrayList<TamanhoTipoGrade> listaTamanhoTipoGrades() {
-        return new ArrayList(super.list());
+        return "domain.TamanhoTipoGrade[ id=" + id + " ]";
     }
     
 }

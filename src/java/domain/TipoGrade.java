@@ -3,13 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package domain;
 
-import control.GenericDao;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -29,52 +26,53 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Gustavo Calandrini
+ * @author IST-08-PC
  */
 @Entity
-@Table(name = "TIPO_GRADE")
+@Table(name = "TIPO_GRADE", catalog = "", schema = "RIGHTSIZE")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "TipoGrade.findAll", query = "SELECT t FROM TipoGrade t"),
-    @NamedQuery(name = "TipoGrade.findByCodigo", query = "SELECT t FROM TipoGrade t WHERE t.codigo = :codigo"),
+    @NamedQuery(name = "TipoGrade.findById", query = "SELECT t FROM TipoGrade t WHERE t.id = :id"),
     @NamedQuery(name = "TipoGrade.findByDescricao", query = "SELECT t FROM TipoGrade t WHERE t.descricao = :descricao")})
-public class TipoGrade extends GenericDao implements Serializable {
+public class TipoGrade implements Serializable {
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "TIPO_GRADE_SEQ")
-    @SequenceGenerator(name = "TIPO_GRADE_SEQ", sequenceName = "TIPO_GRADE_SEQ")
+    @SequenceGenerator(name = "TIPO_GRADE_SEQ", sequenceName="TIPO_GRADE_SEQ")
+
     @Basic(optional = false)
-    @Column(name = "CODIGO")
-    private BigDecimal codigo;
+    @Column(name = "ID", nullable = false, precision = 19, scale = 0)
+    private BigDecimal id;
     @Basic(optional = false)
-    @Column(name = "DESCRICAO")
+    @Column(name = "DESCRICAO", nullable = false, length = 100)
     private String descricao;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tipoGradeCodigo", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tipoGradeId", fetch = FetchType.LAZY)
     private List<ModelagemDadosTamanho> modelagemDadosTamanhoList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tipoGradeCodigo", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tipoGradeId", fetch = FetchType.LAZY)
     private List<TipoMedidaProdutos> tipoMedidaProdutosList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tipoGradeCodigo", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tipoGradeId", fetch = FetchType.LAZY)
     private List<TamanhoTipoGrade> tamanhoTipoGradeList;
 
     public TipoGrade() {
     }
 
-    public TipoGrade(BigDecimal codigo) {
-        this.codigo = codigo;
+    public TipoGrade(BigDecimal id) {
+        this.id = id;
     }
 
-    public TipoGrade(BigDecimal codigo, String descricao) {
-        this.codigo = codigo;
+    public TipoGrade(BigDecimal id, String descricao) {
+        this.id = id;
         this.descricao = descricao;
     }
 
-    public BigDecimal getCodigo() {
-        return codigo;
+    public BigDecimal getId() {
+        return id;
     }
 
-    public void setCodigo(BigDecimal codigo) {
-        this.codigo = codigo;
+    public void setId(BigDecimal id) {
+        this.id = id;
     }
 
     public String getDescricao() {
@@ -115,7 +113,7 @@ public class TipoGrade extends GenericDao implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (codigo != null ? codigo.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -126,7 +124,7 @@ public class TipoGrade extends GenericDao implements Serializable {
             return false;
         }
         TipoGrade other = (TipoGrade) object;
-        if ((this.codigo == null && other.codigo != null) || (this.codigo != null && !this.codigo.equals(other.codigo))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -134,11 +132,7 @@ public class TipoGrade extends GenericDao implements Serializable {
 
     @Override
     public String toString() {
-        return "domain.TipoGrade[ codigo=" + codigo + " ]";
-    }
-    
-    public ArrayList<TipoGrade> listaTipoGrades() {
-        return new ArrayList(super.list());
+        return "domain.TipoGrade[ id=" + id + " ]";
     }
     
 }

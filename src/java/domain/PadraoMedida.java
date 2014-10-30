@@ -3,13 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package domain;
 
-import control.GenericDao;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -29,50 +26,51 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Gustavo Calandrini
+ * @author IST-08-PC
  */
 @Entity
-@Table(name = "PADRAO_MEDIDA")
+@Table(name = "PADRAO_MEDIDA", catalog = "", schema = "RIGHTSIZE")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "PadraoMedida.findAll", query = "SELECT p FROM PadraoMedida p"),
-    @NamedQuery(name = "PadraoMedida.findByCodigo", query = "SELECT p FROM PadraoMedida p WHERE p.codigo = :codigo"),
+    @NamedQuery(name = "PadraoMedida.findById", query = "SELECT p FROM PadraoMedida p WHERE p.id = :id"),
     @NamedQuery(name = "PadraoMedida.findByDescricao", query = "SELECT p FROM PadraoMedida p WHERE p.descricao = :descricao")})
-public class PadraoMedida extends GenericDao implements Serializable {
+public class PadraoMedida implements Serializable {
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PADRAO_MEDIDA_SEQ")
-    @SequenceGenerator(name = "PADRAO_MEDIDA_SEQ", sequenceName = "PADRAO_MEDIDA_SEQ")
+    @SequenceGenerator(name = "PADRAO_MEDIDA_SEQ", sequenceName="PADRAO_MEDIDA_SEQ")
+    
     @Basic(optional = false)
-    @Column(name = "CODIGO")
-    private BigDecimal codigo;
+    @Column(name = "ID", nullable = false, precision = 19, scale = 0)
+    private BigDecimal id;
     @Basic(optional = false)
-    @Column(name = "DESCRICAO")
+    @Column(name = "DESCRICAO", nullable = false, length = 500)
     private String descricao;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "padraoMedidaCodigo", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "padraoMedidaId", fetch = FetchType.LAZY)
     private List<ModelagemDadosTamanho> modelagemDadosTamanhoList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "padraoMedidaCodigo", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "padraoMedidaId", fetch = FetchType.LAZY)
     private List<TipoMedidaProdutos> tipoMedidaProdutosList;
 
     public PadraoMedida() {
     }
 
-    public PadraoMedida(BigDecimal codigo) {
-        this.codigo = codigo;
+    public PadraoMedida(BigDecimal id) {
+        this.id = id;
     }
 
-    public PadraoMedida(BigDecimal codigo, String descricao) {
-        this.codigo = codigo;
+    public PadraoMedida(BigDecimal id, String descricao) {
+        this.id = id;
         this.descricao = descricao;
     }
 
-    public BigDecimal getCodigo() {
-        return codigo;
+    public BigDecimal getId() {
+        return id;
     }
 
-    public void setCodigo(BigDecimal codigo) {
-        this.codigo = codigo;
+    public void setId(BigDecimal id) {
+        this.id = id;
     }
 
     public String getDescricao() {
@@ -104,7 +102,7 @@ public class PadraoMedida extends GenericDao implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (codigo != null ? codigo.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -115,7 +113,7 @@ public class PadraoMedida extends GenericDao implements Serializable {
             return false;
         }
         PadraoMedida other = (PadraoMedida) object;
-        if ((this.codigo == null && other.codigo != null) || (this.codigo != null && !this.codigo.equals(other.codigo))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -123,11 +121,7 @@ public class PadraoMedida extends GenericDao implements Serializable {
 
     @Override
     public String toString() {
-        return "domain.PadraoMedida[ codigo=" + codigo + " ]";
-    }
-    
-    public ArrayList<PadraoMedida> listaPadraoMedidas() {
-        return new ArrayList(super.list()); 
+        return "domain.PadraoMedida[ id=" + id + " ]";
     }
     
 }

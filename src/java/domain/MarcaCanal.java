@@ -3,12 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package domain;
 
 import java.io.Serializable;
 import java.math.BigInteger;
-
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -23,36 +21,41 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
+/**
+ *
+ * @author IST-08-PC
+ */
 @Entity
-@Table(name = "MARCA_CANAL")
+@Table(name = "MARCA_CANAL", catalog = "", schema = "RIGHTSIZE")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "MarcaCanal.findAll", query = "SELECT m FROM MarcaCanal m"),
     @NamedQuery(name = "MarcaCanal.findByFormaAcesso", query = "SELECT m FROM MarcaCanal m WHERE m.formaAcesso = :formaAcesso"),
     @NamedQuery(name = "MarcaCanal.findByObservacoes", query = "SELECT m FROM MarcaCanal m WHERE m.observacoes = :observacoes"),
-    @NamedQuery(name = "MarcaCanal.findByCodigo", query = "SELECT m FROM MarcaCanal m WHERE m.codigo = :codigo")})
+    @NamedQuery(name = "MarcaCanal.findById", query = "SELECT m FROM MarcaCanal m WHERE m.id = :id")})
 public class MarcaCanal implements Serializable {
     private static final long serialVersionUID = 1L;
-    @Column(name = "FORMA_ACESSO")
+    @Column(name = "FORMA_ACESSO", length = 100)
     private String formaAcesso;
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "MARCA_CANAL_SEQ")
-    @SequenceGenerator(name = "MARCA_CANAL_SEQ", sequenceName = "MARCA_CANAL_SEQ")
+    @SequenceGenerator(name = "MARCA_CANAL_SEQ", sequenceName="MARCA_CANAL_SEQ")
+
     @Basic(optional = false)
-    @Column(name = "OBSERVACOES")
+    @Column(name = "OBSERVACOES", nullable = false, length = 100)
     private String observacoes;
     @Basic(optional = false)
-    @Column(name = "CODIGO")
-    private BigInteger codigo;
-    @JoinColumn(name = "MARCA_CODIGO", referencedColumnName = "CODIGO")
+    @Column(name = "ID", nullable = false)
+    private BigInteger id;
+    @JoinColumn(name = "MARCA_ID", referencedColumnName = "ID", nullable = false)
     @ManyToOne(optional = false)
-    private Marca marcaCodigo;
-    @JoinColumn(name = "CANAL_CODIGO", referencedColumnName = "CODIGO")
+    private Marca marcaId;
+    @JoinColumn(name = "CANAL_ID", referencedColumnName = "ID", nullable = false)
     @ManyToOne(optional = false)
-    private Canal canalCodigo;
-    @JoinColumn(name = "ABRANGENCIA_CODIGO", referencedColumnName = "CODIGO")
+    private Canal canalId;
+    @JoinColumn(name = "ABRANGENCIA_ID", referencedColumnName = "ID", nullable = false)
     @ManyToOne(optional = false)
-    private Abrangencia abrangenciaCodigo;
+    private Abrangencia abrangenciaId;
 
     public MarcaCanal() {
     }
@@ -61,9 +64,9 @@ public class MarcaCanal implements Serializable {
         this.observacoes = observacoes;
     }
 
-    public MarcaCanal(String observacoes, BigInteger codigo) {
+    public MarcaCanal(String observacoes, BigInteger id) {
         this.observacoes = observacoes;
-        this.codigo = codigo;
+        this.id = id;
     }
 
     public String getFormaAcesso() {
@@ -82,36 +85,36 @@ public class MarcaCanal implements Serializable {
         this.observacoes = observacoes;
     }
 
-    public BigInteger getCodigo() {
-        return codigo;
+    public BigInteger getId() {
+        return id;
     }
 
-    public void setCodigo(BigInteger codigo) {
-        this.codigo = codigo;
+    public void setId(BigInteger id) {
+        this.id = id;
     }
 
-    public Marca getMarcaCodigo() {
-        return marcaCodigo;
+    public Marca getMarcaId() {
+        return marcaId;
     }
 
-    public void setMarcaCodigo(Marca marcaCodigo) {
-        this.marcaCodigo = marcaCodigo;
+    public void setMarcaId(Marca marcaId) {
+        this.marcaId = marcaId;
     }
 
-    public Canal getCanalCodigo() {
-        return canalCodigo;
+    public Canal getCanalId() {
+        return canalId;
     }
 
-    public void setCanalCodigo(Canal canalCodigo) {
-        this.canalCodigo = canalCodigo;
+    public void setCanalId(Canal canalId) {
+        this.canalId = canalId;
     }
 
-    public Abrangencia getAbrangenciaCodigo() {
-        return abrangenciaCodigo;
+    public Abrangencia getAbrangenciaId() {
+        return abrangenciaId;
     }
 
-    public void setAbrangenciaCodigo(Abrangencia abrangenciaCodigo) {
-        this.abrangenciaCodigo = abrangenciaCodigo;
+    public void setAbrangenciaId(Abrangencia abrangenciaId) {
+        this.abrangenciaId = abrangenciaId;
     }
 
     @Override

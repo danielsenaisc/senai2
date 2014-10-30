@@ -3,13 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package domain;
 
-import control.GenericDao;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -29,56 +26,57 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Gustavo Calandrini
+ * @author IST-08-PC
  */
 @Entity
-@Table(name = "TIPO_MEDIDA")
+@Table(name = "TIPO_MEDIDA", catalog = "", schema = "RIGHTSIZE")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "TipoMedida.findAll", query = "SELECT t FROM TipoMedida t"),
-    @NamedQuery(name = "TipoMedida.findByCodigo", query = "SELECT t FROM TipoMedida t WHERE t.codigo = :codigo"),
+    @NamedQuery(name = "TipoMedida.findById", query = "SELECT t FROM TipoMedida t WHERE t.id = :id"),
     @NamedQuery(name = "TipoMedida.findByDescricao", query = "SELECT t FROM TipoMedida t WHERE t.descricao = :descricao"),
     @NamedQuery(name = "TipoMedida.findByAbreviacao", query = "SELECT t FROM TipoMedida t WHERE t.abreviacao = :abreviacao"),
     @NamedQuery(name = "TipoMedida.findByFormaMedidaFigura", query = "SELECT t FROM TipoMedida t WHERE t.formaMedidaFigura = :formaMedidaFigura")})
-public class TipoMedida extends GenericDao implements Serializable {
+public class TipoMedida implements Serializable {
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "TIPO_MEDIDA_SEQ")
-    @SequenceGenerator(name = "TIPO_MEDIDA_SEQ", sequenceName = "TIPO_MEDIDA_SEQ")
+    @SequenceGenerator(name = "TIPO_MEDIDA_SEQ", sequenceName="TIPO_MEDIDA_SEQ")
+
     @Basic(optional = false)
-    @Column(name = "CODIGO")
-    private BigDecimal codigo;
+    @Column(name = "ID", nullable = false, precision = 19, scale = 0)
+    private BigDecimal id;
     @Basic(optional = false)
-    @Column(name = "DESCRICAO")
+    @Column(name = "DESCRICAO", nullable = false, length = 100)
     private String descricao;
-    @Column(name = "ABREVIACAO")
+    @Column(name = "ABREVIACAO", length = 4)
     private String abreviacao;
-    @Column(name = "FORMA_MEDIDA_FIGURA")
+    @Column(name = "FORMA_MEDIDA_FIGURA", length = 500)
     private String formaMedidaFigura;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tipoMedidaCodigo", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tipoMedidaId", fetch = FetchType.LAZY)
     private List<ModelagemDadosTamanho> modelagemDadosTamanhoList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tipoMedidaCodigo", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tipoMedidaId", fetch = FetchType.LAZY)
     private List<TipoMedidaProdutos> tipoMedidaProdutosList;
 
     public TipoMedida() {
     }
 
-    public TipoMedida(BigDecimal codigo) {
-        this.codigo = codigo;
+    public TipoMedida(BigDecimal id) {
+        this.id = id;
     }
 
-    public TipoMedida(BigDecimal codigo, String descricao) {
-        this.codigo = codigo;
+    public TipoMedida(BigDecimal id, String descricao) {
+        this.id = id;
         this.descricao = descricao;
     }
 
-    public BigDecimal getCodigo() {
-        return codigo;
+    public BigDecimal getId() {
+        return id;
     }
 
-    public void setCodigo(BigDecimal codigo) {
-        this.codigo = codigo;
+    public void setId(BigDecimal id) {
+        this.id = id;
     }
 
     public String getDescricao() {
@@ -126,7 +124,7 @@ public class TipoMedida extends GenericDao implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (codigo != null ? codigo.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -137,7 +135,7 @@ public class TipoMedida extends GenericDao implements Serializable {
             return false;
         }
         TipoMedida other = (TipoMedida) object;
-        if ((this.codigo == null && other.codigo != null) || (this.codigo != null && !this.codigo.equals(other.codigo))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -145,11 +143,7 @@ public class TipoMedida extends GenericDao implements Serializable {
 
     @Override
     public String toString() {
-        return "domain.TipoMedida[ codigo=" + codigo + " ]";
-    }
-    
-    public ArrayList<TipoMedida> listaTipoMedidas() {
-        return new ArrayList(super.list());
+        return "domain.TipoMedida[ id=" + id + " ]";
     }
     
 }

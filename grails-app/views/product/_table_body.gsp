@@ -82,13 +82,13 @@
 				</td>
 				<td>
 					<a href="${createLink(controller:'product',action:'edit',params:[id:i])}" class="t-column">
-					 ${product.getCategoriaCodigo().getDescricao()}</a>
+					 ${product.getCategoriaId().getDescricao()}</a>
 				</td>
 				<td><a href="${createLink(controller:'product',action:'edit',params:[id:i])}" class="t-column">
 					 ${product.getGenero()} </a>
 				</td>
 				<td><a href="${createLink(controller:'product',action:'edit',params:[id:i])}" class="t-column">
-					 ${product.getColecaoCodigo().getNome()} </a>
+					 ${product.getColecaoId().getNome()} </a>
 				</td>
 				<td><a href="${createLink(controller:'product',action:'edit',params:[id:i])}" class="t-column">
 					 ${product.getQuantidadeVariantes()} </a>

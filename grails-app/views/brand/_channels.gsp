@@ -49,13 +49,13 @@
 						
 						<td>
 								<select class="form-control input-small">
-									<option><g:message code="brand.form.edit.facebook"/></option>
-									<option><g:message code="brand.form.edit.sac"/></option>
-									<option><g:message code="brand.form.edit.site"/></option>
+                                                                    <g:each var="canal" in="${listaDeCanais}">
+									<option><g:message code="${canal.getDescricao()}"/></option>
+                                                                    </g:each>
 								</select>
 						</td>
 						<td>
-							<input type="text" class="form-control input-medium" style="margin-left:40px;" value="${fieldValue(bean: channel, field: 'descricao')}" name="teste">
+							<input type="text" class="form-control input-medium" style="margin-left:40px;" value="${channel.getFormaAcesso()}" name="teste">
 						</td>
 						<td>
 								<select class="form-control input-small">
@@ -65,7 +65,7 @@
 								</select>
 						</td>
 						<td>
-							<input type="text" class="form-control input-medium" style="margin-left:40px;">
+                                                    <input type="text" class="form-control input-medium" style="margin-left:40px;" value="${channel.getObservacoes()}">
 						</td>
 						
 						<td>	

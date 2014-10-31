@@ -3,14 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package domain;
-
 
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
-
+import java.util.Objects;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -27,71 +25,71 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
-
 import utils.OracleBoolean;
 
 /**
  *
- * @author Gustavo Calandrini
+ * @author IST-08-PC
  */
 @Entity
-@Table(name = "MODELAGEM")
+@Table(name = "MODELAGEM", catalog = "", schema = "RIGHTSIZE")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Modelagem.findAll", query = "SELECT m FROM Modelagem m"),
-    @NamedQuery(name = "Modelagem.findByCodigo", query = "SELECT m FROM Modelagem m WHERE m.codigo = :codigo"),
+    @NamedQuery(name = "Modelagem.findById", query = "SELECT m FROM Modelagem m WHERE m.id = :id"),
     @NamedQuery(name = "Modelagem.findByNome", query = "SELECT m FROM Modelagem m WHERE m.nome = :nome"),
     @NamedQuery(name = "Modelagem.findByStatus", query = "SELECT m FROM Modelagem m WHERE m.status = :status"),
     @NamedQuery(name = "Modelagem.findByGenero", query = "SELECT m FROM Modelagem m WHERE m.genero = :genero"),
     @NamedQuery(name = "Modelagem.findByDescricao", query = "SELECT m FROM Modelagem m WHERE m.descricao = :descricao"),
-    @NamedQuery(name = "Modelagem.findByCodigoInternoIndustria", query = "SELECT m FROM Modelagem m WHERE m.codigoInternoIndustria = :codigoInternoIndustria")})
+    @NamedQuery(name = "Modelagem.findByIdInternoIndustria", query = "SELECT m FROM Modelagem m WHERE m.idInternoIndustria = :idInternoIndustria")})
 public class Modelagem implements Serializable {
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "MODELAGEM_SEQ")
-    @SequenceGenerator(name = "MODELAGEM_SEQ", sequenceName = "MODELAGEM_SEQ")
+    @SequenceGenerator(name = "MODELAGEM_SEQ", sequenceName="MODELAGEM_SEQ")
+
     @Basic(optional = false)
-    @Column(name = "CODIGO")
-    private BigDecimal codigo;
+    @Column(name = "ID", nullable = false, precision = 19, scale = 0)
+    private BigDecimal id;
     @Basic(optional = false)
-    @Column(name = "NOME")
+    @Column(name = "NOME", nullable = false, length = 100)
     private String nome;
     @Basic(optional = false)
-    @Column(name = "STATUS")
+    @Column(name = "STATUS", nullable = false)
     private Character status;
     @Column(name = "GENERO")
     private Character genero;
-    @Column(name = "DESCRICAO")
+    @Column(name = "DESCRICAO", length = 500)
     private String descricao;
-    @Column(name = "CODIGO_INTERNO_INDUSTRIA")
-    private String codigoInternoIndustria;
+    @Column(name = "ID_INTERNO_INDUSTRIA", length = 100)
+    private String idInternoIndustria;
     @ManyToMany(mappedBy = "modelagemList", fetch = FetchType.LAZY)
     private List<Marca> marcaList;
     @ManyToMany(mappedBy = "modelagemList", fetch = FetchType.LAZY)
     private List<Categoria> categoriaList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "modelagemCodigo", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "modelagemId", fetch = FetchType.LAZY)
     private List<ModelagemDadosTamanho> modelagemDadosTamanhoList;
 
     public Modelagem() {
     }
 
-    public Modelagem(BigDecimal codigo) {
-        this.codigo = codigo;
+    public Modelagem(BigDecimal id) {
+        this.id = id;
     }
 
-    public Modelagem(BigDecimal codigo, String nome, Character status) {
-        this.codigo = codigo;
+    public Modelagem(BigDecimal id, String nome, Character status) {
+        this.id = id;
         this.nome = nome;
         this.status = status;
     }
 
-    public BigDecimal getCodigo() {
-        return codigo;
+    public BigDecimal getId() {
+        return id;
     }
 
-    public void setCodigo(BigDecimal codigo) {
-        this.codigo = codigo;
+    public void setId(BigDecimal id) {
+        this.id = id;
     }
 
     public String getNome() {
@@ -126,12 +124,12 @@ public class Modelagem implements Serializable {
         this.descricao = descricao;
     }
 
-    public String getCodigoInternoIndustria() {
-        return codigoInternoIndustria;
+    public String getIdInternoIndustria() {
+        return idInternoIndustria;
     }
 
-    public void setCodigoInternoIndustria(String codigoInternoIndustria) {
-        this.codigoInternoIndustria = codigoInternoIndustria;
+    public void setIdInternoIndustria(String idInternoIndustria) {
+        this.idInternoIndustria = idInternoIndustria;
     }
 
     @XmlTransient
@@ -164,7 +162,7 @@ public class Modelagem implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (codigo != null ? codigo.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -175,7 +173,7 @@ public class Modelagem implements Serializable {
             return false;
         }
         Modelagem other = (Modelagem) object;
-        if ((this.codigo == null && other.codigo != null) || (this.codigo != null && !this.codigo.equals(other.codigo))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -183,27 +181,22 @@ public class Modelagem implements Serializable {
 
     @Override
     public String toString() {
-        return "domain.Modelagem[ codigo=" + codigo + " ]";
+        return "domain.Modelagem[ id=" + id + " ]";
     }
     
+    //TODO Rever Regra de Negócio
     public int getQuantidadeDeColecoes(){
-    	int quantidadeDeColecoes = 0;
-    	for (Marca marca : getMarcaList()) {
-			quantidadeDeColecoes += marca.getColecaoList().size();
-		}
-    	return quantidadeDeColecoes;
+        return 0;
     }
     
+    //TODO Rever Regra de Negócio
     public int getQuantidadeDeProdutos(){
-    	int quantidadeDeProdutos = 0;
-    	for (Marca marca : getMarcaList()) {
-			quantidadeDeProdutos += marca.getQuantidadeProdutos();
-		}
-    	return quantidadeDeProdutos;
+        return 0;
     }
     
     public String getStatusTratado(){
-    	if(OracleBoolean.TRUE.getValue() == getStatus()) return "Ativa";
-    	return "Inativa";
+        if(Objects.equals(getStatus(), OracleBoolean.TRUE.getValue())) return "Ativo";
+        return "Inativo";
     }
+    
 }

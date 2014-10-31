@@ -33,7 +33,7 @@ public class ProductControl {
 	}
 	
 	//TODO
-	public static void update(BigDecimal codigo){
+	public static void update(BigDecimal id){
 		//TODO
 	}
 	
@@ -69,12 +69,12 @@ public class ProductControl {
     }
 	
 	/**
-	 * Retorna um produto, no qual o codigo corresponde ao codigo informado, caso nao seja encontrado um produto retorna null.
-	 * @param codigo
-	 * @return Um produto com codigo correspondente
+	 * Retorna um produto, no qual o id corresponde ao id informado, caso nao seja encontrado um produto retorna null.
+	 * @param id
+	 * @return Um produto com id correspondente
 	 * 		   Caso nao seja encontrado retorna null.
 	 */
-	 public static Produtos findByCodigo(BigDecimal codigo){
-	    	return (Produtos) Conexao.singleResultNamedQuery("Produtos.findByCodigo", codigo, "codigo");
+	 public static Produtos findById(BigDecimal id){
+	    	return (Produtos) Conexao.singleResultNamedQuery("Produtos.findById", id, "id");
 	    }
 }

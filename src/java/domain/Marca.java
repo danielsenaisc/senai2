@@ -3,12 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package domain;
 
-import control.GenericDao;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
@@ -36,14 +33,14 @@ import utils.OracleBoolean;
 
 /**
  *
- * @author Gustavo Calandrini
+ * @author IST-08-PC
  */
 @Entity
-@Table(name = "MARCA")
+@Table(name = "MARCA", catalog = "", schema = "RIGHTSIZE")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Marca.findAll", query = "SELECT m FROM Marca m"),
-    @NamedQuery(name = "Marca.findByCodigo", query = "SELECT m FROM Marca m WHERE m.codigo = :codigo"),
+    @NamedQuery(name = "Marca.findById", query = "SELECT m FROM Marca m WHERE m.id = :id"),
     @NamedQuery(name = "Marca.findByNome", query = "SELECT m FROM Marca m WHERE m.nome = :nome"),
     @NamedQuery(name = "Marca.findByDescricao", query = "SELECT m FROM Marca m WHERE m.descricao = :descricao"),
     @NamedQuery(name = "Marca.findByLogomarca", query = "SELECT m FROM Marca m WHERE m.logomarca = :logomarca"),
@@ -56,71 +53,61 @@ public class Marca implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "MARCA_SEQ")
-    @SequenceGenerator(name = "MARCA_SEQ", sequenceName = "MARCA_SEQ")
+    @SequenceGenerator(name = "MARCA_SEQ", sequenceName="MARCA_SEQ")
     @Basic(optional = false)
-    @Column(name = "CODIGO")
-    private Long codigo;
+    @Column(name = "ID", nullable = false)
+    private Long id;
     @Basic(optional = false)
-    @Column(name = "NOME")
+    @Column(name = "NOME", nullable = false, length = 100)
     private String nome;
-    @Column(name = "DESCRICAO")
+    @Column(name = "DESCRICAO", length = 200)
     private String descricao;
-    @Column(name = "LOGOMARCA")
+    @Column(name = "LOGOMARCA", length = 500)
     private String logomarca;
     @Basic(optional = false)
-    @Column(name = "DATA_CRIACAO")
+    @Column(name = "DATA_CRIACAO", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date dataCriacao;
     @Column(name = "GENERO")
     private Character genero;
     @Basic(optional = false)
-    @Column(name = "IDADE_INICIAL")
+    @Column(name = "IDADE_INICIAL", nullable = false)
     private long idadeInicial;
     @Basic(optional = false)
-    @Column(name = "IDADE_FINAL")
+    @Column(name = "IDADE_FINAL", nullable = false)
     private long idadeFinal;
     @Basic(optional = false)
-    @Column(name = "STATUS")
+    @Column(name = "STATUS", nullable = false)
     private Character status;
     @ManyToMany(mappedBy = "marcaList", fetch = FetchType.LAZY)
     private List<Estilo> estiloList;
     @JoinTable(name = "MODELAGEM_MARCA", joinColumns = {
-        @JoinColumn(name = "MARCA_CODIGO", referencedColumnName = "CODIGO")}, inverseJoinColumns = {
-        @JoinColumn(name = "MODELAGEM_CODIGO", referencedColumnName = "CODIGO")})
+        @JoinColumn(name = "MARCA_ID", referencedColumnName = "ID", nullable = false)}, inverseJoinColumns = {
+        @JoinColumn(name = "MODELAGEM_ID", referencedColumnName = "ID", nullable = false)})
     @ManyToMany(fetch = FetchType.LAZY)
     private List<Modelagem> modelagemList;
     @JoinTable(name = "PAIS_MARCA", joinColumns = {
-        @JoinColumn(name = "MARCA_CODIGO", referencedColumnName = "CODIGO")}, inverseJoinColumns = {
-        @JoinColumn(name = "PAIS_CODIGO", referencedColumnName = "CODIGO")})
+        @JoinColumn(name = "MARCA_ID", referencedColumnName = "ID", nullable = false)}, inverseJoinColumns = {
+        @JoinColumn(name = "PAIS_ID", referencedColumnName = "ID", nullable = false)})
     @ManyToMany(fetch = FetchType.LAZY)
     private List<Pais> paisList;
-    @JoinColumn(name = "INDUSTRIA_CODIGO", referencedColumnName = "CODIGO")
-    @ManyToOne(optional = false)
-    private Industria industriaCodigo;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "marcaCodigo")
-    private List<Colecao> colecaoList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "marcaCodigo", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "marcaId", fetch = FetchType.LAZY)
     private List<MarcaCanal> marcaCanalList;
+    @JoinColumn(name = "INDUSTRIA_ID", referencedColumnName = "ID", nullable = false)
+    @ManyToOne(optional = false)
+    private Industria industriaId;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "marcaId", fetch = FetchType.LAZY)
+    private List<Colecao> colecaoList;
 
     public Marca() {
     }
 
-    public Marca(Long codigo) {
-        this.codigo = codigo;
-    }
-    
-    //TODO Validate
-    public Marca(String nome, Date dataCriacao, long idadeInicial, long idadeFinal, OracleBoolean status, Industria industria) {
-        this.nome = nome;
-        this.industriaCodigo = industria;
-        this.dataCriacao = dataCriacao;
-        this.idadeInicial = idadeInicial;
-        this.idadeFinal = idadeFinal;
-        this.status = status.getValue();
+    public Marca(Long id) {
+        this.id = id;
     }
 
-    public Marca(Long codigo, String nome, Date dataCriacao, long idadeInicial, long idadeFinal, Character status) {
-        this.codigo = codigo;
+    public Marca(Long id, String nome, Date dataCriacao, long idadeInicial, long idadeFinal, Character status) {
+        this.id = id;
         this.nome = nome;
         this.dataCriacao = dataCriacao;
         this.idadeInicial = idadeInicial;
@@ -128,12 +115,12 @@ public class Marca implements Serializable {
         this.status = status;
     }
 
-    public Long getCodigo() {
-        return codigo;
+    public Long getId() {
+        return id;
     }
 
-    public void setCodigo(Long codigo) {
-        this.codigo = codigo;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getNome() {
@@ -227,12 +214,21 @@ public class Marca implements Serializable {
         this.paisList = paisList;
     }
 
-    public Industria getIndustriaCodigo() {
-        return industriaCodigo;
+    @XmlTransient
+    public List<MarcaCanal> getMarcaCanalList() {
+        return marcaCanalList;
     }
 
-    public void setIndustriaCodigo(Industria industriaCodigo) {
-        this.industriaCodigo = industriaCodigo;
+    public void setMarcaCanalList(List<MarcaCanal> marcaCanalList) {
+        this.marcaCanalList = marcaCanalList;
+    }
+
+    public Industria getIndustriaId() {
+        return industriaId;
+    }
+
+    public void setIndustriaId(Industria industriaId) {
+        this.industriaId = industriaId;
     }
 
     @XmlTransient
@@ -243,20 +239,11 @@ public class Marca implements Serializable {
     public void setColecaoList(List<Colecao> colecaoList) {
         this.colecaoList = colecaoList;
     }
-    
-    @XmlTransient
-    public List<MarcaCanal> getMarcaCanalList() {
-        return marcaCanalList;
-    }
-
-    public void setMarcaCanalList(List<MarcaCanal> marcaCanalList) {
-        this.marcaCanalList = marcaCanalList;
-    }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (codigo != null ? codigo.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -267,7 +254,7 @@ public class Marca implements Serializable {
             return false;
         }
         Marca other = (Marca) object;
-        if ((this.codigo == null && other.codigo != null) || (this.codigo != null && !this.codigo.equals(other.codigo))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -275,20 +262,22 @@ public class Marca implements Serializable {
 
     @Override
     public String toString() {
-        return "domain.Marca[ codigo=" + codigo + " ]";
+        return "domain.Marca[ id=" + id + " ]";
     }
     
     public int getQuantidadeProdutos(){
-    	int quantidadeDeProdutos = 0;
-    	for (Colecao colecao : colecaoList) {
-    		quantidadeDeProdutos += colecao.getProdutosList().size();
-		}
-    	return quantidadeDeProdutos;
+        int quantidadeDeProdutos = 0;
+        
+        for (Colecao colecaoList: getColecaoList()) {
+            quantidadeDeProdutos += colecaoList.getProdutosList().size();
+        }
+        
+        return quantidadeDeProdutos;
     }
     
     public String getStatusTratado(){
-    	if(OracleBoolean.TRUE.getValue() == getStatus()) return "Ativa";
-    	return "Inativa";
+        if(getStatus() == OracleBoolean.TRUE.getValue()) return "Ativo";
+        return "Inativo";
     }
     
 }

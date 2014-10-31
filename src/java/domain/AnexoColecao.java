@@ -3,16 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package domain;
 
-import control.GenericDao;
 import java.io.Serializable;
-import java.util.ArrayList;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -26,65 +22,58 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Gustavo Calandrini
+ * @author IST-08-PC
  */
 @Entity
-@Table(name = "ANEXO_COLECAO")
+@Table(name = "ANEXO_COLECAO", catalog = "", schema = "RIGHTSIZE")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "AnexoColecao.findAll", query = "SELECT a FROM AnexoColecao a"),
-    @NamedQuery(name = "AnexoColecao.findByCodigo", query = "SELECT a FROM AnexoColecao a WHERE a.codigo = :codigo"),
+    @NamedQuery(name = "AnexoColecao.findById", query = "SELECT a FROM AnexoColecao a WHERE a.id = :id"),
     @NamedQuery(name = "AnexoColecao.findByTitulo", query = "SELECT a FROM AnexoColecao a WHERE a.titulo = :titulo"),
     @NamedQuery(name = "AnexoColecao.findByDescricao", query = "SELECT a FROM AnexoColecao a WHERE a.descricao = :descricao"),
     @NamedQuery(name = "AnexoColecao.findByUrl", query = "SELECT a FROM AnexoColecao a WHERE a.url = :url")})
-public class AnexoColecao extends GenericDao implements Serializable {
+public class AnexoColecao implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ANEXO_COLECAO_SEQ")
-    @SequenceGenerator(name = "ANEXO_COLECAO_SEQ", sequenceName = "ANEXO_COLECAO_SEQ")
+    @SequenceGenerator(name = "ANEXO_COLECAO_SEQ", sequenceName="ANEXO_COLECAO_SEQ")
+
     @Basic(optional = false)
-    @Column(name = "CODIGO")
-    private String codigo;
-    @Column(name = "TITULO")
+    @Column(name = "ID", nullable = false, length = 45)
+    private String id;
+    @Column(name = "TITULO", length = 100)
     private String titulo;
-    @Column(name = "DESCRICAO")
+    @Column(name = "DESCRICAO", length = 500)
     private String descricao;
     @Basic(optional = false)
-    @Column(name = "URL")
+    @Column(name = "URL", nullable = false, length = 500)
     private String url;
-    @JoinColumn(name = "TIPO_ANEXO_CODIGO", referencedColumnName = "CODIGO")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private TipoAnexo tipoAnexoCodigo;
-    @JoinColumn(name = "COLECAO_CODIGO", referencedColumnName = "CODIGO")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Colecao colecaoCodigo;
+    @JoinColumn(name = "TIPO_ANEXO_ID", referencedColumnName = "ID", nullable = false)
+    @ManyToOne(optional = false)
+    private TipoAnexo tipoAnexoId;
+    @JoinColumn(name = "COLECAO_ID", referencedColumnName = "ID", nullable = false)
+    @ManyToOne(optional = false)
+    private Colecao colecaoId;
 
     public AnexoColecao() {
     }
 
-    public AnexoColecao(String codigo) {
-        this.codigo = codigo;
+    public AnexoColecao(String id) {
+        this.id = id;
     }
 
-    public AnexoColecao(String titulo, String descricao, String url, TipoAnexo tipoAnexoCodigo, Colecao colecaoCodigo) {
-        this.titulo = titulo;
-        this.descricao = descricao;
-        this.url = url;
-        this.tipoAnexoCodigo = tipoAnexoCodigo;
-        this.colecaoCodigo = colecaoCodigo;
-    }
-
-    public AnexoColecao(String codigo, String url) {
-        this.codigo = codigo;
+    public AnexoColecao(String id, String url) {
+        this.id = id;
         this.url = url;
     }
 
-    public String getCodigo() {
-        return codigo;
+    public String getId() {
+        return id;
     }
 
-    public void setCodigo(String codigo) {
-        this.codigo = codigo;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getTitulo() {
@@ -111,26 +100,26 @@ public class AnexoColecao extends GenericDao implements Serializable {
         this.url = url;
     }
 
-    public TipoAnexo getTipoAnexoCodigo() {
-        return tipoAnexoCodigo;
+    public TipoAnexo getTipoAnexoId() {
+        return tipoAnexoId;
     }
 
-    public void setTipoAnexoCodigo(TipoAnexo tipoAnexoCodigo) {
-        this.tipoAnexoCodigo = tipoAnexoCodigo;
+    public void setTipoAnexoId(TipoAnexo tipoAnexoId) {
+        this.tipoAnexoId = tipoAnexoId;
     }
 
-    public Colecao getColecaoCodigo() {
-        return colecaoCodigo;
+    public Colecao getColecaoId() {
+        return colecaoId;
     }
 
-    public void setColecaoCodigo(Colecao colecaoCodigo) {
-        this.colecaoCodigo = colecaoCodigo;
+    public void setColecaoId(Colecao colecaoId) {
+        this.colecaoId = colecaoId;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (codigo != null ? codigo.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -141,7 +130,7 @@ public class AnexoColecao extends GenericDao implements Serializable {
             return false;
         }
         AnexoColecao other = (AnexoColecao) object;
-        if ((this.codigo == null && other.codigo != null) || (this.codigo != null && !this.codigo.equals(other.codigo))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -149,11 +138,7 @@ public class AnexoColecao extends GenericDao implements Serializable {
 
     @Override
     public String toString() {
-        return "domain.AnexoColecao[ codigo=" + codigo + " ]";
-    }
-    
-    public ArrayList<AnexoColecao> listaAnexoColecoes() {
-        return new ArrayList(super.list()); 
+        return "domain.AnexoColecao[ id=" + id + " ]";
     }
     
 }

@@ -3,12 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package domain;
 
-import control.GenericDao;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -29,52 +26,53 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Gustavo Calandrini
+ * @author IST-08-PC
  */
 @Entity
-@Table(name = "TAG")
+@Table(name = "TAG", catalog = "", schema = "RIGHTSIZE")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Tag.findAll", query = "SELECT t FROM Tag t"),
-    @NamedQuery(name = "Tag.findByCodigo", query = "SELECT t FROM Tag t WHERE t.codigo = :codigo"),
+    @NamedQuery(name = "Tag.findById", query = "SELECT t FROM Tag t WHERE t.id = :id"),
     @NamedQuery(name = "Tag.findByDescricao", query = "SELECT t FROM Tag t WHERE t.descricao = :descricao")})
-public class Tag extends GenericDao implements Serializable {
+public class Tag implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "TAG_SEQ")
-    @SequenceGenerator(name = "TAG_SEQ", sequenceName = "TAG_SEQ")
+    @SequenceGenerator(name = "TAG_SEQ", sequenceName="TAG_SEQ")
+
     @Basic(optional = false)
-    @Column(name = "CODIGO")
-    private Long codigo;
+    @Column(name = "ID", nullable = false)
+    private Long id;
     @Basic(optional = false)
-    @Column(name = "DESCRICAO")
+    @Column(name = "DESCRICAO", nullable = false, length = 100)
     private String descricao;
     @ManyToMany(mappedBy = "tagList", fetch = FetchType.LAZY)
     private List<Colecao> colecaoList;
     @JoinTable(name = "PRODUTOS_TAG", joinColumns = {
-        @JoinColumn(name = "TAG_CODIGO", referencedColumnName = "CODIGO")}, inverseJoinColumns = {
-        @JoinColumn(name = "PRODUTOS_CODIGO", referencedColumnName = "CODIGO")})
+        @JoinColumn(name = "TAG_ID", referencedColumnName = "ID", nullable = false)}, inverseJoinColumns = {
+        @JoinColumn(name = "PRODUTOS_ID", referencedColumnName = "ID", nullable = false)})
     @ManyToMany(fetch = FetchType.LAZY)
     private List<Produtos> produtosList;
 
     public Tag() {
     }
 
-    public Tag(Long codigo) {
-        this.codigo = codigo;
+    public Tag(Long id) {
+        this.id = id;
     }
 
-    public Tag(Long codigo, String descricao) {
-        this.codigo = codigo;
+    public Tag(Long id, String descricao) {
+        this.id = id;
         this.descricao = descricao;
     }
 
-    public Long getCodigo() {
-        return codigo;
+    public Long getId() {
+        return id;
     }
 
-    public void setCodigo(Long codigo) {
-        this.codigo = codigo;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getDescricao() {
@@ -106,7 +104,7 @@ public class Tag extends GenericDao implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (codigo != null ? codigo.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -117,7 +115,7 @@ public class Tag extends GenericDao implements Serializable {
             return false;
         }
         Tag other = (Tag) object;
-        if ((this.codigo == null && other.codigo != null) || (this.codigo != null && !this.codigo.equals(other.codigo))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -125,11 +123,7 @@ public class Tag extends GenericDao implements Serializable {
 
     @Override
     public String toString() {
-        return "domain.Tag[ codigo=" + codigo + " ]";
-    }
-    
-    public ArrayList<Tag> listaTags() {
-        return new ArrayList(super.list());
+        return "domain.Tag[ id=" + id + " ]";
     }
     
 }

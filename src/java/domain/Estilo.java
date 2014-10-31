@@ -3,12 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package domain;
 
-import control.GenericDao;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -29,29 +26,30 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Gustavo Calandrini
+ * @author IST-08-PC
  */
 @Entity
-@Table(name = "ESTILO")
+@Table(name = "ESTILO", catalog = "", schema = "RIGHTSIZE")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Estilo.findAll", query = "SELECT e FROM Estilo e"),
-    @NamedQuery(name = "Estilo.findByCodigo", query = "SELECT e FROM Estilo e WHERE e.codigo = :codigo"),
+    @NamedQuery(name = "Estilo.findById", query = "SELECT e FROM Estilo e WHERE e.id = :id"),
     @NamedQuery(name = "Estilo.findByDescricao", query = "SELECT e FROM Estilo e WHERE e.descricao = :descricao")})
-public class Estilo extends GenericDao implements Serializable {
+public class Estilo implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ESTILO_SEQ")
-    @SequenceGenerator(name = "ESTILO_SEQ", sequenceName = "ESTILO_SEQ")
+    @SequenceGenerator(name = "ESTILO_SEQ", sequenceName="ESTILO_SEQ")
+
     @Basic(optional = false)
-    @Column(name = "CODIGO")
-    private Long codigo;
+    @Column(name = "ID", nullable = false)
+    private Long id;
     @Basic(optional = false)
-    @Column(name = "DESCRICAO")
+    @Column(name = "DESCRICAO", nullable = false, length = 100)
     private String descricao;
     @JoinTable(name = "ESTILO_MARCA", joinColumns = {
-        @JoinColumn(name = "ESTILO_CODIGO", referencedColumnName = "CODIGO")}, inverseJoinColumns = {
-        @JoinColumn(name = "MARCA_CODIGO", referencedColumnName = "CODIGO")})
+        @JoinColumn(name = "ESTILO_ID", referencedColumnName = "ID", nullable = false)}, inverseJoinColumns = {
+        @JoinColumn(name = "MARCA_ID", referencedColumnName = "ID", nullable = false)})
     @ManyToMany(fetch = FetchType.LAZY)
     private List<Marca> marcaList;
     @ManyToMany(mappedBy = "estiloList", fetch = FetchType.LAZY)
@@ -60,21 +58,21 @@ public class Estilo extends GenericDao implements Serializable {
     public Estilo() {
     }
 
-    public Estilo(Long codigo) {
-        this.codigo = codigo;
+    public Estilo(Long id) {
+        this.id = id;
     }
 
-    public Estilo(Long codigo, String descricao) {
-        this.codigo = codigo;
+    public Estilo(Long id, String descricao) {
+        this.id = id;
         this.descricao = descricao;
     }
 
-    public Long getCodigo() {
-        return codigo;
+    public Long getId() {
+        return id;
     }
 
-    public void setCodigo(Long codigo) {
-        this.codigo = codigo;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getDescricao() {
@@ -106,7 +104,7 @@ public class Estilo extends GenericDao implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (codigo != null ? codigo.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -117,7 +115,7 @@ public class Estilo extends GenericDao implements Serializable {
             return false;
         }
         Estilo other = (Estilo) object;
-        if ((this.codigo == null && other.codigo != null) || (this.codigo != null && !this.codigo.equals(other.codigo))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -125,13 +123,7 @@ public class Estilo extends GenericDao implements Serializable {
 
     @Override
     public String toString() {
-        return "domain.Estilo[ codigo=" + codigo + " ]";
+        return "domain.Estilo[ id=" + id + " ]";
     }
-    
-    public ArrayList<Estilo> listaEstilos() {
-        return new ArrayList(super.list());
-    }
-    
-    
     
 }

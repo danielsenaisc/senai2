@@ -3,13 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package domain;
 
-import control.GenericDao;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -31,66 +28,67 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Gustavo Calandrini
+ * @author IST-08-PC
  */
 @Entity
-@Table(name = "TIPO_MEDIDA_PRODUTOS")
+@Table(name = "TIPO_MEDIDA_PRODUTOS", catalog = "", schema = "RIGHTSIZE")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "TipoMedidaProdutos.findAll", query = "SELECT t FROM TipoMedidaProdutos t"),
-    @NamedQuery(name = "TipoMedidaProdutos.findByCodigoSequencialOrdem", query = "SELECT t FROM TipoMedidaProdutos t WHERE t.codigoSequencialOrdem = :codigoSequencialOrdem"),
+    @NamedQuery(name = "TipoMedidaProdutos.findByIdSequencialOrdem", query = "SELECT t FROM TipoMedidaProdutos t WHERE t.idSequencialOrdem = :idSequencialOrdem"),
     @NamedQuery(name = "TipoMedidaProdutos.findByValorMedida", query = "SELECT t FROM TipoMedidaProdutos t WHERE t.valorMedida = :valorMedida")})
-public class TipoMedidaProdutos extends GenericDao implements Serializable {
+public class TipoMedidaProdutos implements Serializable {
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "TIPO_MEDIDA_PRODUTOS_SEQ")
-    @SequenceGenerator(name = "TIPO_MEDIDA_PRODUTOS_SEQ", sequenceName = "TIPO_MEDIDA_PRODUTOS_SEQ")
+    @SequenceGenerator(name = "TIPO_MEDIDA_PRODUTOS_SEQ", sequenceName="TIPO_MEDIDA_PRODUTOS_SEQ")
+
     @Basic(optional = false)
-    @Column(name = "CODIGO_SEQUENCIAL_ORDEM")
-    private BigDecimal codigoSequencialOrdem;
+    @Column(name = "ID_SEQUENCIAL_ORDEM", nullable = false, precision = 19, scale = 0)
+    private BigDecimal idSequencialOrdem;
     @Basic(optional = false)
-    @Column(name = "VALOR_MEDIDA")
+    @Column(name = "VALOR_MEDIDA", nullable = false)
     private double valorMedida;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tipoMedidaProdutoCodigo", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tipoMedidaProdutoId", fetch = FetchType.LAZY)
     private List<AnexosVarianteProduto> anexosVarianteProdutoList;
-    @JoinColumn(name = "TIPO_TECIDO_CODIGO", referencedColumnName = "CODIGO")
+    @JoinColumn(name = "TIPO_TECIDO_ID", referencedColumnName = "ID", nullable = false)
     @ManyToOne(optional = false)
-    private TipoTecido tipoTecidoCodigo;
-    @JoinColumn(name = "TIPO_MEDIDA_CODIGO", referencedColumnName = "CODIGO")
+    private TipoTecido tipoTecidoId;
+    @JoinColumn(name = "TIPO_MEDIDA_ID", referencedColumnName = "ID", nullable = false)
     @ManyToOne(optional = false)
-    private TipoMedida tipoMedidaCodigo;
-    @JoinColumn(name = "TIPO_GRADE_CODIGO", referencedColumnName = "CODIGO")
+    private TipoMedida tipoMedidaId;
+    @JoinColumn(name = "TIPO_GRADE_ID", referencedColumnName = "ID", nullable = false)
     @ManyToOne(optional = false)
-    private TipoGrade tipoGradeCodigo;
-    @JoinColumn(name = "TAMANHO_TIPO_GRADE_CODIGO", referencedColumnName = "CODIGO")
+    private TipoGrade tipoGradeId;
+    @JoinColumn(name = "TAMANHO_TIPO_GRADE_ID", referencedColumnName = "ID", nullable = false)
     @ManyToOne(optional = false)
-    private TamanhoTipoGrade tamanhoTipoGradeCodigo;
-    @JoinColumn(name = "PRODUTOS_CODIGO", referencedColumnName = "CODIGO")
+    private TamanhoTipoGrade tamanhoTipoGradeId;
+    @JoinColumn(name = "PRODUTOS_ID", referencedColumnName = "ID", nullable = false)
     @ManyToOne(optional = false)
-    private Produtos produtosCodigo;
-    @JoinColumn(name = "PADRAO_MEDIDA_CODIGO", referencedColumnName = "CODIGO")
+    private Produtos produtosId;
+    @JoinColumn(name = "PADRAO_MEDIDA_ID", referencedColumnName = "ID", nullable = false)
     @ManyToOne(optional = false)
-    private PadraoMedida padraoMedidaCodigo;
+    private PadraoMedida padraoMedidaId;
 
     public TipoMedidaProdutos() {
     }
 
-    public TipoMedidaProdutos(BigDecimal codigoSequencialOrdem) {
-        this.codigoSequencialOrdem = codigoSequencialOrdem;
+    public TipoMedidaProdutos(BigDecimal idSequencialOrdem) {
+        this.idSequencialOrdem = idSequencialOrdem;
     }
 
-    public TipoMedidaProdutos(BigDecimal codigoSequencialOrdem, double valorMedida) {
-        this.codigoSequencialOrdem = codigoSequencialOrdem;
+    public TipoMedidaProdutos(BigDecimal idSequencialOrdem, double valorMedida) {
+        this.idSequencialOrdem = idSequencialOrdem;
         this.valorMedida = valorMedida;
     }
 
-    public BigDecimal getCodigoSequencialOrdem() {
-        return codigoSequencialOrdem;
+    public BigDecimal getIdSequencialOrdem() {
+        return idSequencialOrdem;
     }
 
-    public void setCodigoSequencialOrdem(BigDecimal codigoSequencialOrdem) {
-        this.codigoSequencialOrdem = codigoSequencialOrdem;
+    public void setIdSequencialOrdem(BigDecimal idSequencialOrdem) {
+        this.idSequencialOrdem = idSequencialOrdem;
     }
 
     public double getValorMedida() {
@@ -110,58 +108,58 @@ public class TipoMedidaProdutos extends GenericDao implements Serializable {
         this.anexosVarianteProdutoList = anexosVarianteProdutoList;
     }
 
-    public TipoTecido getTipoTecidoCodigo() {
-        return tipoTecidoCodigo;
+    public TipoTecido getTipoTecidoId() {
+        return tipoTecidoId;
     }
 
-    public void setTipoTecidoCodigo(TipoTecido tipoTecidoCodigo) {
-        this.tipoTecidoCodigo = tipoTecidoCodigo;
+    public void setTipoTecidoId(TipoTecido tipoTecidoId) {
+        this.tipoTecidoId = tipoTecidoId;
     }
 
-    public TipoMedida getTipoMedidaCodigo() {
-        return tipoMedidaCodigo;
+    public TipoMedida getTipoMedidaId() {
+        return tipoMedidaId;
     }
 
-    public void setTipoMedidaCodigo(TipoMedida tipoMedidaCodigo) {
-        this.tipoMedidaCodigo = tipoMedidaCodigo;
+    public void setTipoMedidaId(TipoMedida tipoMedidaId) {
+        this.tipoMedidaId = tipoMedidaId;
     }
 
-    public TipoGrade getTipoGradeCodigo() {
-        return tipoGradeCodigo;
+    public TipoGrade getTipoGradeId() {
+        return tipoGradeId;
     }
 
-    public void setTipoGradeCodigo(TipoGrade tipoGradeCodigo) {
-        this.tipoGradeCodigo = tipoGradeCodigo;
+    public void setTipoGradeId(TipoGrade tipoGradeId) {
+        this.tipoGradeId = tipoGradeId;
     }
 
-    public TamanhoTipoGrade getTamanhoTipoGradeCodigo() {
-        return tamanhoTipoGradeCodigo;
+    public TamanhoTipoGrade getTamanhoTipoGradeId() {
+        return tamanhoTipoGradeId;
     }
 
-    public void setTamanhoTipoGradeCodigo(TamanhoTipoGrade tamanhoTipoGradeCodigo) {
-        this.tamanhoTipoGradeCodigo = tamanhoTipoGradeCodigo;
+    public void setTamanhoTipoGradeId(TamanhoTipoGrade tamanhoTipoGradeId) {
+        this.tamanhoTipoGradeId = tamanhoTipoGradeId;
     }
 
-    public Produtos getProdutosCodigo() {
-        return produtosCodigo;
+    public Produtos getProdutosId() {
+        return produtosId;
     }
 
-    public void setProdutosCodigo(Produtos produtosCodigo) {
-        this.produtosCodigo = produtosCodigo;
+    public void setProdutosId(Produtos produtosId) {
+        this.produtosId = produtosId;
     }
 
-    public PadraoMedida getPadraoMedidaCodigo() {
-        return padraoMedidaCodigo;
+    public PadraoMedida getPadraoMedidaId() {
+        return padraoMedidaId;
     }
 
-    public void setPadraoMedidaCodigo(PadraoMedida padraoMedidaCodigo) {
-        this.padraoMedidaCodigo = padraoMedidaCodigo;
+    public void setPadraoMedidaId(PadraoMedida padraoMedidaId) {
+        this.padraoMedidaId = padraoMedidaId;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (codigoSequencialOrdem != null ? codigoSequencialOrdem.hashCode() : 0);
+        hash += (idSequencialOrdem != null ? idSequencialOrdem.hashCode() : 0);
         return hash;
     }
 
@@ -172,7 +170,7 @@ public class TipoMedidaProdutos extends GenericDao implements Serializable {
             return false;
         }
         TipoMedidaProdutos other = (TipoMedidaProdutos) object;
-        if ((this.codigoSequencialOrdem == null && other.codigoSequencialOrdem != null) || (this.codigoSequencialOrdem != null && !this.codigoSequencialOrdem.equals(other.codigoSequencialOrdem))) {
+        if ((this.idSequencialOrdem == null && other.idSequencialOrdem != null) || (this.idSequencialOrdem != null && !this.idSequencialOrdem.equals(other.idSequencialOrdem))) {
             return false;
         }
         return true;
@@ -180,11 +178,7 @@ public class TipoMedidaProdutos extends GenericDao implements Serializable {
 
     @Override
     public String toString() {
-        return "domain.TipoMedidaProdutos[ codigoSequencialOrdem=" + codigoSequencialOrdem + " ]";
-    }
-    
-    public ArrayList<TipoMedidaProdutos> listaTipoMedidaProdutos() {
-        return new ArrayList(super.list());
+        return "domain.TipoMedidaProdutos[ idSequencialOrdem=" + idSequencialOrdem + " ]";
     }
     
 }

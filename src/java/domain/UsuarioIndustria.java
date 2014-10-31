@@ -3,13 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package domain;
 
-import control.GenericDao;
 import java.io.Serializable;
 import java.math.BigInteger;
-import java.util.ArrayList;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -29,14 +26,14 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Gustavo Calandrini
+ * @author IST-08-PC
  */
 @Entity
-@Table(name = "USUARIO_INDUSTRIA")
+@Table(name = "USUARIO_INDUSTRIA", catalog = "", schema = "RIGHTSIZE")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "UsuarioIndustria.findAll", query = "SELECT u FROM UsuarioIndustria u"),
-    @NamedQuery(name = "UsuarioIndustria.findByCodigo", query = "SELECT u FROM UsuarioIndustria u WHERE u.codigo = :codigo"),
+    @NamedQuery(name = "UsuarioIndustria.findById", query = "SELECT u FROM UsuarioIndustria u WHERE u.id = :id"),
     @NamedQuery(name = "UsuarioIndustria.findByNome", query = "SELECT u FROM UsuarioIndustria u WHERE u.nome = :nome"),
     @NamedQuery(name = "UsuarioIndustria.findByFoto", query = "SELECT u FROM UsuarioIndustria u WHERE u.foto = :foto"),
     @NamedQuery(name = "UsuarioIndustria.findByEmail", query = "SELECT u FROM UsuarioIndustria u WHERE u.email = :email"),
@@ -44,25 +41,26 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "UsuarioIndustria.findByGenero", query = "SELECT u FROM UsuarioIndustria u WHERE u.genero = :genero"),
     @NamedQuery(name = "UsuarioIndustria.findByDataNascimento", query = "SELECT u FROM UsuarioIndustria u WHERE u.dataNascimento = :dataNascimento"),
     @NamedQuery(name = "UsuarioIndustria.findBySenhaAcesso", query = "SELECT u FROM UsuarioIndustria u WHERE u.senhaAcesso = :senhaAcesso"),
-    @NamedQuery(name = "UsuarioIndustria.findByCodigoDepartamento", query = "SELECT u FROM UsuarioIndustria u WHERE u.codigoDepartamento = :codigoDepartamento"),
-    @NamedQuery(name = "UsuarioIndustria.findByCodigoCargo", query = "SELECT u FROM UsuarioIndustria u WHERE u.codigoCargo = :codigoCargo")})
-public class UsuarioIndustria extends GenericDao implements Serializable {
+    @NamedQuery(name = "UsuarioIndustria.findByIdDepartamento", query = "SELECT u FROM UsuarioIndustria u WHERE u.idDepartamento = :idDepartamento"),
+    @NamedQuery(name = "UsuarioIndustria.findByIdCargo", query = "SELECT u FROM UsuarioIndustria u WHERE u.idCargo = :idCargo")})
+public class UsuarioIndustria implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "USUARIO_INDUSTRIA_SEQ")
-    @SequenceGenerator(name = "USUARIO_INDUSTRIA_SEQ", sequenceName = "USUARIO_INDUSTRIA_SEQ")
+    @SequenceGenerator(name = "USUARIO_INDUSTRIA_SEQ", sequenceName="USUARIO_INDUSTRIA_SEQ")
+
     @Basic(optional = false)
-    @Column(name = "CODIGO")
-    private Long codigo;
+    @Column(name = "ID", nullable = false)
+    private Long id;
     @Basic(optional = false)
-    @Column(name = "NOME")
+    @Column(name = "NOME", nullable = false, length = 100)
     private String nome;
-    @Column(name = "FOTO")
+    @Column(name = "FOTO", length = 500)
     private String foto;
-    @Column(name = "EMAIL")
+    @Column(name = "EMAIL", length = 100)
     private String email;
     @Basic(optional = false)
-    @Column(name = "STATUS")
+    @Column(name = "STATUS", nullable = false)
     private Character status;
     @Column(name = "GENERO")
     private Character genero;
@@ -70,43 +68,43 @@ public class UsuarioIndustria extends GenericDao implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date dataNascimento;
     @Basic(optional = false)
-    @Column(name = "SENHA_ACESSO")
+    @Column(name = "SENHA_ACESSO", nullable = false)
     private BigInteger senhaAcesso;
     @Basic(optional = false)
-    @Column(name = "CODIGO_DEPARTAMENTO")
-    private String codigoDepartamento;
+    @Column(name = "ID_DEPARTAMENTO", nullable = false, length = 45)
+    private String idDepartamento;
     @Basic(optional = false)
-    @Column(name = "CODIGO_CARGO")
-    private String codigoCargo;
-    @JoinColumn(name = "PERFIL_ACESSO_CODIGO", referencedColumnName = "CODIGO")
+    @Column(name = "ID_CARGO", nullable = false, length = 45)
+    private String idCargo;
+    @JoinColumn(name = "PERFIL_ACESSO_ID", referencedColumnName = "ID", nullable = false)
     @ManyToOne(optional = false)
-    private PerfilAcesso perfilAcessoCodigo;
-    @JoinColumn(name = "INDUSTRIA_CODIGO", referencedColumnName = "CODIGO")
+    private PerfilAcesso perfilAcessoId;
+    @JoinColumn(name = "INDUSTRIA_ID", referencedColumnName = "ID", nullable = false)
     @ManyToOne(optional = false)
-    private Industria industriaCodigo;
+    private Industria industriaId;
 
     public UsuarioIndustria() {
     }
 
-    public UsuarioIndustria(Long codigo) {
-        this.codigo = codigo;
+    public UsuarioIndustria(Long id) {
+        this.id = id;
     }
 
-    public UsuarioIndustria(Long codigo, String nome, Character status, BigInteger senhaAcesso, String codigoDepartamento, String codigoCargo) {
-        this.codigo = codigo;
+    public UsuarioIndustria(Long id, String nome, Character status, BigInteger senhaAcesso, String idDepartamento, String idCargo) {
+        this.id = id;
         this.nome = nome;
         this.status = status;
         this.senhaAcesso = senhaAcesso;
-        this.codigoDepartamento = codigoDepartamento;
-        this.codigoCargo = codigoCargo;
+        this.idDepartamento = idDepartamento;
+        this.idCargo = idCargo;
     }
 
-    public Long getCodigo() {
-        return codigo;
+    public Long getId() {
+        return id;
     }
 
-    public void setCodigo(Long codigo) {
-        this.codigo = codigo;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getNome() {
@@ -165,42 +163,42 @@ public class UsuarioIndustria extends GenericDao implements Serializable {
         this.senhaAcesso = senhaAcesso;
     }
 
-    public String getCodigoDepartamento() {
-        return codigoDepartamento;
+    public String getIdDepartamento() {
+        return idDepartamento;
     }
 
-    public void setCodigoDepartamento(String codigoDepartamento) {
-        this.codigoDepartamento = codigoDepartamento;
+    public void setIdDepartamento(String idDepartamento) {
+        this.idDepartamento = idDepartamento;
     }
 
-    public String getCodigoCargo() {
-        return codigoCargo;
+    public String getIdCargo() {
+        return idCargo;
     }
 
-    public void setCodigoCargo(String codigoCargo) {
-        this.codigoCargo = codigoCargo;
+    public void setIdCargo(String idCargo) {
+        this.idCargo = idCargo;
     }
 
-    public PerfilAcesso getPerfilAcessoCodigo() {
-        return perfilAcessoCodigo;
+    public PerfilAcesso getPerfilAcessoId() {
+        return perfilAcessoId;
     }
 
-    public void setPerfilAcessoCodigo(PerfilAcesso perfilAcessoCodigo) {
-        this.perfilAcessoCodigo = perfilAcessoCodigo;
+    public void setPerfilAcessoId(PerfilAcesso perfilAcessoId) {
+        this.perfilAcessoId = perfilAcessoId;
     }
 
-    public Industria getIndustriaCodigo() {
-        return industriaCodigo;
+    public Industria getIndustriaId() {
+        return industriaId;
     }
 
-    public void setIndustriaCodigo(Industria industriaCodigo) {
-        this.industriaCodigo = industriaCodigo;
+    public void setIndustriaId(Industria industriaId) {
+        this.industriaId = industriaId;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (codigo != null ? codigo.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -211,7 +209,7 @@ public class UsuarioIndustria extends GenericDao implements Serializable {
             return false;
         }
         UsuarioIndustria other = (UsuarioIndustria) object;
-        if ((this.codigo == null && other.codigo != null) || (this.codigo != null && !this.codigo.equals(other.codigo))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -219,11 +217,7 @@ public class UsuarioIndustria extends GenericDao implements Serializable {
 
     @Override
     public String toString() {
-        return "domain.UsuarioIndustria[ codigo=" + codigo + " ]";
-    }
-    
-    public ArrayList<UsuarioIndustria> listaUsuarioIndustrias() {
-        return new ArrayList(super.list());
+        return "domain.UsuarioIndustria[ id=" + id + " ]";
     }
     
 }

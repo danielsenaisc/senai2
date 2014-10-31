@@ -3,13 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package domain;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
-
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -26,55 +23,49 @@ import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-import control.GenericDao;
-
 /**
  *
- * @author Gustavo Calandrini
+ * @author IST-08-PC
  */
 @Entity
-@Table(name = "ABRANGENCIA")
+@Table(name = "ABRANGENCIA", catalog = "", schema = "RIGHTSIZE")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Abrangencia.findAll", query = "SELECT a FROM Abrangencia a"),
-    @NamedQuery(name = "Abrangencia.findByCodigo", query = "SELECT a FROM Abrangencia a WHERE a.codigo = :codigo"),
+    @NamedQuery(name = "Abrangencia.findById", query = "SELECT a FROM Abrangencia a WHERE a.id = :id"),
     @NamedQuery(name = "Abrangencia.findByDescricao", query = "SELECT a FROM Abrangencia a WHERE a.descricao = :descricao")})
-public class Abrangencia extends GenericDao implements Serializable {
+public class Abrangencia implements Serializable {
     private static final long serialVersionUID = 1L;
-    @Id    
+    @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ABRANGENCIA_SEQ")
-    @SequenceGenerator(name = "ABRANGENCIA_SEQ", sequenceName = "ABRANGENCIA_SEQ")
+    @SequenceGenerator(name = "ABRANGENCIA_SEQ", sequenceName="ABRANGENCIA_SEQ")
     @Basic(optional = false)
-    @Column(name = "CODIGO")
-    private Long codigo;
+    @Column(name = "ID", nullable = false)
+    private Long id;
     @Basic(optional = false)
-    @Column(name = "DESCRICAO")
+    @Column(name = "DESCRICAO", nullable = false, length = 100)
     private String descricao;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "abrangenciaCodigo", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "abrangenciaId", fetch = FetchType.LAZY)
     private List<MarcaCanal> marcaCanalList;
 
     public Abrangencia() {
     }
 
-    public Abrangencia(Long codigo) {
-        this.codigo = codigo;
+    public Abrangencia(Long id) {
+        this.id = id;
     }
-    
-    public Abrangencia(String descricao){
+
+    public Abrangencia(Long id, String descricao) {
+        this.id = id;
         this.descricao = descricao;
     }
 
-    public Abrangencia(Long codigo, String descricao) {
-        this.codigo = codigo;
-        this.descricao = descricao;
+    public Long getId() {
+        return id;
     }
 
-    public Long getCodigo() {
-        return codigo;
-    }
-
-    public void setCodigo(Long codigo) {
-        this.codigo = codigo;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getDescricao() {
@@ -84,7 +75,7 @@ public class Abrangencia extends GenericDao implements Serializable {
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
-    
+
     @XmlTransient
     public List<MarcaCanal> getMarcaCanalList() {
         return marcaCanalList;
@@ -93,11 +84,11 @@ public class Abrangencia extends GenericDao implements Serializable {
     public void setMarcaCanalList(List<MarcaCanal> marcaCanalList) {
         this.marcaCanalList = marcaCanalList;
     }
-        
+
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (codigo != null ? codigo.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -108,7 +99,7 @@ public class Abrangencia extends GenericDao implements Serializable {
             return false;
         }
         Abrangencia other = (Abrangencia) object;
-        if ((this.codigo == null && other.codigo != null) || (this.codigo != null && !this.codigo.equals(other.codigo))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -116,10 +107,7 @@ public class Abrangencia extends GenericDao implements Serializable {
 
     @Override
     public String toString() {
-        return "domain.Abrangencia[ codigo=" + codigo + " ]";
+        return "domain.Abrangencia[ id=" + id + " ]";
     }
     
-    public List<Abrangencia> listaAbrangencias() {
-        return new ArrayList(super.list());
-    }
 }

@@ -3,13 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package domain;
 
-import control.GenericDao;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -29,48 +26,49 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Gustavo Calandrini
+ * @author IST-08-PC
  */
 @Entity
-@Table(name = "TIPO_TECIDO")
+@Table(name = "TIPO_TECIDO", catalog = "", schema = "RIGHTSIZE")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "TipoTecido.findAll", query = "SELECT t FROM TipoTecido t"),
-    @NamedQuery(name = "TipoTecido.findByCodigo", query = "SELECT t FROM TipoTecido t WHERE t.codigo = :codigo"),
+    @NamedQuery(name = "TipoTecido.findById", query = "SELECT t FROM TipoTecido t WHERE t.id = :id"),
     @NamedQuery(name = "TipoTecido.findByDescricao", query = "SELECT t FROM TipoTecido t WHERE t.descricao = :descricao")})
-public class TipoTecido extends GenericDao implements Serializable {
+public class TipoTecido implements Serializable {
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "TIPO_TECIDO_SEQ")
-    @SequenceGenerator(name = "TIPO_TECIDO_SEQ", sequenceName = "TIPO_TECIDO_SEQ")
+    @SequenceGenerator(name = "TIPO_TECIDO_SEQ", sequenceName="TIPO_TECIDO_SEQ")
+
     @Basic(optional = false)
-    @Column(name = "CODIGO")
-    private BigDecimal codigo;
+    @Column(name = "ID", nullable = false, precision = 19, scale = 0)
+    private BigDecimal id;
     @Basic(optional = false)
-    @Column(name = "DESCRICAO")
+    @Column(name = "DESCRICAO", nullable = false, length = 500)
     private String descricao;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tipoTecidoCodigo", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tipoTecidoId", fetch = FetchType.LAZY)
     private List<TipoMedidaProdutos> tipoMedidaProdutosList;
 
     public TipoTecido() {
     }
 
-    public TipoTecido(BigDecimal codigo) {
-        this.codigo = codigo;
+    public TipoTecido(BigDecimal id) {
+        this.id = id;
     }
 
-    public TipoTecido(BigDecimal codigo, String descricao) {
-        this.codigo = codigo;
+    public TipoTecido(BigDecimal id, String descricao) {
+        this.id = id;
         this.descricao = descricao;
     }
 
-    public BigDecimal getCodigo() {
-        return codigo;
+    public BigDecimal getId() {
+        return id;
     }
 
-    public void setCodigo(BigDecimal codigo) {
-        this.codigo = codigo;
+    public void setId(BigDecimal id) {
+        this.id = id;
     }
 
     public String getDescricao() {
@@ -93,7 +91,7 @@ public class TipoTecido extends GenericDao implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (codigo != null ? codigo.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -104,7 +102,7 @@ public class TipoTecido extends GenericDao implements Serializable {
             return false;
         }
         TipoTecido other = (TipoTecido) object;
-        if ((this.codigo == null && other.codigo != null) || (this.codigo != null && !this.codigo.equals(other.codigo))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -112,11 +110,7 @@ public class TipoTecido extends GenericDao implements Serializable {
 
     @Override
     public String toString() {
-        return "domain.TipoTecido[ codigo=" + codigo + " ]";
-    }
-    
-    public ArrayList<TipoTecido> listaTipoTecidos() {
-        return new ArrayList(super.list()); 
+        return "domain.TipoTecido[ id=" + id + " ]";
     }
     
 }

@@ -3,7 +3,6 @@ package control;
 import java.util.ArrayList;
 
 import domain.Colecao;
-import domain.Modelagem;
 
 public class CollectionControl {
 
@@ -36,7 +35,7 @@ public class CollectionControl {
     	ArrayList<Colecao> listaColecoesPorDescricaoStatus = new ArrayList<Colecao>();
 
     	for (Colecao colecao : selectAll()) {
-			if(colecao.getColecaoStatusCodigo().getDescricao().equals(status))listaColecoesPorDescricaoStatus.add(colecao);	
+			if(colecao.getColecaoStatusId().getDescricao().equals(status))listaColecoesPorDescricaoStatus.add(colecao);	
 		}
     	
     	return listaColecoesPorDescricaoStatus;

@@ -3,17 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package domain;
 
-import control.GenericDao;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -27,57 +25,53 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Gustavo Calandrini
+ * @author IST-08-PC
  */
 @Entity
 @Table(name = "CAMPO", catalog = "", schema = "RIGHTSIZE")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Campo.findAll", query = "SELECT c FROM Campo c"),
-    @NamedQuery(name = "Campo.findByCodigo", query = "SELECT c FROM Campo c WHERE c.codigo = :codigo"),
+    @NamedQuery(name = "Campo.findById", query = "SELECT c FROM Campo c WHERE c.id = :id"),
     @NamedQuery(name = "Campo.findByDescricao", query = "SELECT c FROM Campo c WHERE c.descricao = :descricao"),
     @NamedQuery(name = "Campo.findByAjuda", query = "SELECT c FROM Campo c WHERE c.ajuda = :ajuda")})
-public class Campo extends GenericDao implements Serializable {
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "campoCodigo")
-    private Collection<Telas> telasCollection;
+public class Campo implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CAMPO_SEQ")
-    @SequenceGenerator(name = "CAMPO_SEQ", sequenceName = "CAMPO_SEQ")
+    @SequenceGenerator(name = "CAMPO_SEQ", sequenceName="CAMPO_SEQ")
+
     @Basic(optional = false)
-    @Column(name = "CODIGO", nullable = false)
-    private Long codigo;
+    @Column(name = "ID", nullable = false)
+    private Long id;
     @Basic(optional = false)
     @Column(name = "DESCRICAO", nullable = false, length = 100)
     private String descricao;
     @Basic(optional = false)
     @Column(name = "AJUDA", nullable = false, length = 500)
     private String ajuda;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "campoId", fetch = FetchType.LAZY)
+    private List<Telas> telasList;
 
     public Campo() {
     }
 
-    public Campo(Long codigo) {
-        this.codigo = codigo;
+    public Campo(Long id) {
+        this.id = id;
     }
-    
-    public Campo(String descricao, String ajuda){
+
+    public Campo(Long id, String descricao, String ajuda) {
+        this.id = id;
         this.descricao = descricao;
         this.ajuda = ajuda;
     }
 
-    public Campo(Long codigo, String descricao, String ajuda) {
-        this.codigo = codigo;
-        this.descricao = descricao;
-        this.ajuda = ajuda;
+    public Long getId() {
+        return id;
     }
 
-    public Long getCodigo() {
-        return codigo;
-    }
-
-    public void setCodigo(Long codigo) {
-        this.codigo = codigo;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getDescricao() {
@@ -96,10 +90,19 @@ public class Campo extends GenericDao implements Serializable {
         this.ajuda = ajuda;
     }
 
+    @XmlTransient
+    public List<Telas> getTelasList() {
+        return telasList;
+    }
+
+    public void setTelasList(List<Telas> telasList) {
+        this.telasList = telasList;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (codigo != null ? codigo.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -110,7 +113,7 @@ public class Campo extends GenericDao implements Serializable {
             return false;
         }
         Campo other = (Campo) object;
-        if ((this.codigo == null && other.codigo != null) || (this.codigo != null && !this.codigo.equals(other.codigo))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -118,22 +121,7 @@ public class Campo extends GenericDao implements Serializable {
 
     @Override
     public String toString() {
-        return "domain.Campo[ codigo=" + codigo + " ]";
+        return "domain.Campo[ id=" + id + " ]";
     }
-
-    @XmlTransient
-    public Collection<Telas> getTelasCollection() {
-        return telasCollection;
-    }
-
-    public void setTelasCollection(Collection<Telas> telasCollection) {
-        this.telasCollection = telasCollection;
-    }
-    
-    public ArrayList<Campo> listaCampos() {
-        return new ArrayList(super.list());
-    }
-    
-    
     
 }

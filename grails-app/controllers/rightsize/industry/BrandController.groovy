@@ -19,7 +19,7 @@ class BrandController {
     def LOREN_IPSUM = "Lorem ipsum"
 	
     def index() { 
-		brandList = loadBrand();
+	brandList = loadBrand();
 
         [brandList: brandList]
     }
@@ -29,9 +29,10 @@ class BrandController {
         Marca brand = new Marca();
         
         try{
+            println(params.brandId);   
             id = new Long(params.brandId);
             brand = marcaControl.findById(id);
-        }catch(NullPointerException e){
+        }catch(Exception e){
             //TODO tratar a exceção de cast nulo
         }
 		
@@ -60,16 +61,16 @@ class BrandController {
     }
 
     def loadBrand(){
-    	return marcaControl.selectAll(); 
+    	return marcaControl.selectAll();
     }
 
     def loadChannels(Marca marca){
 	//TODO fornecer os canais referentes a marca
-        if(marca.getCodigo() == null) return new ArrayList<Canal>();
+        if(marca.getId() == null) return new ArrayList<Canal>();
         return marca.getMarcaCanalList();
     }
 	 
-	def merge(){
+    def merge(){
 		println("Mergando");
 	}
 }

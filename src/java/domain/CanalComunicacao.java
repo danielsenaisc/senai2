@@ -3,13 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package domain;
 
-import control.GenericDao;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -24,50 +21,47 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Gustavo Calandrini
+ * @author IST-08-PC
  */
 @Entity
-@Table(name = "CANAL_COMUNICACAO")
+@Table(name = "CANAL_COMUNICACAO", catalog = "", schema = "RIGHTSIZE")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "CanalComunicacao.findAll", query = "SELECT c FROM CanalComunicacao c"),
-    @NamedQuery(name = "CanalComunicacao.findByCodigo", query = "SELECT c FROM CanalComunicacao c WHERE c.codigo = :codigo"),
+    @NamedQuery(name = "CanalComunicacao.findById", query = "SELECT c FROM CanalComunicacao c WHERE c.id = :id"),
     @NamedQuery(name = "CanalComunicacao.findByDescricaoReduzida", query = "SELECT c FROM CanalComunicacao c WHERE c.descricaoReduzida = :descricaoReduzida")})
-public class CanalComunicacao extends GenericDao implements Serializable {
+public class CanalComunicacao implements Serializable {
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CANAL_COMUNICACAO_SEQ")
-    @SequenceGenerator(name = "CANAL_COMUNICACAO_SEQ", sequenceName = "CANAL_COMUNICACAO_SEQ")
+    @SequenceGenerator(name = "CANAL_COMUNICACAO_SEQ", sequenceName="CANAL_COMUNICACAO_SEQ")
+
     @Basic(optional = false)
-    @Column(name = "CODIGO")
-    private BigDecimal codigo;
+    @Column(name = "ID", nullable = false, precision = 19, scale = 0)
+    private BigDecimal id;
     @Basic(optional = false)
-    @Column(name = "DESCRICAO_REDUZIDA")
+    @Column(name = "DESCRICAO_REDUZIDA", nullable = false, length = 100)
     private String descricaoReduzida;
 
     public CanalComunicacao() {
     }
 
-    public CanalComunicacao(BigDecimal codigo) {
-        this.codigo = codigo;
+    public CanalComunicacao(BigDecimal id) {
+        this.id = id;
     }
-    
-    public CanalComunicacao(String descricaoReduzida) {
+
+    public CanalComunicacao(BigDecimal id, String descricaoReduzida) {
+        this.id = id;
         this.descricaoReduzida = descricaoReduzida;
     }
 
-    public CanalComunicacao(BigDecimal codigo, String descricaoReduzida) {
-        this.codigo = codigo;
-        this.descricaoReduzida = descricaoReduzida;
+    public BigDecimal getId() {
+        return id;
     }
 
-    public BigDecimal getCodigo() {
-        return codigo;
-    }
-
-    public void setCodigo(BigDecimal codigo) {
-        this.codigo = codigo;
+    public void setId(BigDecimal id) {
+        this.id = id;
     }
 
     public String getDescricaoReduzida() {
@@ -81,7 +75,7 @@ public class CanalComunicacao extends GenericDao implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (codigo != null ? codigo.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -92,7 +86,7 @@ public class CanalComunicacao extends GenericDao implements Serializable {
             return false;
         }
         CanalComunicacao other = (CanalComunicacao) object;
-        if ((this.codigo == null && other.codigo != null) || (this.codigo != null && !this.codigo.equals(other.codigo))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -100,13 +94,7 @@ public class CanalComunicacao extends GenericDao implements Serializable {
 
     @Override
     public String toString() {
-        return "domain.CanalComunicacao[ codigo=" + codigo + " ]";
+        return "domain.CanalComunicacao[ id=" + id + " ]";
     }
-
-    public ArrayList<CanalComunicacao> listaCanalComunicacoes() {
-        return new ArrayList(super.list()); 
-    }
-    
-    
     
 }

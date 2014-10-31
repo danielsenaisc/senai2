@@ -52,7 +52,7 @@
 							 ${product.getNome()}
 						</td>
 						<td style="width:110px;">
-							 ${product.getColecaoCodigo().getNome()}
+							 ${product.getColecaoId().getNome()}
 						</td>
 						<td style="width:110px;">
 							 TODO

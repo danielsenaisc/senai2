@@ -3,12 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package domain;
 
-import control.GenericDao;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -31,58 +28,55 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Gustavo Calandrini
+ * @author IST-08-PC
  */
 @Entity
-@Table(name = "IDIOMAS")
+@Table(name = "IDIOMAS", catalog = "", schema = "RIGHTSIZE")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Idiomas.findAll", query = "SELECT i FROM Idiomas i"),
-    @NamedQuery(name = "Idiomas.findByCodigo", query = "SELECT i FROM Idiomas i WHERE i.codigo = :codigo"),
+    @NamedQuery(name = "Idiomas.findById", query = "SELECT i FROM Idiomas i WHERE i.id = :id"),
     @NamedQuery(name = "Idiomas.findByDescricao", query = "SELECT i FROM Idiomas i WHERE i.descricao = :descricao")})
-public class Idiomas extends GenericDao implements Serializable {
+public class Idiomas implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "IDIOMAS_SEQ")
-    @SequenceGenerator(name = "IDIOMAS_SEQ", sequenceName = "IDIOMAS_SEQ")
+    @SequenceGenerator(name = "IDIOMAS_SEQ", sequenceName="IDIOMAS_SEQ")
+
     @Basic(optional = false)
-    @Column(name = "CODIGO")
-    private Long codigo;
+    @Column(name = "ID", nullable = false)
+    private Long id;
     @Basic(optional = false)
-    @Column(name = "DESCRICAO")
+    @Column(name = "DESCRICAO", nullable = false, length = 100)
     private String descricao;
     @JoinTable(name = "TRADUCAO_TELAS", joinColumns = {
-        @JoinColumn(name = "IDIOMAS_CODIGO", referencedColumnName = "CODIGO")}, inverseJoinColumns = {
-        @JoinColumn(name = "TELAS_CODIGO", referencedColumnName = "CODIGO")})
+        @JoinColumn(name = "IDIOMAS_ID", referencedColumnName = "ID", nullable = false)}, inverseJoinColumns = {
+        @JoinColumn(name = "TELAS_ID", referencedColumnName = "ID", nullable = false)})
     @ManyToMany(fetch = FetchType.LAZY)
     private List<Telas> telasList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "codigoIdiomaPadrao", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idIdiomaPadrao", fetch = FetchType.LAZY)
     private List<Industria> industriaList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idiomaCodigo", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idiomaId", fetch = FetchType.LAZY)
     private List<Pais> paisList;
 
     public Idiomas() {
     }
 
-    public Idiomas(Long codigo) {
-        this.codigo = codigo;
+    public Idiomas(Long id) {
+        this.id = id;
     }
 
-    public Idiomas(String descricao) {
+    public Idiomas(Long id, String descricao) {
+        this.id = id;
         this.descricao = descricao;
     }
 
-    public Idiomas(Long codigo, String descricao) {
-        this.codigo = codigo;
-        this.descricao = descricao;
+    public Long getId() {
+        return id;
     }
 
-    public Long getCodigo() {
-        return codigo;
-    }
-
-    public void setCodigo(Long codigo) {
-        this.codigo = codigo;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getDescricao() {
@@ -123,7 +117,7 @@ public class Idiomas extends GenericDao implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (codigo != null ? codigo.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -134,7 +128,7 @@ public class Idiomas extends GenericDao implements Serializable {
             return false;
         }
         Idiomas other = (Idiomas) object;
-        if ((this.codigo == null && other.codigo != null) || (this.codigo != null && !this.codigo.equals(other.codigo))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -142,11 +136,7 @@ public class Idiomas extends GenericDao implements Serializable {
 
     @Override
     public String toString() {
-        return "domain.Idiomas[ codigo=" + codigo + " ]";
-    }
-
-    public ArrayList<Idiomas> listaIdiomas() {
-        return new ArrayList(super.list());
+        return "domain.Idiomas[ id=" + id + " ]";
     }
     
 }

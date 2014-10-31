@@ -3,19 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package domain;
 
-import control.GenericDao;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -29,48 +25,49 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Gustavo Calandrini
+ * @author IST-08-PC
  */
 @Entity
-@Table(name = "TIPO_RELATORIO")
+@Table(name = "TIPO_RELATORIO", catalog = "", schema = "RIGHTSIZE")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "TipoRelatorio.findAll", query = "SELECT t FROM TipoRelatorio t"),
-    @NamedQuery(name = "TipoRelatorio.findByCodigo", query = "SELECT t FROM TipoRelatorio t WHERE t.codigo = :codigo"),
+    @NamedQuery(name = "TipoRelatorio.findById", query = "SELECT t FROM TipoRelatorio t WHERE t.id = :id"),
     @NamedQuery(name = "TipoRelatorio.findByDescricao", query = "SELECT t FROM TipoRelatorio t WHERE t.descricao = :descricao")})
-public class TipoRelatorio extends GenericDao implements Serializable {
+public class TipoRelatorio implements Serializable {
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "TIPO_RELATORIO_SEQ")
-    @SequenceGenerator(name = "TIPO_RELATORIO_SEQ", sequenceName = "TIPO_RELATORIO_SEQ")
+    @SequenceGenerator(name = "TIPO_RELATORIO_SEQ", sequenceName="TIPO_RELATORIO_SEQ")
+
     @Basic(optional = false)
-    @Column(name = "CODIGO")
-    private BigDecimal codigo;
+    @Column(name = "ID", nullable = false, precision = 19, scale = 0)
+    private BigDecimal id;
     @Basic(optional = false)
-    @Column(name = "DESCRICAO")
+    @Column(name = "DESCRICAO", nullable = false, length = 100)
     private String descricao;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tipoRelatorioCodigo", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tipoRelatorioId")
     private List<Relatorio> relatorioList;
 
     public TipoRelatorio() {
     }
 
-    public TipoRelatorio(BigDecimal codigo) {
-        this.codigo = codigo;
+    public TipoRelatorio(BigDecimal id) {
+        this.id = id;
     }
 
-    public TipoRelatorio(BigDecimal codigo, String descricao) {
-        this.codigo = codigo;
+    public TipoRelatorio(BigDecimal id, String descricao) {
+        this.id = id;
         this.descricao = descricao;
     }
 
-    public BigDecimal getCodigo() {
-        return codigo;
+    public BigDecimal getId() {
+        return id;
     }
 
-    public void setCodigo(BigDecimal codigo) {
-        this.codigo = codigo;
+    public void setId(BigDecimal id) {
+        this.id = id;
     }
 
     public String getDescricao() {
@@ -93,7 +90,7 @@ public class TipoRelatorio extends GenericDao implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (codigo != null ? codigo.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -104,7 +101,7 @@ public class TipoRelatorio extends GenericDao implements Serializable {
             return false;
         }
         TipoRelatorio other = (TipoRelatorio) object;
-        if ((this.codigo == null && other.codigo != null) || (this.codigo != null && !this.codigo.equals(other.codigo))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -112,10 +109,7 @@ public class TipoRelatorio extends GenericDao implements Serializable {
 
     @Override
     public String toString() {
-        return "domain.TipoRelatorio[ codigo=" + codigo + " ]";
+        return "domain.TipoRelatorio[ id=" + id + " ]";
     }
     
-    public ArrayList<TipoRelatorio> listaTipoRelatorios() {
-        return new ArrayList(super.list()); 
-    }
 }

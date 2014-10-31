@@ -3,14 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package domain;
 
-import control.GenericDao;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -32,53 +29,54 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Gustavo Calandrini
+ * @author IST-08-PC
  */
 @Entity
-@Table(name = "PERFIL_ACESSO")
+@Table(name = "PERFIL_ACESSO", catalog = "", schema = "RIGHTSIZE")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "PerfilAcesso.findAll", query = "SELECT p FROM PerfilAcesso p"),
-    @NamedQuery(name = "PerfilAcesso.findByCodigo", query = "SELECT p FROM PerfilAcesso p WHERE p.codigo = :codigo"),
-    @NamedQuery(name = "PerfilAcesso.findByCodigoTipoPermissao", query = "SELECT p FROM PerfilAcesso p WHERE p.codigoTipoPermissao = :codigoTipoPermissao")})
-public class PerfilAcesso extends GenericDao implements Serializable {
+    @NamedQuery(name = "PerfilAcesso.findById", query = "SELECT p FROM PerfilAcesso p WHERE p.id = :id"),
+    @NamedQuery(name = "PerfilAcesso.findByIdTipoPermissao", query = "SELECT p FROM PerfilAcesso p WHERE p.idTipoPermissao = :idTipoPermissao")})
+public class PerfilAcesso implements Serializable {
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PERFIL_ACESSO_SEQ")
-    @SequenceGenerator(name = "PERFIL_ACESSO_SEQ", sequenceName = "PERFIL_ACESSO_SEQ")
+    @SequenceGenerator(name = "PERFIL_ACESSO_SEQ", sequenceName="PERFIL_ACESSO_SEQ")
+
     @Basic(optional = false)
-    @Column(name = "CODIGO")
-    private BigDecimal codigo;
-    @Column(name = "CODIGO_TIPO_PERMISSAO")
-    private BigInteger codigoTipoPermissao;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "perfilAcessoCodigo", fetch = FetchType.LAZY)
+    @Column(name = "ID", nullable = false, precision = 19, scale = 0)
+    private BigDecimal id;
+    @Column(name = "ID_TIPO_PERMISSAO")
+    private BigInteger idTipoPermissao;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "perfilAcessoId", fetch = FetchType.LAZY)
     private List<UsuarioIndustria> usuarioIndustriaList;
-    @JoinColumn(name = "TELAS_CODIGO", referencedColumnName = "CODIGO")
+    @JoinColumn(name = "TELAS_ID", referencedColumnName = "ID", nullable = false)
     @ManyToOne(optional = false)
-    private Telas telasCodigo;
+    private Telas telasId;
 
     public PerfilAcesso() {
     }
 
-    public PerfilAcesso(BigDecimal codigo) {
-        this.codigo = codigo;
+    public PerfilAcesso(BigDecimal id) {
+        this.id = id;
     }
 
-    public BigDecimal getCodigo() {
-        return codigo;
+    public BigDecimal getId() {
+        return id;
     }
 
-    public void setCodigo(BigDecimal codigo) {
-        this.codigo = codigo;
+    public void setId(BigDecimal id) {
+        this.id = id;
     }
 
-    public BigInteger getCodigoTipoPermissao() {
-        return codigoTipoPermissao;
+    public BigInteger getIdTipoPermissao() {
+        return idTipoPermissao;
     }
 
-    public void setCodigoTipoPermissao(BigInteger codigoTipoPermissao) {
-        this.codigoTipoPermissao = codigoTipoPermissao;
+    public void setIdTipoPermissao(BigInteger idTipoPermissao) {
+        this.idTipoPermissao = idTipoPermissao;
     }
 
     @XmlTransient
@@ -90,18 +88,18 @@ public class PerfilAcesso extends GenericDao implements Serializable {
         this.usuarioIndustriaList = usuarioIndustriaList;
     }
 
-    public Telas getTelasCodigo() {
-        return telasCodigo;
+    public Telas getTelasId() {
+        return telasId;
     }
 
-    public void setTelasCodigo(Telas telasCodigo) {
-        this.telasCodigo = telasCodigo;
+    public void setTelasId(Telas telasId) {
+        this.telasId = telasId;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (codigo != null ? codigo.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -112,7 +110,7 @@ public class PerfilAcesso extends GenericDao implements Serializable {
             return false;
         }
         PerfilAcesso other = (PerfilAcesso) object;
-        if ((this.codigo == null && other.codigo != null) || (this.codigo != null && !this.codigo.equals(other.codigo))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -120,11 +118,7 @@ public class PerfilAcesso extends GenericDao implements Serializable {
 
     @Override
     public String toString() {
-        return "domain.PerfilAcesso[ codigo=" + codigo + " ]";
-    }
-    
-    public ArrayList<PerfilAcesso> listaPerfilAcessos() {
-        return new ArrayList(super.list()); 
+        return "domain.PerfilAcesso[ id=" + id + " ]";
     }
     
 }

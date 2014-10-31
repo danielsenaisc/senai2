@@ -3,12 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package domain;
 
-import control.GenericDao;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -28,52 +25,53 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Gustavo Calandrini
+ * @author IST-08-PC
  */
 @Entity
-@Table(name = "TIPO_ANEXO")
+@Table(name = "TIPO_ANEXO", catalog = "", schema = "RIGHTSIZE")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "TipoAnexo.findAll", query = "SELECT t FROM TipoAnexo t"),
-    @NamedQuery(name = "TipoAnexo.findByCodigo", query = "SELECT t FROM TipoAnexo t WHERE t.codigo = :codigo"),
+    @NamedQuery(name = "TipoAnexo.findById", query = "SELECT t FROM TipoAnexo t WHERE t.id = :id"),
     @NamedQuery(name = "TipoAnexo.findByDescricaoReduzida", query = "SELECT t FROM TipoAnexo t WHERE t.descricaoReduzida = :descricaoReduzida"),
     @NamedQuery(name = "TipoAnexo.findByDescricao", query = "SELECT t FROM TipoAnexo t WHERE t.descricao = :descricao")})
-public class TipoAnexo extends GenericDao implements Serializable {
+public class TipoAnexo implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "TIPO_ANEXO_SEQ")
-    @SequenceGenerator(name = "TIPO_ANEXO_SEQ", sequenceName = "TIPO_ANEXO_SEQ")
+    @SequenceGenerator(name = "TIPO_ANEXO_SEQ", sequenceName="TIPO_ANEXO_SEQ")
+
     @Basic(optional = false)
-    @Column(name = "CODIGO")
-    private Long codigo;
+    @Column(name = "ID", nullable = false)
+    private Long id;
     @Basic(optional = false)
-    @Column(name = "DESCRICAO_REDUZIDA")
+    @Column(name = "DESCRICAO_REDUZIDA", nullable = false, length = 100)
     private String descricaoReduzida;
     @Basic(optional = false)
-    @Column(name = "DESCRICAO")
+    @Column(name = "DESCRICAO", nullable = false, length = 500)
     private String descricao;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tipoAnexoCodigo", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tipoAnexoId", fetch = FetchType.LAZY)
     private List<AnexoColecao> anexoColecaoList;
 
     public TipoAnexo() {
     }
 
-    public TipoAnexo(Long codigo) {
-        this.codigo = codigo;
+    public TipoAnexo(Long id) {
+        this.id = id;
     }
 
-    public TipoAnexo(Long codigo, String descricaoReduzida, String descricao) {
-        this.codigo = codigo;
+    public TipoAnexo(Long id, String descricaoReduzida, String descricao) {
+        this.id = id;
         this.descricaoReduzida = descricaoReduzida;
         this.descricao = descricao;
     }
 
-    public Long getCodigo() {
-        return codigo;
+    public Long getId() {
+        return id;
     }
 
-    public void setCodigo(Long codigo) {
-        this.codigo = codigo;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getDescricaoReduzida() {
@@ -104,7 +102,7 @@ public class TipoAnexo extends GenericDao implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (codigo != null ? codigo.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -115,7 +113,7 @@ public class TipoAnexo extends GenericDao implements Serializable {
             return false;
         }
         TipoAnexo other = (TipoAnexo) object;
-        if ((this.codigo == null && other.codigo != null) || (this.codigo != null && !this.codigo.equals(other.codigo))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -123,11 +121,7 @@ public class TipoAnexo extends GenericDao implements Serializable {
 
     @Override
     public String toString() {
-        return "domain.TipoAnexo[ codigo=" + codigo + " ]";
-    }
-    
-    public ArrayList<TipoAnexo> listaTipoAnexos() {
-        return new ArrayList(super.list());
+        return "domain.TipoAnexo[ id=" + id + " ]";
     }
     
 }

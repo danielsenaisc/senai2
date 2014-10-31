@@ -3,17 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package domain;
 
-import control.GenericDao;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -27,54 +23,50 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Gustavo Calandrini
+ * @author IST-08-PC
  */
 @Entity
-@Table(name = "ANEXOS_VARIANTE_PRODUTO")
+@Table(name = "ANEXOS_VARIANTE_PRODUTO", catalog = "", schema = "RIGHTSIZE")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "AnexosVarianteProduto.findAll", query = "SELECT a FROM AnexosVarianteProduto a"),
-    @NamedQuery(name = "AnexosVarianteProduto.findByCodigoAnexoImagemVideo", query = "SELECT a FROM AnexosVarianteProduto a WHERE a.codigoAnexoImagemVideo = :codigoAnexoImagemVideo"),
+    @NamedQuery(name = "AnexosVarianteProduto.findByIdAnexoImagemVideo", query = "SELECT a FROM AnexosVarianteProduto a WHERE a.idAnexoImagemVideo = :idAnexoImagemVideo"),
     @NamedQuery(name = "AnexosVarianteProduto.findByAnexo", query = "SELECT a FROM AnexosVarianteProduto a WHERE a.anexo = :anexo")})
-public class AnexosVarianteProduto extends GenericDao implements Serializable {
+public class AnexosVarianteProduto implements Serializable {
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ANEXOS_VARIANTE_PRODUTO_SEQ")
-    @SequenceGenerator(name = "ANEXOS_VARIANTE_PRODUTO_SEQ", sequenceName = "ANEXOS_VARIANTE_PRODUTO_SEQ")
+    @SequenceGenerator(name = "ANEXOS_VARIANTE_PRODUTO_SEQ", sequenceName="ANEXOS_VARIANTE_PRODUTO_SEQ")
+
     @Basic(optional = false)
-    @Column(name = "CODIGO_ANEXO_IMAGEM_VIDEO")
-    private BigDecimal codigoAnexoImagemVideo;
+    @Column(name = "ID_ANEXO_IMAGEM_VIDEO", nullable = false, precision = 19, scale = 0)
+    private BigDecimal idAnexoImagemVideo;
     @Basic(optional = false)
-    @Column(name = "ANEXO")
+    @Column(name = "ANEXO", nullable = false, length = 500)
     private String anexo;
-    @JoinColumn(name = "TIPO_MEDIDA_PRODUTO_CODIGO", referencedColumnName = "CODIGO_SEQUENCIAL_ORDEM")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private TipoMedidaProdutos tipoMedidaProdutoCodigo;
+    @JoinColumn(name = "TIPO_MEDIDA_PRODUTO_ID", referencedColumnName = "ID_SEQUENCIAL_ORDEM", nullable = false)
+    @ManyToOne(optional = false)
+    private TipoMedidaProdutos tipoMedidaProdutoId;
 
     public AnexosVarianteProduto() {
     }
 
-    public AnexosVarianteProduto(BigDecimal codigoAnexoImagemVideo) {
-        this.codigoAnexoImagemVideo = codigoAnexoImagemVideo;
+    public AnexosVarianteProduto(BigDecimal idAnexoImagemVideo) {
+        this.idAnexoImagemVideo = idAnexoImagemVideo;
     }
 
-    public AnexosVarianteProduto(String anexo, TipoMedidaProdutos tipoMedidaProdutoCodigo) {
-        this.anexo = anexo;
-        this.tipoMedidaProdutoCodigo = tipoMedidaProdutoCodigo;
-    }
-
-    public AnexosVarianteProduto(BigDecimal codigoAnexoImagemVideo, String anexo) {
-        this.codigoAnexoImagemVideo = codigoAnexoImagemVideo;
+    public AnexosVarianteProduto(BigDecimal idAnexoImagemVideo, String anexo) {
+        this.idAnexoImagemVideo = idAnexoImagemVideo;
         this.anexo = anexo;
     }
 
-    public BigDecimal getCodigoAnexoImagemVideo() {
-        return codigoAnexoImagemVideo;
+    public BigDecimal getIdAnexoImagemVideo() {
+        return idAnexoImagemVideo;
     }
 
-    public void setCodigoAnexoImagemVideo(BigDecimal codigoAnexoImagemVideo) {
-        this.codigoAnexoImagemVideo = codigoAnexoImagemVideo;
+    public void setIdAnexoImagemVideo(BigDecimal idAnexoImagemVideo) {
+        this.idAnexoImagemVideo = idAnexoImagemVideo;
     }
 
     public String getAnexo() {
@@ -85,18 +77,18 @@ public class AnexosVarianteProduto extends GenericDao implements Serializable {
         this.anexo = anexo;
     }
 
-    public TipoMedidaProdutos getTipoMedidaProdutoCodigo() {
-        return tipoMedidaProdutoCodigo;
+    public TipoMedidaProdutos getTipoMedidaProdutoId() {
+        return tipoMedidaProdutoId;
     }
 
-    public void setTipoMedidaProdutoCodigo(TipoMedidaProdutos tipoMedidaProdutoCodigo) {
-        this.tipoMedidaProdutoCodigo = tipoMedidaProdutoCodigo;
+    public void setTipoMedidaProdutoId(TipoMedidaProdutos tipoMedidaProdutoId) {
+        this.tipoMedidaProdutoId = tipoMedidaProdutoId;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (codigoAnexoImagemVideo != null ? codigoAnexoImagemVideo.hashCode() : 0);
+        hash += (idAnexoImagemVideo != null ? idAnexoImagemVideo.hashCode() : 0);
         return hash;
     }
 
@@ -107,7 +99,7 @@ public class AnexosVarianteProduto extends GenericDao implements Serializable {
             return false;
         }
         AnexosVarianteProduto other = (AnexosVarianteProduto) object;
-        if ((this.codigoAnexoImagemVideo == null && other.codigoAnexoImagemVideo != null) || (this.codigoAnexoImagemVideo != null && !this.codigoAnexoImagemVideo.equals(other.codigoAnexoImagemVideo))) {
+        if ((this.idAnexoImagemVideo == null && other.idAnexoImagemVideo != null) || (this.idAnexoImagemVideo != null && !this.idAnexoImagemVideo.equals(other.idAnexoImagemVideo))) {
             return false;
         }
         return true;
@@ -115,13 +107,7 @@ public class AnexosVarianteProduto extends GenericDao implements Serializable {
 
     @Override
     public String toString() {
-        return "domain.AnexosVarianteProduto[ codigoAnexoImagemVideo=" + codigoAnexoImagemVideo + " ]";
+        return "domain.AnexosVarianteProduto[ idAnexoImagemVideo=" + idAnexoImagemVideo + " ]";
     }
-    
-    public ArrayList<AnexosVarianteProduto> listaAnexosVarianteProdutos() {
-        return new ArrayList(super.list()); 
-    }
-    
-    
     
 }

@@ -3,13 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package domain;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
-
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -26,55 +23,50 @@ import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-import control.GenericDao;
-
 /**
  *
- * @author Gustavo Calandrini
+ * @author IST-08-PC
  */
 @Entity
-@Table(name = "CANAL")
+@Table(name = "CANAL", catalog = "", schema = "RIGHTSIZE")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Canal.findAll", query = "SELECT c FROM Canal c"),
-    @NamedQuery(name = "Canal.findByCodigo", query = "SELECT c FROM Canal c WHERE c.codigo = :codigo"),
+    @NamedQuery(name = "Canal.findById", query = "SELECT c FROM Canal c WHERE c.id = :id"),
     @NamedQuery(name = "Canal.findByDescricao", query = "SELECT c FROM Canal c WHERE c.descricao = :descricao")})
-public class Canal extends GenericDao implements Serializable {
+public class Canal implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CANAL_SEQ")
-    @SequenceGenerator(name = "CANAL_SEQ", sequenceName = "CANAL_SEQ")
+    @SequenceGenerator(name = "CANAL_SEQ", sequenceName="CANAL_SEQ")
+
     @Basic(optional = false)
-    @Column(name = "CODIGO")
-    private Long codigo;
+    @Column(name = "ID", nullable = false)
+    private Long id;
     @Basic(optional = false)
-    @Column(name = "DESCRICAO")
+    @Column(name = "DESCRICAO", nullable = false, length = 100)
     private String descricao;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "canalCodigo", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "canalId", fetch = FetchType.LAZY)
     private List<MarcaCanal> marcaCanalList;
 
     public Canal() {
     }
 
-    public Canal(Long codigo) {
-        this.codigo = codigo;
+    public Canal(Long id) {
+        this.id = id;
     }
-    
-    public Canal(String descricao) {
+
+    public Canal(Long id, String descricao) {
+        this.id = id;
         this.descricao = descricao;
     }
 
-    public Canal(Long codigo, String descricao) {
-        this.codigo = codigo;
-        this.descricao = descricao;
+    public Long getId() {
+        return id;
     }
 
-    public Long getCodigo() {
-        return codigo;
-    }
-
-    public void setCodigo(Long codigo) {
-        this.codigo = codigo;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getDescricao() {
@@ -85,13 +77,6 @@ public class Canal extends GenericDao implements Serializable {
         this.descricao = descricao;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (codigo != null ? codigo.hashCode() : 0);
-        return hash;
-    }
-    
     @XmlTransient
     public List<MarcaCanal> getMarcaCanalList() {
         return marcaCanalList;
@@ -102,13 +87,20 @@ public class Canal extends GenericDao implements Serializable {
     }
 
     @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof Canal)) {
             return false;
         }
         Canal other = (Canal) object;
-        if ((this.codigo == null && other.codigo != null) || (this.codigo != null && !this.codigo.equals(other.codigo))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -116,10 +108,7 @@ public class Canal extends GenericDao implements Serializable {
 
     @Override
     public String toString() {
-        return "domain.Canal[ codigo=" + codigo + " ]";
+        return "domain.Canal[ id=" + id + " ]";
     }
-
-    public ArrayList<Canal> listaCanais() {
-        return new ArrayList(super.list()); 
-    }
+    
 }

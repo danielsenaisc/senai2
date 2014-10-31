@@ -3,12 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package domain;
 
-import control.GenericDao;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -31,52 +28,53 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Gustavo Calandrini
+ * @author IST-08-PC
  */
 @Entity
-@Table(name = "TELAS")
+@Table(name = "TELAS", catalog = "", schema = "RIGHTSIZE")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Telas.findAll", query = "SELECT t FROM Telas t"),
-    @NamedQuery(name = "Telas.findByCodigo", query = "SELECT t FROM Telas t WHERE t.codigo = :codigo"),
+    @NamedQuery(name = "Telas.findById", query = "SELECT t FROM Telas t WHERE t.id = :id"),
     @NamedQuery(name = "Telas.findByDescricao", query = "SELECT t FROM Telas t WHERE t.descricao = :descricao")})
-public class Telas extends GenericDao implements Serializable {
+public class Telas implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "TELAS_SEQ")
-    @SequenceGenerator(name = "TELAS_SEQ", sequenceName = "TELAS_SEQ")
+    @SequenceGenerator(name = "TELAS_SEQ", sequenceName="TELAS_SEQ")
+
     @Basic(optional = false)
-    @Column(name = "CODIGO")
-    private Long codigo;
+    @Column(name = "ID", nullable = false)
+    private Long id;
     @Basic(optional = false)
-    @Column(name = "DESCRICAO")
+    @Column(name = "DESCRICAO", nullable = false, length = 140)
     private String descricao;
     @ManyToMany(mappedBy = "telasList", fetch = FetchType.LAZY)
     private List<Idiomas> idiomasList;
-    @JoinColumn(name = "CAMPO_CODIGO", referencedColumnName = "CODIGO")
+    @JoinColumn(name = "CAMPO_ID", referencedColumnName = "ID", nullable = false)
     @ManyToOne(optional = false)
-    private Campo campoCodigo;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "telasCodigo", fetch = FetchType.LAZY)
+    private Campo campoId;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "telasId", fetch = FetchType.LAZY)
     private List<PerfilAcesso> perfilAcessoList;
 
     public Telas() {
     }
 
-    public Telas(Long codigo) {
-        this.codigo = codigo;
+    public Telas(Long id) {
+        this.id = id;
     }
 
-    public Telas(Long codigo, String descricao) {
-        this.codigo = codigo;
+    public Telas(Long id, String descricao) {
+        this.id = id;
         this.descricao = descricao;
     }
 
-    public Long getCodigo() {
-        return codigo;
+    public Long getId() {
+        return id;
     }
 
-    public void setCodigo(Long codigo) {
-        this.codigo = codigo;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getDescricao() {
@@ -96,12 +94,12 @@ public class Telas extends GenericDao implements Serializable {
         this.idiomasList = idiomasList;
     }
 
-    public Campo getCampoCodigo() {
-        return campoCodigo;
+    public Campo getCampoId() {
+        return campoId;
     }
 
-    public void setCampoCodigo(Campo campoCodigo) {
-        this.campoCodigo = campoCodigo;
+    public void setCampoId(Campo campoId) {
+        this.campoId = campoId;
     }
 
     @XmlTransient
@@ -116,7 +114,7 @@ public class Telas extends GenericDao implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (codigo != null ? codigo.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -127,7 +125,7 @@ public class Telas extends GenericDao implements Serializable {
             return false;
         }
         Telas other = (Telas) object;
-        if ((this.codigo == null && other.codigo != null) || (this.codigo != null && !this.codigo.equals(other.codigo))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -135,11 +133,7 @@ public class Telas extends GenericDao implements Serializable {
 
     @Override
     public String toString() {
-        return "domain.Telas[ codigo=" + codigo + " ]";
-    }
-    
-    public ArrayList<Telas> listaTelas() {
-        return new ArrayList(super.list());
+        return "domain.Telas[ id=" + id + " ]";
     }
     
 }

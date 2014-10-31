@@ -3,13 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package domain;
 
-import control.GenericDao;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -26,14 +23,14 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Gustavo Calandrini
+ * @author IST-08-PC
  */
 @Entity
-@Table(name = "PROFISSIONAL")
+@Table(name = "PROFISSIONAL", catalog = "", schema = "RIGHTSIZE")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Profissional.findAll", query = "SELECT p FROM Profissional p"),
-    @NamedQuery(name = "Profissional.findByCodigo", query = "SELECT p FROM Profissional p WHERE p.codigo = :codigo"),
+    @NamedQuery(name = "Profissional.findById", query = "SELECT p FROM Profissional p WHERE p.id = :id"),
     @NamedQuery(name = "Profissional.findByNome", query = "SELECT p FROM Profissional p WHERE p.nome = :nome"),
     @NamedQuery(name = "Profissional.findByNomeProfissional", query = "SELECT p FROM Profissional p WHERE p.nomeProfissional = :nomeProfissional"),
     @NamedQuery(name = "Profissional.findByEmail", query = "SELECT p FROM Profissional p WHERE p.email = :email"),
@@ -47,58 +44,59 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Profissional.findByRedeSocial3", query = "SELECT p FROM Profissional p WHERE p.redeSocial3 = :redeSocial3"),
     @NamedQuery(name = "Profissional.findByGenero", query = "SELECT p FROM Profissional p WHERE p.genero = :genero"),
     @NamedQuery(name = "Profissional.findByApelido", query = "SELECT p FROM Profissional p WHERE p.apelido = :apelido")})
-public class Profissional extends GenericDao implements Serializable {
+public class Profissional implements Serializable {
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PROFISSIONAL_SEQ")
-    @SequenceGenerator(name = "PROFISSIONAL_SEQ", sequenceName = "PROFISSIONAL_SEQ")
+    @SequenceGenerator(name = "PROFISSIONAL_SEQ", sequenceName="PROFISSIONAL_SEQ")
+
     @Basic(optional = false)
-    @Column(name = "CODIGO")
-    private BigDecimal codigo;
-    @Column(name = "NOME")
+    @Column(name = "ID", nullable = false, precision = 19, scale = 0)
+    private BigDecimal id;
+    @Column(name = "NOME", length = 100)
     private String nome;
-    @Column(name = "NOME_PROFISSIONAL")
+    @Column(name = "NOME_PROFISSIONAL", length = 100)
     private String nomeProfissional;
-    @Column(name = "EMAIL")
+    @Column(name = "EMAIL", length = 100)
     private String email;
-    @Column(name = "FONE")
+    @Column(name = "FONE", length = 45)
     private String fone;
-    @Column(name = "CELULAR")
+    @Column(name = "CELULAR", length = 45)
     private String celular;
-    @Column(name = "SITE")
+    @Column(name = "SITE", length = 100)
     private String site;
-    @Column(name = "DESCRICAO_TRABALHO")
+    @Column(name = "DESCRICAO_TRABALHO", length = 200)
     private String descricaoTrabalho;
-    @Column(name = "FOTO")
+    @Column(name = "FOTO", length = 500)
     private String foto;
-    @Column(name = "REDE_SOCIAL_1")
+    @Column(name = "REDE_SOCIAL_1", length = 100)
     private String redeSocial1;
-    @Column(name = "REDE_SOCIAL_2")
+    @Column(name = "REDE_SOCIAL_2", length = 100)
     private String redeSocial2;
-    @Column(name = "REDE_SOCIAL_3")
+    @Column(name = "REDE_SOCIAL_3", length = 100)
     private String redeSocial3;
     @Column(name = "GENERO")
     private Character genero;
-    @Column(name = "APELIDO")
+    @Column(name = "APELIDO", length = 45)
     private String apelido;
-    @JoinColumn(name = "CARGO_CODIGO", referencedColumnName = "CODIGO")
+    @JoinColumn(name = "CARGO_ID", referencedColumnName = "ID", nullable = false)
     @ManyToOne(optional = false)
-    private Cargo cargoCodigo;
+    private Cargo cargoId;
 
     public Profissional() {
     }
 
-    public Profissional(BigDecimal codigo) {
-        this.codigo = codigo;
+    public Profissional(BigDecimal id) {
+        this.id = id;
     }
 
-    public BigDecimal getCodigo() {
-        return codigo;
+    public BigDecimal getId() {
+        return id;
     }
 
-    public void setCodigo(BigDecimal codigo) {
-        this.codigo = codigo;
+    public void setId(BigDecimal id) {
+        this.id = id;
     }
 
     public String getNome() {
@@ -205,18 +203,18 @@ public class Profissional extends GenericDao implements Serializable {
         this.apelido = apelido;
     }
 
-    public Cargo getCargoCodigo() {
-        return cargoCodigo;
+    public Cargo getCargoId() {
+        return cargoId;
     }
 
-    public void setCargoCodigo(Cargo cargoCodigo) {
-        this.cargoCodigo = cargoCodigo;
+    public void setCargoId(Cargo cargoId) {
+        this.cargoId = cargoId;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (codigo != null ? codigo.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -227,7 +225,7 @@ public class Profissional extends GenericDao implements Serializable {
             return false;
         }
         Profissional other = (Profissional) object;
-        if ((this.codigo == null && other.codigo != null) || (this.codigo != null && !this.codigo.equals(other.codigo))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -235,11 +233,7 @@ public class Profissional extends GenericDao implements Serializable {
 
     @Override
     public String toString() {
-        return "domain.Profissional[ codigo=" + codigo + " ]";
-    }
-    
-    public ArrayList<Profissional> listaProfissionais() {
-        return new ArrayList(super.list());
+        return "domain.Profissional[ id=" + id + " ]";
     }
     
 }

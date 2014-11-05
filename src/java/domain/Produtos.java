@@ -215,18 +215,6 @@ public class Produtos implements Serializable {
         return "domain.Produtos[ id=" + id + " ]";
     }
 
-    //TODO rever Regras de Negocio
-    public int getQuantidadeVariantes() {
-        return 0;
-    }
-
-    public String getStatusTratado() {
-        if (getStatus().equals(OracleBoolean.TRUE.getValue())) {
-            return "Ativo";
-        }
-        return "Inativo";
-    }
-
     public String getListaDeTagsTratada() {
         String retorno = "";
         if(getTagList().size() <= 0) return retorno;
@@ -268,6 +256,7 @@ public class Produtos implements Serializable {
         if(getStatus().equals(OracleBoolean.FALSE.getValue())) return "checked";
         return "";
     }
+    
     //TODO rever Regras de Negocio
     public int getQuantidadeVariantes(){
         return 0;

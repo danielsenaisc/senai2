@@ -25,6 +25,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import utils.Genero;
 import utils.OracleBoolean;
 
 /**
@@ -197,6 +198,21 @@ public class Modelagem implements Serializable {
     public String getStatusTratado(){
         if(Objects.equals(getStatus(), OracleBoolean.TRUE.getValue())) return "Ativo";
         return "Inativo";
+    }
+    
+    public String isMascChecked(){
+        if(getGenero().equals(Genero.MASCULINO.getDescricao())) return "checked";
+        return "";
+    }
+    
+    public String isFemChecked(){
+        if(getGenero().equals(Genero.FEMININO.getDescricao())) return "checked";
+        return "";
+    }
+    
+    public String isUnissexChecked(){
+        if(getGenero().equals(Genero.UNISSEX.getDescricao())) return "checked";
+        return "";
     }
     
 }

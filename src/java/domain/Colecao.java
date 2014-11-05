@@ -33,6 +33,7 @@ import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import utils.Genero;
+import utils.OracleBoolean;
 
 /**
  *
@@ -143,6 +144,7 @@ public class Colecao implements Serializable {
     }
 
     public Date getVigenciaInicial() {
+        if(vigenciaInicial == null) return new Date();
         return vigenciaInicial;
     }
 
@@ -150,7 +152,8 @@ public class Colecao implements Serializable {
         this.vigenciaInicial = vigenciaInicial;
     }
 
-    public Date getVigenciaFinal() {        
+    public Date getVigenciaFinal() {   
+        if(vigenciaFinal == null) return new Date();
         return vigenciaFinal;
     }
 
@@ -183,6 +186,7 @@ public class Colecao implements Serializable {
     }
 
     public Character getGenero() {
+        if(genero == null) return Genero.MASCULINO.getDescricao();
         return genero;
     }
 
@@ -318,9 +322,10 @@ public class Colecao implements Serializable {
     
     public String getListaDeTagsTratada(){
         String retorno = "";
+        
         if(getTagList().size() <= 0) return retorno;
         
-        for (Tag tagList1 : tagList) {
+        for (Tag tagList1 : getTagList()) {
             retorno += (tagList1.getDescricao()+",");
         }
         retorno  = retorno.substring(0, retorno.length()-1);

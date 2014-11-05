@@ -7,6 +7,7 @@ package control;
 
 import domain.Categoria;
 import java.util.ArrayList;
+import javax.persistence.NoResultException;
 
 /**
  *
@@ -16,6 +17,17 @@ public class CategoryControl {
     
     public static ArrayList<Categoria> selectAll(){
         return new ArrayList(Conexao.namedQuery("Categoria.findAll"));
+    }
+    
+    public Categoria findById(Long id) {
+        Categoria marcaDeRetorno = new Categoria();
+        
+        try {
+            marcaDeRetorno = (Categoria) Conexao.singleResultNamedQuery("Categoria.findById", id, "id");
+        } catch (NoResultException e) {
+            e.printStackTrace();
+        }       
+        return marcaDeRetorno;
     }
     
 }

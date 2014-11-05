@@ -9,7 +9,6 @@ public class BrandControl {
 
     /**
      * Retorna todos as marcas cadastradas no banco de dados.
-     *
      * @return Lista de Marcas.
      */
     public ArrayList<Marca> selectAll() {

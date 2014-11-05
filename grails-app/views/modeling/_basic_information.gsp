@@ -35,8 +35,8 @@
 							<select id="main_collection" class="form-control input-small input-200">
 								<g:each var="brand" in="${brandList}">
 								<option><g:message code="${brand.getNome()}" /> </option>
-								</g:each>                                                                     
-							</select>
+								</g:each>                       
+							</select>                                                        
 						</div>
 					</div>
 					
@@ -89,11 +89,11 @@
 					<label class="col-md-2 control-label"><g:message code="modeling.table.column.gender"/></label>
 					<div class="col-md-6 radio-list">
 						<label class="radio-inline">
-						<input type="radio" name="optionsRadios" id="optionsRadios4" value="option1" checked tabindex="10"> <g:message code="report.form.edit.gender-male"/> </label>
+						<input type="radio" name="optionRadioGenre" id="optionsRadios4" value="M" tabindex="10" ${modeling.isMascChecked()}> <g:message code="report.form.edit.gender-male"/> </label>
 						<label class="radio-inline">
-						<input type="radio" name="optionsRadios" id="optionsRadios5" value="option2" tabindex="11"> <g:message code="report.form.edit.gender-female"/> </label>
+						<input type="radio" name="optionRadioGenre" id="optionsRadios5" value="F" tabindex="11" ${modeling.isFemChecked()}> <g:message code="report.form.edit.gender-female"/> </label>
 						<label class="radio-inline">
-						<input type="radio" name="optionsRadios" id="optionsRadios6" value="option3" tabindex="12"> <g:message code="report.form.edit.gender-unissex"/> </label>
+						<input type="radio" name="optionRadioGenre" id="optionsRadios6" value="U" tabindex="12" ${modeling.isUnissexChecked()}> <g:message code="report.form.edit.gender-unissex"/> </label>
 					</div>
 				</div>
 
@@ -102,7 +102,7 @@
 					<label class="col-md-2 control-label"><g:message code="modeling.form.edit.code"/></label>
 					<div class="col-md-2">
 						<div class="input-icon right">
-							<input type="text" class="form-control input-200">
+							<input type="text" class="form-control input-200" value="${modeling.getIdInternoIndustria()}">
 						</div>
 					</div>
 				</div>	
@@ -113,7 +113,7 @@
 					<label class="col-md-2 control-label"><g:message code="modeling.form.edit.description"/></label>
 					<div class="col-md-3">
 						<div class="input-icon right">
-							<textarea class="form-control input-xlarge" rows="6" maxlength="600"></textarea>
+							<textarea class="form-control input-xlarge" rows="6" maxlength="600"> ${modeling.getDescricao()} </textarea>
 						</div>
 					</div>
 				</div>

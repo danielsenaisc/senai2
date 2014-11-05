@@ -20,75 +20,74 @@
 
     </div>
 
-    <div class="portlet-body form">
-        <div role="form" class="form-horizontal">
-            <div class="form-body">
-                    <!-- LOCATION -->
-                <div class="form-group">
-                    <div class="col-md-4">
-                        <label class="control-label col-md-6"><g:message code="collection.form.edit.audiente.location"/></label>
-                        <div class="col-md-2" tabindex="9">
-                            <input id="location_tag" type="text" class="form-control tags medium" value="Brasil,EUA" />
-                        </div>
-                    </div>
-                </div>
-                <!-- AGE -->
-                <div class="form-group">
-                    <div class="col-md-6">
-                        <label class="col-md-4 control-label"><g:message code="collection.form.edit.audiente.ages"/></label>
-                        <div class="col-md-1" style="margin-left: 30px;">
-                            <div class="form-group">
-                                <div class="form-group">
-                                    <g:select name="age" from="${0..99}" value="${age}"
-                                        noSelection="['':' - ']" class="form-control input-small age-select" tabindex="10"/>
-                                </div>
-                            </div>
-                        </div>
+	<div class="portlet-body form">
+		<div role="form" class="form-horizontal">
+			<div class="form-body">
+				<!-- LOCATION -->
+				<div class="form-group">
+					<div class="col-md-4">
+						<label class="control-label col-md-6"><g:message code="collection.form.edit.audiente.location"/></label>
+						<div class="col-md-2" tabindex="9">
+							<input id="location_tag" type="text" class="form-control tags medium" value="${collection.getListaDePaisesTratada()}" />
+						</div>
+					</div>
+				</div>
+				<!-- AGE -->
+				<div class="form-group">
+					<div class="col-md-6">
+						<label class="col-md-4 control-label"><g:message code="collection.form.edit.audiente.ages"/></label>
+						<div class="col-md-1" style="margin-left: 30px;">
+							<div class="form-group">
+								<div class="form-group">
+									<g:select name="age" from="${0..99}" value="${collection.getIdadeInicial()}" noSelection="['':' - ']" class="form-control input-small age-select" tabindex="10"/>
+								</div>
+							</div>
+						</div>
 
                         <div class="col-md-1" >
                             <i class="fa fa-chevron-right" style="padding-top:16px;"></i>
                         </div>
 
-                        <div class="col-md-1" style="margin-left: 20px;">
-                            <div class="form-group">
-                                <div class="form-group">
-                                    <g:select name="age" from="${0..99}" value="${age}"
-                                        noSelection="['':' - ']" class="form-control input-small age-select" tabindex="11"/>
-                                </div>
-                            </div>
-                        </div>
-                    </div>	
-                </div>	
+						<div class="col-md-1" style="margin-left: 20px;">
+							<div class="form-group">
+								<div class="form-group">
+									<g:select name="age" from="${0..99}" value="${collection.getIdadeFinal()}"
+	          							noSelection="['':' - ']" class="form-control input-small age-select" tabindex="11"/>
+								</div>
+							</div>
+						</div>
+					</div>	
+				</div>	
 
-                                <!-- GENRE -->
-                <div class="form-group">
-                    <label class="col-md-2 control-label"><g:message code="product.table.column.gender"/></label>
-                    <div class="col-md-6 radio-list" >
-                        <label class="radio-inline">
-                            <input type="radio" name="optionsRadio" id="optionsRadios4" value="option1" tabindex="12" ${collection.isMascChecked()}> Masc. </label>
-                        <label class="radio-inline">
-                            <input type="radio" name="optionsRadio" id="optionsRadios5" value="option2" tabindex="13" ${collection.isFemChecked()}> Fem. </label>
-                        <label class="radio-inline">
-                            <input type="radio" name="optionsRadio" id="optionsRadios6" value="option3" tabindex="14" ${collection.isUnissexChecked()}> Unissex </label>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label class="control-label col-md-6"><g:message code="collection.form.edit.audiente.styles"/></label>
-                            <div class="col-md-6" tabindex="15">
-                                <input id="style_tag" type="text" class="form-control tags medium" value="Casual,Alternativo"/>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
-            </div>
-
-        </div>
-    </div>
+				<!-- GENRE -->
+				<div class="form-group">
+					<label class="col-md-2 control-label"> <g:message code="product.table.column.gender"/> </label>
+					<div class="col-md-6 radio-list" >
+						<label class="radio-inline">
+                                                <input type="radio" name="optionRadioGenre" id="optionsRadios4" value="M" tabindex="12" ${collection.isMascChecked()} > Masc. </label>
+						<label class="radio-inline">
+						<input type="radio" name="optionRadioGenre" id="optionsRadios5" value="F" tabindex="13" ${collection.isFemChecked()} > Fem. </label>
+						<label class="radio-inline">
+						<input type="radio" name="optionRadioGenre" id="optionsRadios6" value="U" tabindex="14" ${collection.isUnissexChecked()} > Unissex </label>
+					</div>
+				</div>
+                                <!-- STYLE -->
+				<div class="form-group">
+					<div class="col-md-4">
+						<div class="form-group">
+							<label class="control-label col-md-6"><g:message code="collection.form.edit.audiente.styles"/></label>
+							<div class="col-md-6" tabindex="15">
+								<input id="style_tag" type="text" class="form-control tags medium" value="${collection.getListaDeEstilosTratada()}"/>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				
+			</div>
+			
+		</div>
+	</div>
 </div>
 
 <script>

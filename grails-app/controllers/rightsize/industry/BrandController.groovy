@@ -17,8 +17,6 @@ class BrandController {
     def brandList;
     def brandChannelList;
     def channelList;
-    def brandLocationsList;
-    def brandStylesList;
     def audienceList;
     def countryList;
     
@@ -34,17 +32,13 @@ class BrandController {
         
         if(params.brandId != null && params.brandId.isLong()) brand = marcaControl.findById(params.brandId.toLong());  
         
-        brandStylesList = loadBrandStyles(brand);
         brandChannelList = loadBrandChannels(brand);
         channelList = loadChannels();
         audienceList = loadAudienceList();
         countryList = loadCountrys();
-        
-        brandLocationsList = brand.getLocationsList();
                 
         return [brand: brand , brandChannelList: brandChannelList, 
                 ageList: ageList, audienceList: audienceList, channelList: channelList,
-                brandLocationsList: brandLocationsList, brandStylesList: brandStylesList,
                 countryList: countryList]
     }
 

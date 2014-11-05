@@ -170,7 +170,7 @@ public class Categoria implements Serializable {
 
     @Override
     public String toString() {
-        return "domain.Categoria[ id=" + id + " ]";
+        return getDescricao();
     }
     
 }

@@ -7,6 +7,8 @@ package domain;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
@@ -133,6 +135,7 @@ public class Colecao implements Serializable {
     }
 
     public String getNome() {
+        if(nome == null) return "";
         return nome;
     }
 
@@ -141,14 +144,16 @@ public class Colecao implements Serializable {
     }
 
     public Date getVigenciaInicial() {
+        if(vigenciaInicial == null) return new Date();
         return vigenciaInicial;
     }
 
-    public void setVigenciaInicial(Date vigenciaInicial) {
+    public void setVigenciaInicial(Date vigenciaInicial) {        
         this.vigenciaInicial = vigenciaInicial;
     }
 
-    public Date getVigenciaFinal() {
+    public Date getVigenciaFinal() {   
+        if(vigenciaFinal == null) return new Date();
         return vigenciaFinal;
     }
 
@@ -157,6 +162,7 @@ public class Colecao implements Serializable {
     }
 
     public String getDescricao() {
+        if(descricao == null) return "";
         return descricao;
     }
 
@@ -165,6 +171,7 @@ public class Colecao implements Serializable {
     }
 
     public Long getIdadeInicial() {
+        if(idadeInicial == null) return 1l;
         return idadeInicial;
     }
 
@@ -173,6 +180,7 @@ public class Colecao implements Serializable {
     }
 
     public Long getIdadeFinal() {
+        if(idadeFinal == null) return 1l;
         return idadeFinal;
     }
 
@@ -181,6 +189,7 @@ public class Colecao implements Serializable {
     }
 
     public Character getGenero() {
+        if(genero == null) return ' ';
         return genero;
     }
 
@@ -189,6 +198,7 @@ public class Colecao implements Serializable {
     }
 
     public String getIdLivre() {
+        if(idLivre == null) return "";
         return idLivre;
     }
 
@@ -197,6 +207,7 @@ public class Colecao implements Serializable {
     }
 
     public Long getLikes() {
+        if(likes == null) return 0l;
         return likes;
     }
 
@@ -205,6 +216,7 @@ public class Colecao implements Serializable {
     }
 
     public Long getDislikes() {
+        if(dislikes == null) return 0l;
         return dislikes;
     }
 
@@ -213,7 +225,8 @@ public class Colecao implements Serializable {
     }
 
     @XmlTransient
-    public List<Tag> getTagList() {
+    public List<Tag> getTagList() {  
+        if(tagList == null) return new ArrayList();
         return tagList;
     }
 
@@ -223,6 +236,7 @@ public class Colecao implements Serializable {
 
     @XmlTransient
     public List<Pais> getPaisList() {
+        if(paisList == null) return new ArrayList();
         return paisList;
     }
 
@@ -232,6 +246,7 @@ public class Colecao implements Serializable {
 
     @XmlTransient
     public List<Estilo> getEstiloList() {
+        if(estiloList == null) return new ArrayList();
         return estiloList;
     }
 
@@ -241,6 +256,7 @@ public class Colecao implements Serializable {
 
     @XmlTransient
     public List<AnexoColecao> getAnexoColecaoList() {
+        if(anexoColecaoList == null) return new ArrayList();
         return anexoColecaoList;
     }
 
@@ -250,6 +266,7 @@ public class Colecao implements Serializable {
 
     @XmlTransient
     public List<Produtos> getProdutosList() {
+        if(produtosList == null) return new ArrayList();
         return produtosList;
     }
 
@@ -258,6 +275,7 @@ public class Colecao implements Serializable {
     }
 
     public Marca getMarcaId() {
+        if(marcaId == null) return new Marca();
         return marcaId;
     }
 
@@ -266,6 +284,7 @@ public class Colecao implements Serializable {
     }
 
     public ColecaoStatus getColecaoStatusId() {
+        if(colecaoStatusId == null) return new ColecaoStatus();
         return colecaoStatusId;
     }
 
@@ -295,15 +314,55 @@ public class Colecao implements Serializable {
 
     @Override
     public String toString() {
-        return "domain.Colecao[ id=" + id + " ]";
+        return getNome();
     }    
     
     public String getVigencia(){
+        //TODO revisar regras de negocio
     	if(vigenciaInicial == null) return "N/A";
     	if(vigenciaFinal == null) return "N/A";
     		
     	long diff = vigenciaFinal.getTime() - vigenciaInicial.getTime();
         return (diff / (1000 * 60 * 60 * 24))+" dias";
+    }            
+    
+    public String formataData(Date date){
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        return simpleDateFormat.format(date);
+    }    
+    
+    public String getListaDeTagsTratada(){
+        String retorno = "";
+        if(getTagList().size() <= 0) return retorno;
+        
+        for (Tag tagList1 : tagList) {
+            retorno += (tagList1.getDescricao()+",");
+        }
+        retorno  = retorno.substring(0, retorno.length()-1);
+        return retorno;
+    }
+    
+    public String getListaDePaisesTratada(){
+        String retorno = "";
+        if(getPaisList().size() <= 0) return retorno;
+        
+        for (Pais paisList1 : getPaisList()) {
+            retorno += (paisList1.getNome()+",");
+        }
+        retorno  = retorno.substring(0, retorno.length()-1);
+        return retorno;
+    }
+    
+    public String getListaDeEstilosTratada(){
+        String retorno = "";          
+        if(getEstiloList().size() <= 0) return retorno;
+        
+        for (Estilo estiloList1 : getEstiloList()) {
+            retorno += (estiloList1.getDescricao()+ ",");
+        }
+        
+        retorno = retorno.substring(0, retorno.length()-1);
+        return retorno;
     }
     
     public String isMascChecked(){
@@ -320,5 +379,4 @@ public class Colecao implements Serializable {
         if(getGenero().equals(Genero.UNISSEX.getDescricao())) return "checked";
         return "";
     }
-    
 }

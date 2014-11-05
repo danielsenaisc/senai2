@@ -3,7 +3,7 @@
 <div class="portlet-title">
 	
 	<div class="actions">
-		<a href="${createLink(controller:'collection',action:'create',params:[id:null])}" class="btn btn-default red btn-sm">
+		<a href="${createLink(controller:'collection',action:'create',params:[collectionId:null])}" class="btn btn-default red btn-sm">
 			<i class="fa fa-pencil">
 				</i> <g:message code="collection.form.action.new"/> 
 		</a>
@@ -63,23 +63,23 @@
 			<tr class="odd gradeX">
 				
 				<td>
-					<a href="${createLink(controller:'collection',action:'edit',params:[collectionId: collection.getId()])}" class="t-column">
+					<a href="${createLink(controller:'collection',action:'edit',params:[collectionId:collection.getId()])}" class="t-column">
 					 ${collection.getNome()}
 					</a>
 				</td>
-				<td><a href="${createLink(controller:'collection',action:'edit',params:[collectionId: collection.getId()])}" class="t-column">
+				<td><a href="${createLink(controller:'collection',action:'edit',params:[collectionId:collection.getId()])}" class="t-column">
 					 ${collection.getGenero()}</a>
 				</td>
-				<td><a href="${createLink(controller:'collection',action:'edit',params:[collectionId: collection.getId()])}" class="t-column">
+				<td><a href="${createLink(controller:'collection',action:'edit',params:[collectionId:collection.getId()])}" class="t-column">
 					 ${collection.getMarcaId().getNome()} </a>
 				</td>
-				<td><a href="${createLink(controller:'collection',action:'edit',params:[collectionId: collection.getId()])}" class="t-column">
+				<td><a href="${createLink(controller:'collection',action:'edit',params:[collectionId:collection.getId()])}" class="t-column">
 					 ${collection.getVigencia()} </a>
 				</td>
-				<td><a href="${createLink(controller:'collection',action:'edit',params:[collectionId: collection.getId()])}" class="t-column">
+				<td><a href="${createLink(controller:'collection',action:'edit',params:[collectionId:collection.getId()])}" class="t-column">
 					 ${collection.getProdutosList().size()} </a>
 				</td>
-				<td><a href="${createLink(controller:'collection',action:'edit',params:[collectionId: collection.getId()])}" class="t-column">
+				<td><a href="${createLink(controller:'collection',action:'edit',params:[collectionId:collection.getId()])}" class="t-column">
 					 ${collection.getColecaoStatusId().getDescricao()} </a>
 				</td>
 				

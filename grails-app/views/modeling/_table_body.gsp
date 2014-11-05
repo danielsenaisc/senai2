@@ -69,30 +69,30 @@
 			<tr class="odd gradeX">
 				
 				<td>
-					<a href="${createLink(controller:'modeling',action:'edit',params:[id:i])}" class="t-column">
+					<a href="${createLink(controller:'modeling',action:'edit',params:[modelingId:model.getId()])}" class="t-column">
 					 ${model.getNome()}
 					</a>
 				</td>
 				<td>
-					<a href="${createLink(controller:'modeling',action:'edit',params:[id:i])}" class="t-column">
+					<a href="${createLink(controller:'modeling',action:'edit',params:[modelingId:model.getId()])}" class="t-column">
 					 ${model.getMarcaList().size()}</a>
 				</td>
-				<td><a href="${createLink(controller:'modeling',action:'edit',params:[id:i])}" class="t-column">
+				<td><a href="${createLink(controller:'modeling',action:'edit',params:[modelingId:model.getId()])}" class="t-column">
 					 ${model.getCategoriaList().size()} </a>
 				</td>
-				<td><a href="${createLink(controller:'modeling',action:'edit',params:[id:i])}" class="t-column">
+				<td><a href="${createLink(controller:'modeling',action:'edit',params:[modelingId:model.getId()])}" class="t-column">
 					 ${model} </a>
 				</td>
-				<td><a href="${createLink(controller:'modeling',action:'edit',params:[id:i])}" class="t-column">
+				<td><a href="${createLink(controller:'modeling',action:'edit',params:[modelingId:model.getId()])}" class="t-column">
 					 ${model.getQuantidadeDeColecoes()} </a>
 				</td>
-				<td><a href="${createLink(controller:'modeling',action:'edit',params:[id:i])}" class="t-column">
+				<td><a href="${createLink(controller:'modeling',action:'edit',params:[modelingId:model.getId()])}" class="t-column">
 					 ${model.getQuantidadeDeProdutos()} </a>
 				</td>
-				<td><a href="${createLink(controller:'modeling',action:'edit',params:[id:i])}" class="t-column">
+				<td><a href="${createLink(controller:'modeling',action:'edit',params:[modelingId:model.getId()])}" class="t-column">
 					 ${model} </a>
 				</td>
-				<td><a href="${createLink(controller:'modeling',action:'edit',params:[id:i])}" class="t-column">
+				<td><a href="${createLink(controller:'modeling',action:'edit',params:[modelingId:model.getId()])}" class="t-column">
 					 ${model.getStatusTratado()} </a>
 				</td>
 				

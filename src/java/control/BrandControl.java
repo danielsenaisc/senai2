@@ -1,6 +1,7 @@
 package control;
 
 import java.util.ArrayList;
+
 import domain.Marca;
 import javax.persistence.NoResultException;
 

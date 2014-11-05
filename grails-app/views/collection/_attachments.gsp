@@ -56,17 +56,17 @@
 							<i class="glyphicon glyphicon-picture" style="font-size:20px;"></i>
 						</td>
 						<td>
-							${attachment}
+							${attachment.getTitulo()}
 						</td>
 						<td>
-							${attachment}
+							${attachment.getDescricao()}
 						</td>
 						<td>
-							${attachment}
+							${attachment.getTipoAnexoId().getDescricao()}
 						</td>
 						
 						<td>
-							${attachment}
+							${attachment.getTipoAnexoId().getDescricaoReduzida()}
 						</td>
 						
 						<td>

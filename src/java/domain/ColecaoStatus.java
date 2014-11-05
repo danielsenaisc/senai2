@@ -108,7 +108,7 @@ public class ColecaoStatus implements Serializable {
 
     @Override
     public String toString() {
-        return "domain.ColecaoStatus[ id=" + id + " ]";
+        return getDescricao();
     }
     
 }

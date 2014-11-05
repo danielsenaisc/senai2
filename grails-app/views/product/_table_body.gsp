@@ -76,24 +76,24 @@
 					<i class="glyphicon glyphicon-picture" style="font-size:20px;" class="t-column"></i>
 				</td>
 				<td>
-					<a href="${createLink(controller:'product',action:'edit',params:[id:i])}" class="t-column">
+					<a href="${createLink(controller:'product',action:'edit',params:[productId:product.getId()])}" class="t-column">
 					 ${product.getNome()}
 					</a>
 				</td>
 				<td>
-					<a href="${createLink(controller:'product',action:'edit',params:[id:i])}" class="t-column">
+					<a href="${createLink(controller:'product',action:'edit',params:[productId:product.getId()])}" class="t-column">
 					 ${product.getCategoriaId().getDescricao()}</a>
 				</td>
-				<td><a href="${createLink(controller:'product',action:'edit',params:[id:i])}" class="t-column">
+				<td><a href="${createLink(controller:'product',action:'edit',params:[productId:product.getId()])}" class="t-column">
 					 ${product.getGenero()} </a>
 				</td>
-				<td><a href="${createLink(controller:'product',action:'edit',params:[id:i])}" class="t-column">
+				<td><a href="${createLink(controller:'product',action:'edit',params:[productId:product.getId()])}" class="t-column">
 					 ${product.getColecaoId().getNome()} </a>
 				</td>
-				<td><a href="${createLink(controller:'product',action:'edit',params:[id:i])}" class="t-column">
+				<td><a href="${createLink(controller:'product',action:'edit',params:[productId:product.getId()])}" class="t-column">
 					 ${product.getQuantidadeVariantes()} </a>
 				</td>
-				<td><a href="${createLink(controller:'product',action:'edit',params:[id:i])}" class="t-column">
+				<td><a href="${createLink(controller:'product',action:'edit',params:[productId:product.getId()])}" class="t-column">
 					 ${product.getStatusTratado()} </a>
 				</td>
 				

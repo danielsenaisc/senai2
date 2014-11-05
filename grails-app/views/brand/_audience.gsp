@@ -20,7 +20,7 @@
                     <div class="col-md-4">
                         <label class="control-label col-md-6"><g:message code="brand.form.edit.audiente.location"/></label>
                         <div class="col-md-2" tabindex="7">
-                            <input name="brandAudienceLocalization" id="location_tag" type="text" class="form-control tags medium" value="${brand.getLocationsListTratado}"/>
+                            <input name="brandAudienceLocalization" id="location_tag" type="text" class="form-control tags medium" value="${brand.getLocationsListTratado()}"/>
                         </div>
                     </div>
                 </div>

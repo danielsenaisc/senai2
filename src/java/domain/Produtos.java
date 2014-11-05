@@ -7,6 +7,7 @@ package domain;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -26,6 +27,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import utils.Genero;
 import utils.OracleBoolean;
 
 /**
@@ -45,13 +47,14 @@ import utils.OracleBoolean;
     @NamedQuery(name = "Produtos.findByDescricao", query = "SELECT p FROM Produtos p WHERE p.descricao = :descricao"),
     @NamedQuery(name = "Produtos.findByLikes", query = "SELECT p FROM Produtos p WHERE p.likes = :likes"),
     @NamedQuery(name = "Produtos.findByDislikes", query = "SELECT p FROM Produtos p WHERE p.dislikes = :dislikes")})
-    @NamedQuery(name = "Produtos.selectOrderByLikes", query = "SELECT p FROM Produtos p ORDER BY likes")
+@NamedQuery(name = "Produtos.selectOrderByLikes", query = "SELECT p FROM Produtos p ORDER BY likes")
 public class Produtos implements Serializable {
+
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PRODUTOS_SEQ")
-    @SequenceGenerator(name = "PRODUTOS_SEQ", sequenceName="PRODUTOS_SEQ")
+    @SequenceGenerator(name = "PRODUTOS_SEQ", sequenceName = "PRODUTOS_SEQ")
     @Basic(optional = false)
     @Column(name = "ID", nullable = false, precision = 19, scale = 0)
     private BigDecimal id;
@@ -96,6 +99,7 @@ public class Produtos implements Serializable {
     }
 
     public String getNome() {
+        if(nome == null) return "";
         return nome;
     }
 
@@ -104,6 +108,7 @@ public class Produtos implements Serializable {
     }
 
     public Character getStatus() {
+        if(status == null) return ' ';
         return status;
     }
 
@@ -112,6 +117,7 @@ public class Produtos implements Serializable {
     }
 
     public Character getGenero() {
+        if(genero == null) return ' ';
         return genero;
     }
 
@@ -120,6 +126,7 @@ public class Produtos implements Serializable {
     }
 
     public String getReferencia() {
+        if(referencia == null) return "";
         return referencia;
     }
 
@@ -128,6 +135,7 @@ public class Produtos implements Serializable {
     }
 
     public String getDescricao() {
+        if(descricao == null) return "";
         return descricao;
     }
 
@@ -136,6 +144,7 @@ public class Produtos implements Serializable {
     }
 
     public Long getLikes() {
+        if(likes == null) return 0l;
         return likes;
     }
 
@@ -144,6 +153,7 @@ public class Produtos implements Serializable {
     }
 
     public Long getDislikes() {
+        if(dislikes == null) return 0l;
         return dislikes;
     }
 
@@ -153,6 +163,7 @@ public class Produtos implements Serializable {
 
     @XmlTransient
     public List<Tag> getTagList() {
+        if(tagList == null) return new ArrayList();
         return tagList;
     }
 
@@ -162,6 +173,7 @@ public class Produtos implements Serializable {
 
     @XmlTransient
     public List<TipoMedidaProdutos> getTipoMedidaProdutosList() {
+        if(tipoMedidaProdutosList == null) return new ArrayList();
         return tipoMedidaProdutosList;
     }
 
@@ -208,6 +220,44 @@ public class Produtos implements Serializable {
     @Override
     public String toString() {
         return "domain.Produtos[ id=" + id + " ]";
+    }
+
+    public String getListaDeTagsTratada() {
+        String retorno = "";
+        if(getTagList().size() <= 0) return retorno;
+        
+        for (Tag tagList1 : getTagList()) {
+            retorno += (tagList1.getDescricao() + ",");
+        }
+        
+        retorno = retorno.substring(0, retorno.length() - 1);
+
+        return retorno;
+    }
+
+    public String isMascChecked() {
+        if (getGenero().equals(Genero.MASCULINO.getDescricao())) return "checked";
+        return "";
+    }
+
+    public String isFemChecked() {
+        if (getGenero().equals(Genero.FEMININO.getDescricao())) return "checked";
+        return "";
+    }
+
+    public String isUnissexChecked() {
+        if (getGenero().equals(Genero.UNISSEX.getDescricao())) return "checked";
+        return "";
+    }
+    
+    public String isActiveChecked(){
+        if(getStatus().equals(OracleBoolean.TRUE.getValue())) return "checked";
+        return "";
+    }
+    
+    public String isInactiveChecked(){
+        if(getStatus().equals(OracleBoolean.FALSE.getValue())) return "checked";
+        return "";
     }
     
     //TODO rever Regras de Negocio

@@ -268,4 +268,14 @@ public class Produtos implements Serializable {
         if(getStatus().equals(OracleBoolean.FALSE.getValue())) return "checked";
         return "";
     }
+    //TODO rever Regras de Negocio
+    public int getQuantidadeVariantes(){
+        return 0;
+    }
+    
+    public String getStatusTratado(){
+        if(getStatus().equals(OracleBoolean.TRUE.getValue())) return "Ativo";
+        return "Inativo";
+    }
+    
 }

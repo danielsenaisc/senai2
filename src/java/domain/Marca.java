@@ -29,6 +29,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import utils.OracleBoolean;
 
 /**
  *
@@ -53,7 +54,6 @@ public class Marca implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "MARCA_SEQ")
     @SequenceGenerator(name = "MARCA_SEQ", sequenceName="MARCA_SEQ")
-
     @Basic(optional = false)
     @Column(name = "ID", nullable = false)
     private Long id;
@@ -267,10 +267,17 @@ public class Marca implements Serializable {
     
     public int getQuantidadeProdutos(){
         int quantidadeDeProdutos = 0;
-        for (Colecao colecaoList1 : getColecaoList()) {
-          quantidadeDeProdutos += colecaoList1.getProdutosList().size();
-        }        
+        
+        for (Colecao colecaoList: getColecaoList()) {
+            quantidadeDeProdutos += colecaoList.getProdutosList().size();
+        }
+        
         return quantidadeDeProdutos;
+    }
+    
+    public String getStatusTratado(){
+        if(getStatus() == OracleBoolean.TRUE.getValue()) return "Ativo";
+        return "Inativo";
     }
     
 }

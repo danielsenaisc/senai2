@@ -8,6 +8,7 @@ package domain;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Objects;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -183,16 +184,19 @@ public class Modelagem implements Serializable {
         return "domain.Modelagem[ id=" + id + " ]";
     }
     
+    //TODO Rever Regra de Negócio
     public int getQuantidadeDeColecoes(){
         return 0;
     }
     
+    //TODO Rever Regra de Negócio
     public int getQuantidadeDeProdutos(){
         return 0;
     }
     
     public String getStatusTratado(){
-        if(getStatus().equals(OracleBoolean.TRUE.getValue())) return "Ativo";
+        if(Objects.equals(getStatus(), OracleBoolean.TRUE.getValue())) return "Ativo";
         return "Inativo";
     }
+    
 }

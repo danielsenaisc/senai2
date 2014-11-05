@@ -1,30 +1,30 @@
 <!DOCTYPE html>
 
 <div class="portlet-title">
-
-    <div class="actions">
-        <a href="${createLink(controller:'brand',action:'create',params:[id:0])}" class="btn btn-default red btn-sm">
-            <i class="fa fa-pencil">
-            </i> <g:message code="brand.form.action.new"/> 
-        </a>
-        <div class="btn-group">
-            <a class="btn btn-default grey-default btn-sm" href="#" data-toggle="dropdown">
-                <i class="fa fa-cogs"></i> <g:message code="product.form.actions"/> <i class="fa fa-angle-down"></i>
-            </a>
-            <ul class="dropdown-menu pull-right">
-                <li>
-                    <a href="#">
-                        <i class="fa fa-plus-circle"></i> <g:message code="product.form.actions.enable"/> </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <i class="fa fa-minus-circle"></i> <g:message code="product.form.actions.disable"/> </a>
-                </li>
-            </ul>
-
-        </div>
-
-    </div>
+		
+	<div class="actions">
+		<a href="${createLink(controller:'brand',action:'edit',params:[id:0])}" class="btn btn-default red btn-sm">
+			<i class="fa fa-pencil">
+				</i> <g:message code="brand.form.action.new"/> 
+		</a>
+		<div class="btn-group">
+			<a class="btn btn-default grey-default btn-sm" href="#" data-toggle="dropdown">
+				<i class="fa fa-cogs"></i> <g:message code="product.form.actions"/> <i class="fa fa-angle-down"></i>
+			</a>
+			<ul class="dropdown-menu pull-right">
+				<li>
+					<a href="#">
+					<i class="fa fa-plus-circle"></i> <g:message code="product.form.actions.enable"/> </a>
+				</li>
+				<li>
+					<a href="#">
+					<i class="fa fa-minus-circle"></i> <g:message code="product.form.actions.disable"/> </a>
+				</li>
+			</ul>
+			
+		</div>
+		
+	</div>
 </div>
 
 <div class="portlet-body">

@@ -6,12 +6,13 @@ import domain.Marca;
 import javax.persistence.NoResultException;
 
 public class BrandControl {
-	
-	/**
-	 * Retorna todos as marcas cadastradas no banco de dados.
-	 * @return Lista de Marcas.
-	 */
-	public ArrayList<Marca> selectAll() {
+
+    /**
+     * Retorna todos as marcas cadastradas no banco de dados.
+     *
+     * @return Lista de Marcas.
+     */
+    public ArrayList<Marca> selectAll() {
         return new ArrayList(Conexao.namedQuery("Marca.findAll"));
     }
 

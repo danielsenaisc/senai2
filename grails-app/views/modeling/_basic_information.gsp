@@ -22,20 +22,20 @@
 					<label class="col-md-2 control-label"><g:message code="modeling.table.column.name"/></label>
 					<div class="col-md-3">
 						<div class="input-icon right">
-							<input id="product_name" type="text" class="form-control input-xlarge">
+							<input id="product_name" type="text" class="form-control input-xlarge" name="modelName" value="${modeling.getNome()}">
 						</div>
 					</div>
 				</div>
 
-				<!-- COLLECTION -->
+				<!-- BRAND -->
 				<div class="form-group">
 					<label class="col-md-2 control-label"><g:message code="modeling.form.edit.brand"/></label>
 					<div class="col-md-2" style="margin-right: 10px; margin-left: 12px;">
 						<div class="form-group">
 							<select id="main_collection" class="form-control input-small input-200">
-								<option>Levis</option>
-								<option>Hering</option>
-								<option>Aleatory</option>
+								<g:each var="brand" in="${brandList}">
+								<option><g:message code="${brand.getNome()}" /> </option>
+								</g:each>                                                                     
 							</select>
 						</div>
 					</div>

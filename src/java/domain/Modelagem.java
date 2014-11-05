@@ -24,6 +24,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import utils.OracleBoolean;
 
 /**
  *
@@ -182,4 +183,16 @@ public class Modelagem implements Serializable {
         return "domain.Modelagem[ id=" + id + " ]";
     }
     
+    public int getQuantidadeDeColecoes(){
+        return 0;
+    }
+    
+    public int getQuantidadeDeProdutos(){
+        return 0;
+    }
+    
+    public String getStatusTratado(){
+        if(getStatus().equals(OracleBoolean.TRUE.getValue())) return "Ativo";
+        return "Inativo";
+    }
 }

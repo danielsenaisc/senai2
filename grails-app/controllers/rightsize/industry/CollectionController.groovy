@@ -1,15 +1,24 @@
 package rightsize.industry
 
+import control.AttachmentCollectionControl
+import control.BrandControl
+import control.CategoryControl
 import control.CollectionControl;
+import control.CollectionStatusControl
 import domain.Colecao;
+import domain.ColecaoStatus
 
 class CollectionController {
 	CollectionControl colecaoControl = new CollectionControl();
+        BrandControl marcaControl = new BrandControl();       
+        CategoryControl categoryControl = new CategoryControl();
+        CollectionStatusControl colecaoStatusControl = new CollectionStatusControl();
+        AttachmentCollectionControl anexoColecaoControl = new AttachmentCollectionControl();
 
     def LOREN_IPSUM = "Lorem ipsum";
 
     def collectionList = new ArrayList();
-    def statusList = new ArrayList();
+    def statusList = new ArrayList<ColecaoStatus>();
     def userList = new ArrayList();
     def attachmentsList = new ArrayList();
     def brandList = new ArrayList();
@@ -22,12 +31,17 @@ class CollectionController {
 
 
     def edit() { 
+        Colecao collection = new Colecao();      
+        
+        if(params.collectionId != null && params.collectionId.isBigDecimal()) collection = colecaoControl.findById(params.collectionId.toBigDecimal());
+        
+        println(params.collectionId);
+        
         statusList = loadStatus();
         userList = loadUser();
         attachmentsList = loadAttachments();
-        brandList = loadBrands();
-    	
-        [statusList: statusList, userList: userList, attachmentsList: attachmentsList, brandList: brandList]
+        brandList = loadBrands();       
+        return [collection: collection, statusList: statusList, userList: userList, attachmentsList: attachmentsList, brandList: brandList]
 
     }
 
@@ -38,28 +52,15 @@ class CollectionController {
     private
 
     def loadCollection(){
-		return colecaoControl.selectAll();
+	return colecaoControl.selectAll();
     }
 
-     def loadBrands(){
-        
-        brandList = new ArrayList();
-        for ( i in 0..15 ) {
-            brandList.add(LOREN_IPSUM + " " + i);
-        }
-        return brandList
+     def loadBrands(){        
+        return marcaControl.selectAll();
     }
 
     def loadStatus(){
-        
-        statusList = new ArrayList();
-        
-        statusList.add("Pré-Lançamento");
-        statusList.add("Ativa");
-        statusList.add("Inativa");
-        statusList.add("Expirada");
-        
-        return statusList
+        return colecaoStatusControl.selectAll();             
     }
 
     def loadUser(){
@@ -75,14 +76,7 @@ class CollectionController {
         return userList
     }
 
-    def loadAttachments(){
-        
-        attachmentsList = new ArrayList();
-        
-        for ( i in 0..2 ) {
-            attachmentsList.add(LOREN_IPSUM + " " + i);
-        }
-        return attachmentsList
-        
+    def loadAttachments(){        
+        return anexoColecaoControl.selectAll();        
     }
 }

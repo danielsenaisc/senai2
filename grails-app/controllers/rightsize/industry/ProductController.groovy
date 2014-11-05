@@ -1,14 +1,19 @@
 package rightsize.industry
 
+import control.CollectionControl
 import control.ProductControl;
+import domain.Produtos
 
 class ProductController {
-	ProductControl produtoControl = new ProductControl();
-
-	def productList = new ArrayList();
+    
+    ProductControl produtoControl = new ProductControl();
+    CollectionControl colecaoControl = new CollectionControl();
+    
+    def productList = new ArrayList();
     def gradeList = new ArrayList();
     def variantList = new ArrayList();
     def attrlist = new ArrayList();
+    def collectionList = new ArrayList();
 
     def LOREN_IPSUM = "Lorem ipsum"
 	
@@ -19,12 +24,18 @@ class ProductController {
     }
 
     def edit() { 
+        Produtos product = new Produtos();  
+        
+        if(params.productId != null && params.productId.isBigDecimal()) product = produtoControl.findById(params.productId.toBigDecimal());        
+        
+        collectionList = loadCollection();
         gradeList = loadGrade();
         variantList = loadVariant();
         productList = loadProduct();
-        attrlist = loadAttribs();
+        attrlist = loadAttribs();    
+       
 
-        [gradeList: gradeList, variantList: variantList, 
+        return [collectionList: collectionList, product: product, gradeList: gradeList, variantList: variantList, 
         productList: productList, 
         attachmentList:[ "/css/global/plugins/jcrop/demos/demo_files/image1.jpg",
                         "/css/global/plugins/jcrop/demos/demo_files/image1.jpg"],
@@ -36,7 +47,8 @@ class ProductController {
     }
 
     private loadProduct(){
-		return produtoControl.selectAll();
+        if(produtoControl.selectAll().size() <= 0) new ArrayList();
+	return produtoControl.selectAll();
     }
 
     private loadGrade(){
@@ -75,5 +87,10 @@ class ProductController {
 
     private getRamdon(){
         return Math.abs(new Random().nextInt() % 500 + 1)
+    }
+    
+    private loadCollection(){
+	if(colecaoControl.selectAll().size() <=0) new ArrayList();
+        return colecaoControl.selectAll();
     }
 }

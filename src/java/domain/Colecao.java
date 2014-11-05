@@ -7,6 +7,8 @@ package domain;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
@@ -30,6 +32,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import utils.Genero;
 
 /**
  *
@@ -143,11 +146,11 @@ public class Colecao implements Serializable {
         return vigenciaInicial;
     }
 
-    public void setVigenciaInicial(Date vigenciaInicial) {
+    public void setVigenciaInicial(Date vigenciaInicial) {        
         this.vigenciaInicial = vigenciaInicial;
     }
 
-    public Date getVigenciaFinal() {
+    public Date getVigenciaFinal() {        
         return vigenciaFinal;
     }
 
@@ -212,7 +215,8 @@ public class Colecao implements Serializable {
     }
 
     @XmlTransient
-    public List<Tag> getTagList() {
+    public List<Tag> getTagList() {  
+        if(tagList == null) return new ArrayList();
         return tagList;
     }
 
@@ -222,6 +226,7 @@ public class Colecao implements Serializable {
 
     @XmlTransient
     public List<Pais> getPaisList() {
+        if(paisList == null) return new ArrayList();
         return paisList;
     }
 
@@ -231,6 +236,7 @@ public class Colecao implements Serializable {
 
     @XmlTransient
     public List<Estilo> getEstiloList() {
+        if(estiloList == null) return new ArrayList();
         return estiloList;
     }
 
@@ -294,7 +300,7 @@ public class Colecao implements Serializable {
 
     @Override
     public String toString() {
-        return "domain.Colecao[ id=" + id + " ]";
+        return getDescricao();
     }    
     
     public String getVigencia(){
@@ -303,6 +309,59 @@ public class Colecao implements Serializable {
     		
     	long diff = vigenciaFinal.getTime() - vigenciaInicial.getTime();
         return (diff / (1000 * 60 * 60 * 24))+" dias";
+    }            
+    
+    public String formataData(Date date){
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        return sdf.format(date);
+    }    
+    
+    public String getListaDeTagsTratada(){
+        String retorno = "";
+        if(getTagList().size() <= 0) return retorno;
+        
+        for (Tag tagList1 : tagList) {
+            retorno += (tagList1.getDescricao()+",");
+        }
+        retorno  = retorno.substring(0, retorno.length()-1);
+        return retorno;
     }
     
+    public String getListaDePaisesTratada(){
+        String retorno = "";
+        if(getPaisList().size() <= 0) return retorno;
+        
+        for (Pais paisList1 : getPaisList()) {
+            retorno += (paisList1.getNome()+",");
+        }
+        retorno  = retorno.substring(0, retorno.length()-1);
+        return retorno;
+    }
+    
+    public String getListaDeEstilosTratada(){
+        String retorno = "";          
+        if(getEstiloList().size() <= 0) return retorno;
+        
+        for (Estilo estiloList1 : getEstiloList()) {
+            retorno += (estiloList1.getDescricao()+ ",");
+        }
+        
+        retorno = retorno.substring(0, retorno.length()-1);
+        return retorno;
+    }
+    
+    public String isMascChecked(){
+        if(getGenero().equals(Genero.MASCULINO.getDescricao())) return "checked";
+        return "";
+    }
+    
+    public String isFemChecked(){
+        if(getGenero().equals(Genero.FEMININO.getDescricao())) return "checked";
+        return "";
+    }
+    
+    public String isUnissexChecked(){
+        if(getGenero().equals(Genero.UNISSEX.getDescricao())) return "checked";
+        return "";
+    }
 }

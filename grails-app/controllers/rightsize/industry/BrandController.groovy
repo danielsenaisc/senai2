@@ -59,7 +59,7 @@ class BrandController {
         return canalControl.selectAll();
     }
 	 
-	def merge(){
-		println("Mergando");
+    def merge(){
+		println("Merjando");
 	}
 }

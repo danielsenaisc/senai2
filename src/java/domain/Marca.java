@@ -265,4 +265,12 @@ public class Marca implements Serializable {
         return "domain.Marca[ id=" + id + " ]";
     }
     
+    public int getQuantidadeProdutos(){
+        int quantidadeDeProdutos = 0;
+        for (Colecao colecaoList1 : getColecaoList()) {
+          quantidadeDeProdutos += colecaoList1.getProdutosList().size();
+        }        
+        return quantidadeDeProdutos;
+    }
+    
 }

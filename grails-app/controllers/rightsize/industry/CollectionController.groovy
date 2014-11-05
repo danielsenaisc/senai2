@@ -5,6 +5,7 @@ import domain.Colecao;
 
 class CollectionController {
 	CollectionControl colecaoControl = new CollectionControl();
+    
 
     def LOREN_IPSUM = "Lorem ipsum";
 
@@ -22,12 +23,17 @@ class CollectionController {
 
 
     def edit() { 
+        Colecao collection = new Colecao();
+        println(params.collectionId);
+        
+        if(params.collectionId != null && params.collectionId.isBigDecimal()) collection = colecaoControl.findById(params.collectionId.toBigDecimal());
+        
         statusList = loadStatus();
         userList = loadUser();
         attachmentsList = loadAttachments();
         brandList = loadBrands();
     	
-        [statusList: statusList, userList: userList, attachmentsList: attachmentsList, brandList: brandList]
+        return [collection: collection, statusList: statusList, userList: userList, attachmentsList: attachmentsList, brandList: brandList]
 
     }
 

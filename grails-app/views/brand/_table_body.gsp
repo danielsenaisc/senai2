@@ -3,7 +3,7 @@
 <div class="portlet-title">
 		
 	<div class="actions">
-		<a href="${createLink(controller:'brand',action:'edit',params:[id:0])}" class="btn btn-default red btn-sm">
+		<a href="${createLink(controller:'brand',action:'edit',params:[brandId:null])}" class="btn btn-default red btn-sm">
 			<i class="fa fa-pencil">
 				</i> <g:message code="brand.form.action.new"/> 
 		</a>
@@ -60,18 +60,18 @@
                         <i class="glyphicon glyphicon-picture" style="font-size:20px;" class="t-column"></i>
                     </td>
                     <td>
-                        <a href="${createLink(controller:'brand',action:'edit',params:[brand:brand.getId()])}" class="t-column">
+                        <a href="${createLink(controller:'brand',action:'edit',params:[brandId:brand.getId()])}" class="t-column">
                             ${brand.getNome()}
                         </a>
                     </td>
                     <td>
-                        <a href="${createLink(controller:'brand',action:'edit',params:[brand:brand.getId()])}" class="t-column">
+                        <a href="${createLink(controller:'brand',action:'edit',params:[brandId:brand.getId()])}" class="t-column">
                             ${brand.getColecaoList().size()}</a>
                     </td>
-                    <td><a href="${createLink(controller:'brand',action:'edit',params:[brand:brand.getId()])}" class="t-column">
+                    <td><a href="${createLink(controller:'brand',action:'edit',params:[brandId:brand.getId()])}" class="t-column">
                             ${brand.getQuantidadeProdutos()} </a>
                     </td>
-                    <td><a href="${createLink(controller:'brand',action:'edit',params:[brand:brand.getId()])}" class="t-column">
+                    <td><a href="${createLink(controller:'brand',action:'edit',params:[brandId:brand.getId()])}" class="t-column">
                             ${brand.getStatusTratado()} </a>
                     </td>
 

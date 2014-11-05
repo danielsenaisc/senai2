@@ -107,7 +107,7 @@ public class Abrangencia implements Serializable {
 
     @Override
     public String toString() {
-        return "domain.Abrangencia[ id=" + id + " ]";
+        return getDescricao();
     }
     
 }

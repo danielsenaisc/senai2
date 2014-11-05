@@ -40,13 +40,11 @@ public class BrandControl {
 
     public Marca findById(Long id) {
         Marca marcaDeRetorno = new Marca();
-        
         try {
-            marcaDeRetorno = (Marca) Conexao.singleResultNamedQuery("Marca.findByCodigo", id, "codigo");
+            marcaDeRetorno = (Marca) Conexao.singleResultNamedQuery("Marca.findById", id, "id");
         } catch (NoResultException e) {
-            e.printStackTrace();
+            //TODO tratar
         }
-        
         return marcaDeRetorno;
     }
 }

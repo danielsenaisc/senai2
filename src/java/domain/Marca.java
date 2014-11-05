@@ -6,6 +6,8 @@
 package domain;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
@@ -29,6 +31,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import utils.Genero;
 import utils.OracleBoolean;
 
 /**
@@ -124,6 +127,7 @@ public class Marca implements Serializable {
     }
 
     public String getNome() {
+        if(nome == null) return "";
         return nome;
     }
 
@@ -132,6 +136,7 @@ public class Marca implements Serializable {
     }
 
     public String getDescricao() {
+        if(descricao == null) return "";
         return descricao;
     }
 
@@ -140,6 +145,7 @@ public class Marca implements Serializable {
     }
 
     public String getLogomarca() {
+        //TODO ver metodo de tratamento null
         return logomarca;
     }
 
@@ -148,6 +154,7 @@ public class Marca implements Serializable {
     }
 
     public Date getDataCriacao() {
+        if(dataCriacao == null) return new Date();
         return dataCriacao;
     }
 
@@ -156,6 +163,7 @@ public class Marca implements Serializable {
     }
 
     public Character getGenero() {
+        if(genero == null) return ' ';
         return genero;
     }
 
@@ -164,6 +172,7 @@ public class Marca implements Serializable {
     }
 
     public long getIdadeInicial() {
+        //TODO checar retorno null
         return idadeInicial;
     }
 
@@ -172,6 +181,7 @@ public class Marca implements Serializable {
     }
 
     public long getIdadeFinal() {
+        //TODO checar retorno null
         return idadeFinal;
     }
 
@@ -180,6 +190,7 @@ public class Marca implements Serializable {
     }
 
     public Character getStatus() {
+        if(status == null) return ' ';
         return status;
     }
 
@@ -189,6 +200,7 @@ public class Marca implements Serializable {
 
     @XmlTransient
     public List<Estilo> getEstiloList() {
+        if(estiloList == null) return new ArrayList();
         return estiloList;
     }
 
@@ -198,6 +210,7 @@ public class Marca implements Serializable {
 
     @XmlTransient
     public List<Modelagem> getModelagemList() {
+        if(modelagemList == null) return new ArrayList();
         return modelagemList;
     }
 
@@ -207,6 +220,7 @@ public class Marca implements Serializable {
 
     @XmlTransient
     public List<Pais> getPaisList() {
+        if(paisList == null) return new ArrayList();
         return paisList;
     }
 
@@ -216,6 +230,7 @@ public class Marca implements Serializable {
 
     @XmlTransient
     public List<MarcaCanal> getMarcaCanalList() {
+        if(marcaCanalList == null) return new ArrayList();
         return marcaCanalList;
     }
 
@@ -233,6 +248,7 @@ public class Marca implements Serializable {
 
     @XmlTransient
     public List<Colecao> getColecaoList() {
+        if(colecaoList == null) return new ArrayList();
         return colecaoList;
     }
 
@@ -265,6 +281,8 @@ public class Marca implements Serializable {
         return "domain.Marca[ id=" + id + " ]";
     }
     
+    /* CUSTOM METHODS */
+    
     public int getQuantidadeProdutos(){
         int quantidadeDeProdutos = 0;
         
@@ -280,4 +298,66 @@ public class Marca implements Serializable {
         return "Inativo";
     }
     
+    public String getDataCriacaoTratada(){
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        return dateFormat.format(getDataCriacao());
+    }
+    
+    public String isMascChecked(){
+        if(getGenero().equals(Genero.MASCULINO.getDescricao())) return "checked";
+        return "";
+    }
+    
+    public String isFemChecked(){
+        if(getGenero().equals(Genero.FEMININO.getDescricao())) return "checked";
+        return "";
+    }
+    
+    public String isUnissexChecked(){
+        if(getGenero().equals(Genero.UNISSEX.getDescricao())) return "checked";
+        return "";
+    }
+    
+    public String getEstiloListTratado(){
+        String retorno = "";
+        
+        if(getEstiloList().size() <= 0) return retorno;
+        
+        for (Estilo style : getEstiloList()) {
+            retorno += (style.getDescricao()+",");
+        }
+        
+        retorno = retorno.substring(0, retorno.length()-1);
+
+        return retorno;
+    }
+    
+    public String getLocationsListTratado(){
+        String retorno = "";
+        
+        if(getPaisList().size() <= 0) return retorno;
+        
+        for (Pais location : getPaisList()) {
+            retorno += (location.getNome()+",");
+        }
+        
+        retorno = retorno.substring(0, retorno.length()-1);
+        
+        return retorno;
+    }
+    
+    public Pais getDefaultCountry(){
+        //TODO implementar regra para retorno de Marca > Pais
+        return new Pais();
+    }
+    
+    public String isActive(){
+        if(getStatus().equals(OracleBoolean.TRUE.getValue())) return "checked";
+        return "";
+    }
+    
+    public String isInactive(){
+        if(getStatus().equals(OracleBoolean.FALSE.getValue())) return "checked";
+        return "";
+    }
 }

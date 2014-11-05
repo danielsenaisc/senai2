@@ -45,7 +45,7 @@ public class Canal implements Serializable {
     private Long id;
     @Basic(optional = false)
     @Column(name = "DESCRICAO", nullable = false, length = 100)
-    private String descricao;
+    public String descricao;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "canalId", fetch = FetchType.LAZY)
     private List<MarcaCanal> marcaCanalList;
 
@@ -108,7 +108,7 @@ public class Canal implements Serializable {
 
     @Override
     public String toString() {
-        return "domain.Canal[ id=" + id + " ]";
+        return getDescricao();
     }
     
 }

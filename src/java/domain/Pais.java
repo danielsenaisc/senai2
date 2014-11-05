@@ -179,7 +179,7 @@ public class Pais implements Serializable {
 
     @Override
     public String toString() {
-        return "domain.Pais[ id=" + id + " ]";
+        return getNome();
     }
     
 }

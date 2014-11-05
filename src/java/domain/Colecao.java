@@ -30,6 +30,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import utils.Genero;
 
 /**
  *
@@ -303,6 +304,21 @@ public class Colecao implements Serializable {
     		
     	long diff = vigenciaFinal.getTime() - vigenciaInicial.getTime();
         return (diff / (1000 * 60 * 60 * 24))+" dias";
+    }
+    
+    public String isMascChecked(){
+        if(getGenero().equals(Genero.MASCULINO.getDescricao())) return "checked";
+        return "";
+    }
+    
+    public String isFemChecked(){
+        if(getGenero().equals(Genero.FEMININO.getDescricao())) return "checked";
+        return "";
+    }
+    
+    public String isUnissexChecked(){
+        if(getGenero().equals(Genero.UNISSEX.getDescricao())) return "checked";
+        return "";
     }
     
 }

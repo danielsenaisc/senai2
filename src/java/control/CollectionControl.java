@@ -3,6 +3,7 @@ package control;
 import java.util.ArrayList;
 
 import domain.Colecao;
+import java.math.BigDecimal;
 
 public class CollectionControl {
 
@@ -69,5 +70,9 @@ public class CollectionControl {
 	public static void update(Colecao colecao){
 		//TODO
 	}
+        
+        public Colecao findById(BigDecimal id){
+            return (Colecao) Conexao.singleResultNamedQuery("Colecao.findById", id, "id");        
+        }
 	
 }

@@ -63,7 +63,7 @@ public class CollectionControl {
      *
      * @param colecao Colecao a ser adicionada no banco.
      */
-    public static void add(Colecao colecao) {
+    public void add(Colecao colecao) {
         Conexao.persist(colecao);
     }
 
@@ -72,12 +72,12 @@ public class CollectionControl {
      *
      * @param colecao Colecao a ser removida permanentemente no banco.
      */
-    public static void delete(Colecao colecao) {
+    public void delete(Colecao colecao) {
         Conexao.remove(colecao);
     }
 
     //TODO
-    public static void update(Colecao colecao) {
+    public void update(Colecao colecao) {
         //TODO
     }
 

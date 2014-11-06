@@ -14,7 +14,7 @@ import java.util.ArrayList;
  */
 public class CategoryControl {
     
-    public static ArrayList<Categoria> selectAll(){
+    public ArrayList<Categoria> selectAll(){
         return new ArrayList(Conexao.namedQuery("Categoria.findAll"));
     }
     

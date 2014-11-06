@@ -98,9 +98,9 @@
                     </div>
                     <div  class="col-md-4">
                         <label class="radio-inline">
-                            <input type="radio" name="isBrandActive" id="optionsRadios4" value="true" tabindex="5" ${brand.isActive()} > Ativa </label>
+                            <input type="radio" name="isBrandActive" id="optionsRadios4" value="Y" tabindex="5" ${brand.isActive()} > Ativa </label>
                         <label class="radio-inline">
-                            <input type="radio" name="isBrandActive" id="optionsRadios5" value="false" tabindex="6" ${brand.isInactive()} > Inativa </label>
+                            <input type="radio" name="isBrandActive" id="optionsRadios5" value="N" tabindex="6" ${brand.isInactive()} > Inativa </label>
                     </div>
                 </div>
 

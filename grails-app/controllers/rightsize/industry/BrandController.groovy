@@ -4,11 +4,18 @@ import control.AbrangenceControl
 import control.BrandControl
 import control.ChannelControl
 import control.CountryControl
+import control.IndustryControl
 import domain.Canal
 import domain.Estilo
+import domain.Industria
 import domain.Marca
+import utils.Formatter;
 
 class BrandController {
+    Industria industriaAtual;
+    int idIndustria = 100;
+    
+    IndustryControl industryControl = new IndustryControl();
     BrandControl marcaControl = new BrandControl();
     ChannelControl canalControl = new ChannelControl();
     CountryControl paisControl = new CountryControl();
@@ -78,13 +85,34 @@ class BrandController {
         //TODO novaMarca.setImage()
         //TODO novaMarca.novoPais();
         
-//        novaMarca.setNome(params.brandName);
-//        novaMarca.setDescricao(params.brandDescription);
-//        novaMarca.setDataCriacao(params.brandCreationDate);
-//        novaMarca.setStatus(params.isBrandActive.toBoolean());
+        novaMarca.setNome(params.brandName);
+        novaMarca.setDescricao(params.brandDescription);
+        novaMarca.setDataCriacao(Formatter.stringToDate(params.brandCreationDate));
+        novaMarca.setStatus(params.isBrandActive.toCharacter());
 
+        //TODO channels table
+        //criaCanaisAssociadosAMarca(/* params allChannels  */);
         
-        println(params);
+        //TODO estrategia correta para adicionar localizacoes
+//        println(params.brandAudienceLocalization);
+        
+        novaMarca.setIdadeInicial(params.brandInitialAge.toLong());
+        novaMarca.setIdadeFinal(params.brandFinalAge.toLong());
+        novaMarca.setGenero(params.brandOptionRadioGenre.toCharacter());
+        
+        //TODO Elaborar estrategia correta para adicionar estilos
+//        println(params.brandAudienceStyles)
+
+        industriaAtual = industryControl.findById(new BigDecimal(idIndustria));
+        
+        novaMarca.setIndustriaId(industriaAtual);
+        
+        try{
+            marcaControl.add(novaMarca);
+        }catch(NullPointerException ex){
+            //TODO rotina de campos nulos
+            println("EXISTEM CAMPOS NAO POPULADOS CORRETAMENTE...");
+        }
         
         redirect(controller:"brand", action:"index");
     }

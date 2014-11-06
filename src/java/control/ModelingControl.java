@@ -34,7 +34,7 @@ public class ModelingControl {
      *
      * @param modelagem Modelagem a ser adicionada no banco.
      */
-    public static void add(Modelagem modelagem) {
+    public void add(Modelagem modelagem) {
         Conexao.persist(modelagem);
     }
 
@@ -43,7 +43,7 @@ public class ModelingControl {
      *
      * @param modelagem Modelagem a ser removida permanentemente no banco.
      */
-    public static void delete(Modelagem modelagem) {
+    public void delete(Modelagem modelagem) {
         Conexao.remove(modelagem);
     }
 
@@ -52,7 +52,7 @@ public class ModelingControl {
         //TODO
     }
 
-    public static Modelagem findById(BigDecimal id){
+    public Modelagem findById(BigDecimal id){
         Modelagem modelagemDeRetorno = new Modelagem();        
         try {
             modelagemDeRetorno = (Modelagem) Conexao.singleResultNamedQuery("Modelagem.findById", id, "id");

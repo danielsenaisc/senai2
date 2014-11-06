@@ -6,6 +6,7 @@
 package domain;
 
 import java.io.Serializable;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -360,4 +361,13 @@ public class Marca implements Serializable {
         if(getStatus().equals(OracleBoolean.FALSE.getValue())) return "checked";
         return "";
     }
+    
+    public void setDataCriacao(String dataCriacao){
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        try{
+        this.dataCriacao = simpleDateFormat.parse(dataCriacao);
+        }catch(ParseException ex){
+            ex.printStackTrace();
+        }
+        }
 }

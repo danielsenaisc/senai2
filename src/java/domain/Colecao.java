@@ -324,12 +324,7 @@ public class Colecao implements Serializable {
     		
     	long diff = vigenciaFinal.getTime() - vigenciaInicial.getTime();
         return (diff / (1000 * 60 * 60 * 24))+" dias";
-    }            
-    
-    public String formataData(Date date){
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        return simpleDateFormat.format(date);
-    }    
+    }   
     
     public String getListaDeTagsTratada(){
         String retorno = "";

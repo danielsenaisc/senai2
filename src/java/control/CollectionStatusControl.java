@@ -13,9 +13,9 @@ import java.util.ArrayList;
  * @author IST-08-PC
  */
 public class CollectionStatusControl {
-    
-    public ArrayList<ColecaoStatus> selectAll(){       
+
+    public ArrayList<ColecaoStatus> selectAll() {
         return new ArrayList(Conexao.namedQuery("ColecaoStatus.findAll"));
-    }    
-    
+    }
+
 }

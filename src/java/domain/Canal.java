@@ -35,10 +35,11 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Canal.findById", query = "SELECT c FROM Canal c WHERE c.id = :id"),
     @NamedQuery(name = "Canal.findByDescricao", query = "SELECT c FROM Canal c WHERE c.descricao = :descricao")})
 public class Canal implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CANAL_SEQ")
-    @SequenceGenerator(name = "CANAL_SEQ", sequenceName="CANAL_SEQ")
+    @SequenceGenerator(name = "CANAL_SEQ", sequenceName = "CANAL_SEQ")
 
     @Basic(optional = false)
     @Column(name = "ID", nullable = false)
@@ -110,5 +111,5 @@ public class Canal implements Serializable {
     public String toString() {
         return getDescricao();
     }
-    
+
 }

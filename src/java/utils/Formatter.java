@@ -14,14 +14,15 @@ import java.util.Date;
  * @author Gustavo Calandrini
  */
 public class Formatter {
+
     private static SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
-    
-    public static String formataData(Date date){
+
+    public static String formataData(Date date) {
         return simpleDateFormat.format(date);
-    } 
-    
+    }
+
     public static Date stringToDate(String stringDate) throws ParseException {
         return simpleDateFormat.parse(stringDate);
     }
-    
+
 }

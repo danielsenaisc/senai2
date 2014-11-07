@@ -13,9 +13,9 @@ import java.math.BigDecimal;
  * @author Gustavo Calandrini
  */
 public class IndustryControl {
-    
-    public static Industria findById(BigDecimal id){
+
+    public static Industria findById(BigDecimal id) {
         return (Industria) Conexao.singleResultNamedQuery("Industria.findById", id, "id");
     }
-    
+
 }

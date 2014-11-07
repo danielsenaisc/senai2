@@ -52,13 +52,13 @@ public class ModelingControl {
         //TODO
     }
 
-    public Modelagem findById(BigDecimal id){
-        Modelagem modelagemDeRetorno = new Modelagem();        
+    public Modelagem findById(BigDecimal id) {
+        Modelagem modelagemDeRetorno = new Modelagem();
         try {
             modelagemDeRetorno = (Modelagem) Conexao.singleResultNamedQuery("Modelagem.findById", id, "id");
         } catch (NoResultException e) {
             System.out.println(e.getMessage());
-        }       
+        }
         return modelagemDeRetorno;
     }
 }

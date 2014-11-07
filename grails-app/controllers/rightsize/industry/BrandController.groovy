@@ -45,8 +45,8 @@ class BrandController {
         countryList = loadCountrys();
                 
         return [brand: brand , brandChannelList: brandChannelList, 
-                ageList: ageList, audienceList: audienceList, channelList: channelList,
-                countryList: countryList]
+            ageList: ageList, audienceList: audienceList, channelList: channelList,
+            countryList: countryList]
     }
 
     def loadBrand(){
@@ -75,13 +75,15 @@ class BrandController {
     }
     
     private def isSelected(Long matchItem, Long listItem){
-            if(matchItem == listItem) return "checked"
-            return "";
+        if(matchItem == listItem) return "checked"
+        return "";
     }
     
     def saveBrand(){
-
         Marca novaMarca = new Marca();
+        
+        if(params.brandId != null && params.brandId.isLong()) novaMarca = marcaControl.findById(params.brandId.toLong());
+        
         //TODO novaMarca.setImage()
         //TODO novaMarca.novoPais();
         
@@ -94,14 +96,14 @@ class BrandController {
         //criaCanaisAssociadosAMarca(/* params allChannels  */);
         
         //TODO estrategia correta para adicionar localizacoes
-//        println(params.brandAudienceLocalization);
+        //        println(params.brandAudienceLocalization);
         
         novaMarca.setIdadeInicial(params.brandInitialAge.toLong());
         novaMarca.setIdadeFinal(params.brandFinalAge.toLong());
         novaMarca.setGenero(params.brandOptionRadioGenre.toCharacter());
         
         //TODO Elaborar estrategia correta para adicionar estilos
-//        println(params.brandAudienceStyles)
+        //        println(params.brandAudienceStyles)
 
         industriaAtual = industryControl.findById(new BigDecimal(idIndustria));
         
@@ -113,6 +115,8 @@ class BrandController {
             //TODO rotina de campos nulos
             println("EXISTEM CAMPOS NAO POPULADOS CORRETAMENTE...");
         }
+
+        println(novaMarca.getId());
         
         redirect(controller:"brand", action:"index");
     }

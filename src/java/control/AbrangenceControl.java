@@ -13,7 +13,7 @@ import java.util.ArrayList;
  * @author Gustavo Calandrini
  */
 public class AbrangenceControl {
-    
+
     /**
      * Retorna todos as Abrangencias cadastradas no banco de dados.
      *

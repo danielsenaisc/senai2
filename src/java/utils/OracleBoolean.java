@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package utils;
 
 /**
@@ -11,9 +10,10 @@ package utils;
  * @author Gustavo Calandrini
  */
 public enum OracleBoolean {
+
     TRUE('Y'),
     FALSE('N');
-    
+
     Character value;
 
     private OracleBoolean(Character value) {
@@ -31,7 +31,5 @@ public enum OracleBoolean {
     public Character getValue() {
         return value;
     }
-    
-    
-    
+
 }

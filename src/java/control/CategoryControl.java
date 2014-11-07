@@ -14,8 +14,8 @@ import javax.persistence.NoResultException;
  * @author IST-08-PC
  */
 public class CategoryControl {
-    
-    public static ArrayList<Categoria> selectAll(){
+
+    public ArrayList<Categoria> selectAll() {
         return new ArrayList(Conexao.namedQuery("Categoria.findAll"));
     }
     

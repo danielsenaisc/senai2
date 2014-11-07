@@ -14,7 +14,7 @@ public class ProductControl {
      *
      * @return Lista de Produtos.
      */
-    public static ArrayList<Produtos> selectAll() {
+    public ArrayList<Produtos> selectAll() {
         return new ArrayList(Conexao.namedQuery("Produtos.findAll"));
     }
 
@@ -23,7 +23,7 @@ public class ProductControl {
      *
      * @param produto Produto a ser adicionado no banco.
      */
-    public static void add(Produtos produto) {
+    public void add(Produtos produto) {
         Conexao.persist(produto);
     }
 
@@ -32,12 +32,12 @@ public class ProductControl {
      *
      * @param produto Produto a ser removido permanentemente no banco.
      */
-    public static void delete(Produtos produto) {
+    public void delete(Produtos produto) {
         Conexao.remove(produto);
     }
 
     //TODO
-    public static void update(BigDecimal id) {
+    public void update(BigDecimal id) {
         //TODO
     }
 
@@ -47,7 +47,7 @@ public class ProductControl {
      * @param status TRUE/FALSE.
      * @return Uma lista de produtos.
      */
-    public static ArrayList<Produtos> findByStatus(OracleBoolean status) {
+    public ArrayList<Produtos> findByStatus(OracleBoolean status) {
         return new ArrayList(Conexao.namedQuery("Produtos.findByStatus", status.getValue(), "status"));
     }
 
@@ -57,7 +57,7 @@ public class ProductControl {
      *
      * @return Uma lista de produtos ordenada.
      */
-    public static ArrayList<Produtos> listByLikes() {
+    public ArrayList<Produtos> listByLikes() {
         return new ArrayList(Conexao.namedQuery("Produtos.selectOrderByLikes"));
     }
 
@@ -67,7 +67,7 @@ public class ProductControl {
      *
      * @return Uma lista de produtos.
      */
-    public static ArrayList<Produtos> getBestProducts() {
+    public ArrayList<Produtos> getBestProducts() {
         ArrayList<Produtos> result = new ArrayList<Produtos>();
 
         for (Produtos produtos : listByLikes()) {
@@ -87,7 +87,7 @@ public class ProductControl {
      * @return Um produto com id correspondente Caso nao seja encontrado retorna
      * null.
      */
-    public static Produtos findById(BigDecimal id) {
+    public Produtos findById(BigDecimal id) {
         Produtos produtoDeRetorno = new Produtos();
 
         try {

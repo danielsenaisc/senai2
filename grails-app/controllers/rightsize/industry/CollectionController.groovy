@@ -9,11 +9,11 @@ import domain.Colecao;
 import domain.ColecaoStatus
 
 class CollectionController {
-	CollectionControl colecaoControl = new CollectionControl();
-        BrandControl marcaControl = new BrandControl();       
-        CategoryControl categoryControl = new CategoryControl();
-        CollectionStatusControl colecaoStatusControl = new CollectionStatusControl();
-        AttachmentCollectionControl anexoColecaoControl = new AttachmentCollectionControl();
+    CollectionControl colecaoControl = new CollectionControl();
+    BrandControl marcaControl = new BrandControl();       
+    CategoryControl categoryControl = new CategoryControl();
+    CollectionStatusControl colecaoStatusControl = new CollectionStatusControl();
+    AttachmentCollectionControl anexoColecaoControl = new AttachmentCollectionControl();
 
     def LOREN_IPSUM = "Lorem ipsum";
 
@@ -35,8 +35,6 @@ class CollectionController {
         
         if(params.collectionId != null && params.collectionId.isBigDecimal()) collection = colecaoControl.findById(params.collectionId.toBigDecimal());
         
-        println(params.collectionId);
-        
         statusList = loadStatus();
         userList = loadUser();
         attachmentsList = loadAttachments();
@@ -55,7 +53,7 @@ class CollectionController {
 	return colecaoControl.selectAll();
     }
 
-     def loadBrands(){        
+    def loadBrands(){        
         return marcaControl.selectAll();
     }
 

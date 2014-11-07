@@ -38,11 +38,12 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "TamanhoTipoGrade.findById", query = "SELECT t FROM TamanhoTipoGrade t WHERE t.id = :id"),
     @NamedQuery(name = "TamanhoTipoGrade.findByDescricao", query = "SELECT t FROM TamanhoTipoGrade t WHERE t.descricao = :descricao")})
 public class TamanhoTipoGrade implements Serializable {
+
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "TAMANHO_TIPO_GRADE_SEQ")
-    @SequenceGenerator(name = "TAMANHO_TIPO_GRADE_SEQ", sequenceName="TAMANHO_TIPO_GRADE_SEQ")
+    @SequenceGenerator(name = "TAMANHO_TIPO_GRADE_SEQ", sequenceName = "TAMANHO_TIPO_GRADE_SEQ")
 
     @Basic(optional = false)
     @Column(name = "ID", nullable = false, precision = 19, scale = 0)
@@ -136,5 +137,5 @@ public class TamanhoTipoGrade implements Serializable {
     public String toString() {
         return "domain.TamanhoTipoGrade[ id=" + id + " ]";
     }
-    
+
 }

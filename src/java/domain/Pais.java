@@ -40,10 +40,11 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Pais.findBySigla", query = "SELECT p FROM Pais p WHERE p.sigla = :sigla"),
     @NamedQuery(name = "Pais.findByNacionalidade", query = "SELECT p FROM Pais p WHERE p.nacionalidade = :nacionalidade")})
 public class Pais implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PAIS_SEQ")
-    @SequenceGenerator(name = "PAIS_SEQ", sequenceName="PAIS_SEQ")
+    @SequenceGenerator(name = "PAIS_SEQ", sequenceName = "PAIS_SEQ")
 
     @Basic(optional = false)
     @Column(name = "ID", nullable = false)
@@ -179,7 +180,7 @@ public class Pais implements Serializable {
 
     @Override
     public String toString() {
-        return "domain.Pais[ id=" + id + " ]";
+        return getNome();
     }
-    
+
 }

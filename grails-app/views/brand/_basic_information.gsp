@@ -24,7 +24,7 @@
                             <label class="col-md-3 control-label"><g:message code="brand.table.column.name"/></label>
                             <div class="col-md-3">
                                 <div class="input-icon right">
-                                    <input id="brand_name" type="text" class="form-control input-xlarge col-wid399" tabindex="1" name="brandName" value="${brand.getNome()}">
+                                    <input name="brandName" id="brand_name" type="text" class="form-control input-xlarge col-wid399" tabindex="1" value="${brand.getNome()}">
                                 </div>
                             </div>
 
@@ -34,7 +34,7 @@
                             <label class="col-md-3 control-label"><g:message code="brand.form.edit.description"/></label>
                             <div class="col-md-3">
                                 <div class="input-icon right">
-                                    <textarea class="form-control input-xlarge col-wid399" rows="7" tabindex="2" maxlength="600" name="brandDescription">${brand.getDescricao()}</textarea>
+                                    <textarea name="brandDescription" class="form-control input-xlarge col-wid399" rows="7" tabindex="2" maxlength="600">${brand.getDescricao()}</textarea>
                                 </div>
                             </div>
                         </div>
@@ -78,7 +78,7 @@
                             <g:message code="brand.form.edit.dt_created"/>
                         </label>
                         <div  class="col-md-4 col-wd148">
-                            <input id="date-picker" class="form-control form-control-inline input-small date-picker" size="16" type="text" value="" tabindex="3"/></i>
+                            <input name="brandCreationDate" id="date-picker" class="form-control form-control-inline input-small date-picker" size="16" type="text" value="${brand.getDataCriacaoTratada()}" tabindex="3"/></i>
                         </div>
                     </div>
                     <!-- COUNTRY -->
@@ -86,11 +86,7 @@
                         <label class="control-label col-md-2"><g:message code="brand.form.edit.country"/></label>
                         <div class="col-md-8" style="margin-right: 10px; margin-left: 12px;">
                             <div class="form-group">
-                                <select class="form-control input-small col-wd148" tabindex="4">
-                                    <option>Brasil</option>
-                                    <option>EUA</option>
-                                    <option>Itália</option>
-                                </select>
+                                <g:select name="countryListComboBox" from="${countryList}" value="${brand.getDefaultCountry()}" class="form-control input-small col-wd148" tabindex="4"/>
                             </div>
                         </div>
                     </div>	
@@ -102,9 +98,9 @@
                     </div>
                     <div  class="col-md-4">
                         <label class="radio-inline">
-                            <input type="radio" name="optionsRadioAtiva" id="optionsRadios4" value="option1" checked tabindex="5" > Ativa </label>
+                            <input type="radio" name="isBrandActive" id="optionsRadios4" value="Y" tabindex="5" ${brand.isActive()} > Ativa </label>
                         <label class="radio-inline">
-                            <input type="radio" name="optionsRadioInativa" id="optionsRadios5" value="option2" tabindex="6"> Inativa </label>
+                            <input type="radio" name="isBrandActive" id="optionsRadios5" value="N" tabindex="6" ${brand.isInactive()} > Inativa </label>
                     </div>
                 </div>
 

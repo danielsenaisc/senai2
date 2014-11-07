@@ -38,20 +38,20 @@ class UserController {
     	
     	userList = new ArrayList();
     	for ( i in 0..15 ) {
-		    userList.add(LOREN_IPSUM + " " + i);
-		}
-		return userList
+            userList.add(LOREN_IPSUM + " " + i);
+        }
+        return userList
     }
 
     def loadLanguages(){
     	
     	languageList = new ArrayList();
     	
-		languageList.add("Português");
-		languageList.add("Ingles");
-		languageList.add("Espanhol");
+        languageList.add("Português");
+        languageList.add("Ingles");
+        languageList.add("Espanhol");
 
-		return languageList
+        return languageList
     }
 
     def loadPermissions(){

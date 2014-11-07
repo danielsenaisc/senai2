@@ -4,13 +4,12 @@
     <div class="portlet-title">
         <div class="caption">
             <g:message code="collection.form.edit.basic"/>
-
             <a href="javascript:;" class="popovers" data-container="body" data-trigger="hover" data-content="Como realizar esse cadastro!" data-original-title="Mais informações" data-placement="top">
                 <i class="fa fa-info-circle popovers" ></i> 
             </a>
-
         </div>
     </div>
+
 
         <!-- BASIC INFORMATION -->
     <div class="portlet-body form">
@@ -34,9 +33,9 @@
                             <div class="col-md-8" style="margin-right: 10px; margin-left: 12px;">
                                 <div class="form-group">
                                     <select class="form-control input-medium brand-select" tabindex="2"/>
-                                        <g:each var="brand" in="${brandList}">
-                                            <option> <g:message code="${brand.getNome()}"/> </option>
-                                        </g:each>
+                                    <g:each var="brand" in="${brandList}">
+                                        <option> <g:message code="${brand.getNome()}"/> </option>
+                                    </g:each>
                                     </select>
                                 </div>
                             </div>
@@ -100,11 +99,7 @@
                             <label class="control-label col-md-3"><g:message code="collection.form.edit.status"/></label>
                             <div class="col-md-6" style="margin-left: 14px;">
                                 <div class="form-group">
-                                    <select class="form-control input-sm" tabindex="8">
-                                        <g:each var="status" in="${statusList}">
-                                            <option> <g:message code="${status.getDescricao()}"/> </option>
-                                        </g:each>
-                                    </select>
+                                    <g:select name="statusListComboBox" from="${statusList}" value="${collection.getColecaoStatusId()}" class="form-control input-sm" tabindex="8" />
                                 </div>
                             </div>
 
@@ -152,7 +147,6 @@
 
         </div>
     </div>
-
 
 </div>
 

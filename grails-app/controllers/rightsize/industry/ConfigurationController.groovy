@@ -34,17 +34,17 @@ class ConfigurationController {
         indicationCount = getRamdon();
 
     	[languageList: languageList,
-         brandCount: brandCount,
-         collectionCount: collectionCount,
-         variantCount: variantCount,
-         storageCount: storageCount,
-         viewCount: viewCount,
-         compareCount: compareCount,
-         indicationCount: indicationCount,
-         userCount: userCount,
-         trafficCount: trafficCount,
-         indicationCount: indicationCount,
-         productCount: productCount ]
+            brandCount: brandCount,
+            collectionCount: collectionCount,
+            variantCount: variantCount,
+            storageCount: storageCount,
+            viewCount: viewCount,
+            compareCount: compareCount,
+            indicationCount: indicationCount,
+            userCount: userCount,
+            trafficCount: trafficCount,
+            indicationCount: indicationCount,
+            productCount: productCount ]
     	
     }
 

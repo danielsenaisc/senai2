@@ -1,24 +1,24 @@
 <!DOCTYPE html>
 <!-- AUDIENCE -->
 <div class="portlet box blue-madison">
-	<div class="portlet-title">
-		<div class="caption">
-			<g:message code="collection.form.edit.audience"/>
-			<a href="javascript:;" class="popovers" data-container="body" data-trigger="hover" 
-			data-content="Como realizar esse cadastro!" data-original-title="Mais informações" data-placement="top">
-				<i class="fa fa-info-circle popovers" ></i> 
-			</a>
-		</div>
-		<div class="actions">
-			<a class="btn btn-default btn-sm" data-toggle="modal" href="#restore_collections">
-				<i class="fa fa-copy"></i> <g:message code="collection.form.edit.audience.restore"/> 
-			</a>
-		</div>
+    <div class="portlet-title">
+        <div class="caption">
+            <g:message code="collection.form.edit.audience"/>
+            <a href="javascript:;" class="popovers" data-container="body" data-trigger="hover" 
+            data-content="Como realizar esse cadastro!" data-original-title="Mais informações" data-placement="top">
+            <i class="fa fa-info-circle popovers" ></i> 
+            </a>
+        </div>
+        <div class="actions">
+            <a class="btn btn-default btn-sm" data-toggle="modal" href="#restore_collections">
+                <i class="fa fa-copy"></i> <g:message code="collection.form.edit.audience.restore"/> 
+            </a>
+        </div>
 
-		<!-- RESTORE MODELS MODAL -->
-		<g:render template="/collection/restore_collections"/>
+                <!-- RESTORE MODELS MODAL -->
+        <g:render template="/collection/restore_collections"/>
 
-	</div>
+    </div>
 
 	<div class="portlet-body form">
 		<div role="form" class="form-horizontal">
@@ -44,9 +44,9 @@
 							</div>
 						</div>
 
-						<div class="col-md-1" >
-							<i class="fa fa-chevron-right" style="padding-top:16px;"></i>
-						</div>
+                        <div class="col-md-1" >
+                            <i class="fa fa-chevron-right" style="padding-top:16px;"></i>
+                        </div>
 
 						<div class="col-md-1" style="margin-left: 20px;">
 							<div class="form-group">
@@ -90,19 +90,19 @@
 </div>
 
 <script>
-	jQuery(document).ready(function() {   
-		
-        $("#location_tag").select2({
-        	width: 300,
-        	'defaultText':'nova tag...',
-            tags: ["Loren Ipsum", "Loren Ipsum", "Loren Ipsum"]
-        });
+    jQuery(document).ready(function() {   
 
-        $("#style_tag").select2({
-        	width: 300,
-        	'defaultText':'nova tag...',
-            tags: ["Loren Ipsum", "Loren Ipsum", "Loren Ipsum"]
-        });
+    $("#location_tag").select2({
+    width: 300,
+    'defaultText':'nova tag...',
+    tags: ["Loren Ipsum", "Loren Ipsum", "Loren Ipsum"]
+    });
 
-	});
+    $("#style_tag").select2({
+    width: 300,
+    'defaultText':'nova tag...',
+    tags: ["Loren Ipsum", "Loren Ipsum", "Loren Ipsum"]
+    });
+
+    });
 </script>

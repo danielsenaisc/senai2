@@ -28,7 +28,6 @@ class ModelingController {
         Modelagem modeling = new Modelagem();     
         
         if(params.modelingId != null && params.modelingId.isBigDecimal()) modeling = modelagemControl.findById(params.modelingId.toBigDecimal());         
-        println(params.modelingId);
         modelList = loadModels();
         brandList = loadBrand();
         categoryList = loadCategory();       

@@ -3,8 +3,8 @@ package rightsize.industry
 class ImportController {
 
     def productList = [];
-	def summaryList = [];
-	def LOREN_IPSUM = "Lorem ipsum"
+    def summaryList = [];
+    def LOREN_IPSUM = "Lorem ipsum"
 
     def index() { }
 
@@ -19,10 +19,10 @@ class ImportController {
 
 
     	[paramDate: paramDate,
-    	 paramFileSize: paramFileSize,
-    	 paramCode: paramCode,
-    	 summaryList: summaryList,
-         productList: productList
+            paramFileSize: paramFileSize,
+            paramCode: paramCode,
+            summaryList: summaryList,
+            productList: productList
     	]
 
     }
@@ -40,9 +40,9 @@ class ImportController {
     	
     	summaryList = new ArrayList();
     	for ( i in 0..4 ) {
-		    summaryList.add(LOREN_IPSUM);
-		}
-		return summaryList
+            summaryList.add(LOREN_IPSUM);
+        }
+        return summaryList
     }
 
     private getRamdon(){

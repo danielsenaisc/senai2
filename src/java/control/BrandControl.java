@@ -20,7 +20,10 @@ public class BrandControl {
      *
      * @param marca Marca a ser adicionada no banco.
      */
-    public static void add(Marca marca) {
+    public void add(Marca marca) throws NullPointerException {
+        if (hasNullValues(marca)) {
+            throw new NullPointerException();
+        }
         Conexao.persist(marca);
     }
 
@@ -29,24 +32,51 @@ public class BrandControl {
      *
      * @param marca Marca a ser removida permanentemente no banco.
      */
-    public static void delete(Marca marca) {
+    public void delete(Marca marca) {
         Conexao.remove(marca);
     }
 
     //TODO
-    public static void update(Marca marca) {
-        //TODO
+    public void update(Marca marca) {
+
     }
 
     public Marca findById(Long id) {
         Marca marcaDeRetorno = new Marca();
-        
         try {
             marcaDeRetorno = (Marca) Conexao.singleResultNamedQuery("Marca.findById", id, "id");
         } catch (NoResultException e) {
-            e.printStackTrace();
+            //TODO tratar
         }
-        
         return marcaDeRetorno;
     }
+
+    private boolean hasNullValues(Marca marca) {
+        if (marca.getNome().equals("")) {
+            return true;
+        }
+        System.out.println("nome ok");
+        if (marca.getDataCriacao() == null) {
+            return true;
+        }
+        System.out.println("data ok");
+        if (marca.getIdadeInicial() == 0l) {
+            return true;
+        }
+        System.out.println("idade inicial ok");
+        if (marca.getIdadeFinal() == 0l) {
+            return true;
+        }
+        System.out.println("idade final ok");
+        if (marca.getStatus().equals(' ')) {
+            return true;
+        }
+        System.out.println("status ok");
+        if (marca.getIndustriaId() == null) {
+            return true;
+        }
+        System.out.println("industriaID ok");
+        return false;
+    }
+
 }

@@ -89,8 +89,8 @@
 			</div>
 
 			<div class="form-actions right" style="text-align:right; padding-right:20px;">
-				<button type="submit" class="btn default"><g:message code="button.default.cancel"/></button>
-				<button type="submit" class="btn blue-madison"><g:message code="button.default.save"/></button>
+                            <button type="submit" class="btn default"><g:message code="button.default.cancel"/></button>
+                            <button type="submit" formaction="${createLink(controller:'brand',action:'saveBrand',params:[brandId:brand.getId()])}" class="btn blue-madison"><g:message code="button.default.save"/></button>
 			</div>
 
 			</g:form>	

@@ -41,10 +41,11 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Categoria.findByImagem", query = "SELECT c FROM Categoria c WHERE c.imagem = :imagem"),
     @NamedQuery(name = "Categoria.findByDescricao", query = "SELECT c FROM Categoria c WHERE c.descricao = :descricao")})
 public class Categoria implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CATEGORIA_SEQ")
-    @SequenceGenerator(name = "CATEGORIA_SEQ", sequenceName="CATEGORIA_SEQ")
+    @SequenceGenerator(name = "CATEGORIA_SEQ", sequenceName = "CATEGORIA_SEQ")
 
     @Basic(optional = false)
     @Column(name = "ID", nullable = false)
@@ -170,7 +171,7 @@ public class Categoria implements Serializable {
 
     @Override
     public String toString() {
-        return "domain.Categoria[ id=" + id + " ]";
+        return getDescricao();
     }
-    
+
 }

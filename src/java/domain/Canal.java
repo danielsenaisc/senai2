@@ -35,17 +35,18 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Canal.findById", query = "SELECT c FROM Canal c WHERE c.id = :id"),
     @NamedQuery(name = "Canal.findByDescricao", query = "SELECT c FROM Canal c WHERE c.descricao = :descricao")})
 public class Canal implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CANAL_SEQ")
-    @SequenceGenerator(name = "CANAL_SEQ", sequenceName="CANAL_SEQ")
+    @SequenceGenerator(name = "CANAL_SEQ", sequenceName = "CANAL_SEQ")
 
     @Basic(optional = false)
     @Column(name = "ID", nullable = false)
     private Long id;
     @Basic(optional = false)
     @Column(name = "DESCRICAO", nullable = false, length = 100)
-    private String descricao;
+    public String descricao;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "canalId", fetch = FetchType.LAZY)
     private List<MarcaCanal> marcaCanalList;
 
@@ -108,7 +109,7 @@ public class Canal implements Serializable {
 
     @Override
     public String toString() {
-        return "domain.Canal[ id=" + id + " ]";
+        return getDescricao();
     }
-    
+
 }

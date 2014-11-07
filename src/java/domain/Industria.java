@@ -50,11 +50,12 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Industria.findByDataFundacao", query = "SELECT i FROM Industria i WHERE i.dataFundacao = :dataFundacao"),
     @NamedQuery(name = "Industria.findByArquivoMarcaInsdustria", query = "SELECT i FROM Industria i WHERE i.arquivoMarcaInsdustria = :arquivoMarcaInsdustria")})
 public class Industria implements Serializable {
+
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "INDUSTRIA_SEQ")
-    @SequenceGenerator(name = "INDUSTRIA_SEQ", sequenceName="INDUSTRIA_SEQ")
+    @SequenceGenerator(name = "INDUSTRIA_SEQ", sequenceName = "INDUSTRIA_SEQ")
 
     @Basic(optional = false)
     @Column(name = "ID", nullable = false, precision = 19, scale = 0)
@@ -253,5 +254,5 @@ public class Industria implements Serializable {
     public String toString() {
         return "domain.Industria[ id=" + id + " ]";
     }
-    
+
 }

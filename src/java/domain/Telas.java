@@ -38,10 +38,11 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Telas.findById", query = "SELECT t FROM Telas t WHERE t.id = :id"),
     @NamedQuery(name = "Telas.findByDescricao", query = "SELECT t FROM Telas t WHERE t.descricao = :descricao")})
 public class Telas implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "TELAS_SEQ")
-    @SequenceGenerator(name = "TELAS_SEQ", sequenceName="TELAS_SEQ")
+    @SequenceGenerator(name = "TELAS_SEQ", sequenceName = "TELAS_SEQ")
 
     @Basic(optional = false)
     @Column(name = "ID", nullable = false)
@@ -135,5 +136,5 @@ public class Telas implements Serializable {
     public String toString() {
         return "domain.Telas[ id=" + id + " ]";
     }
-    
+
 }

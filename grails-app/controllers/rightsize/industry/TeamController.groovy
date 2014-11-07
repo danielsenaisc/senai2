@@ -29,9 +29,9 @@ class TeamController {
     	
     	teamList = new ArrayList();
     	for ( i in 0..15 ) {
-		    teamList.add(LOREN_IPSUM + " " + i);
-		}
-		return teamList
+            teamList.add(LOREN_IPSUM + " " + i);
+        }
+        return teamList
     }
 
     private loadChannels(){

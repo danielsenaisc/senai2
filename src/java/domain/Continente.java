@@ -36,10 +36,11 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Continente.findByNome", query = "SELECT c FROM Continente c WHERE c.nome = :nome"),
     @NamedQuery(name = "Continente.findBySigla", query = "SELECT c FROM Continente c WHERE c.sigla = :sigla")})
 public class Continente implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CONTINENTE_SEQ")
-    @SequenceGenerator(name = "CONTINENTE_SEQ", sequenceName="CONTINENTE_SEQ")
+    @SequenceGenerator(name = "CONTINENTE_SEQ", sequenceName = "CONTINENTE_SEQ")
 
     @Basic(optional = false)
     @Column(name = "ID", nullable = false)
@@ -123,5 +124,5 @@ public class Continente implements Serializable {
     public String toString() {
         return "domain.Continente[ id=" + id + " ]";
     }
-    
+
 }

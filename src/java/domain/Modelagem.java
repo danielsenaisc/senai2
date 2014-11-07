@@ -44,11 +44,12 @@ import utils.OracleBoolean;
     @NamedQuery(name = "Modelagem.findByDescricao", query = "SELECT m FROM Modelagem m WHERE m.descricao = :descricao"),
     @NamedQuery(name = "Modelagem.findByIdInternoIndustria", query = "SELECT m FROM Modelagem m WHERE m.idInternoIndustria = :idInternoIndustria")})
 public class Modelagem implements Serializable {
+
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "MODELAGEM_SEQ")
-    @SequenceGenerator(name = "MODELAGEM_SEQ", sequenceName="MODELAGEM_SEQ")
+    @SequenceGenerator(name = "MODELAGEM_SEQ", sequenceName = "MODELAGEM_SEQ")
 
     @Basic(optional = false)
     @Column(name = "ID", nullable = false, precision = 19, scale = 0)
@@ -184,19 +185,21 @@ public class Modelagem implements Serializable {
     public String toString() {
         return "domain.Modelagem[ id=" + id + " ]";
     }
-    
+
     //TODO Rever Regra de Negócio
-    public int getQuantidadeDeColecoes(){
+    public int getQuantidadeDeColecoes() {
         return 0;
     }
-    
+
     //TODO Rever Regra de Negócio
-    public int getQuantidadeDeProdutos(){
+    public int getQuantidadeDeProdutos() {
         return 0;
     }
-    
-    public String getStatusTratado(){
-        if(Objects.equals(getStatus(), OracleBoolean.TRUE.getValue())) return "Ativo";
+
+    public String getStatusTratado() {
+        if (Objects.equals(getStatus(), OracleBoolean.TRUE.getValue())) {
+            return "Ativo";
+        }
         return "Inativo";
     }
     

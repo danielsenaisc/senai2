@@ -5,17 +5,17 @@
  */
 package control;
 
-import domain.ColecaoStatus;
+import domain.Pais;
 import java.util.ArrayList;
 
 /**
  *
- * @author IST-08-PC
+ * @author Gustavo Calandrini
  */
-public class CollectionStatusControl {
+public class CountryControl {
 
-    public ArrayList<ColecaoStatus> selectAll() {
-        return new ArrayList(Conexao.namedQuery("ColecaoStatus.findAll"));
+    public ArrayList<Pais> selectAll() {
+        return new ArrayList(Conexao.namedQuery("Pais.findAll"));
     }
 
 }

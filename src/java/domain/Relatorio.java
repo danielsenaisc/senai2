@@ -39,11 +39,12 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Relatorio.findByDataFinal", query = "SELECT r FROM Relatorio r WHERE r.dataFinal = :dataFinal"),
     @NamedQuery(name = "Relatorio.findByPrivacidade", query = "SELECT r FROM Relatorio r WHERE r.privacidade = :privacidade")})
 public class Relatorio implements Serializable {
+
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "RELATORIO_SEQ")
-    @SequenceGenerator(name = "RELATORIO_SEQ", sequenceName="RELATORIO_SEQ")
+    @SequenceGenerator(name = "RELATORIO_SEQ", sequenceName = "RELATORIO_SEQ")
 
     @Basic(optional = false)
     @Column(name = "ID", nullable = false, precision = 19, scale = 0)
@@ -152,5 +153,5 @@ public class Relatorio implements Serializable {
     public String toString() {
         return "domain.Relatorio[ id=" + id + " ]";
     }
-    
+
 }

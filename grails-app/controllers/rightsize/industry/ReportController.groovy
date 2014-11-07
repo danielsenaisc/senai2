@@ -43,23 +43,23 @@ class ReportController {
         reportType = "Tipo do Relatório";
 
         [typeList: typeList, periodList: periodList, 
-        accessList: accessList, reportType: reportType,
-        productList: productList,
-        brandList: brandList,
-        collectionList: collectionList,
-        categoryList: categoryList,
-        subCategoryList: subCategoryList]
+            accessList: accessList, reportType: reportType,
+            productList: productList,
+            brandList: brandList,
+            collectionList: collectionList,
+            categoryList: categoryList,
+            subCategoryList: subCategoryList]
     }
 
     def view() { 
 
         [report_type: report_type,
-         report_period: report_period,
-         report_filter: report_filter,
-         report_location: report_location,
-         report_owner: report_owner,
-         report_share: report_share,
-         report_category: report_category]
+            report_period: report_period,
+            report_filter: report_filter,
+            report_location: report_location,
+            report_owner: report_owner,
+            report_share: report_share,
+            report_category: report_category]
 
     	
     }
@@ -67,7 +67,7 @@ class ReportController {
     def loadTypeList(){
     	
     	typeList = new ArrayList();
-		typeList.add("Número de Comparações");
+        typeList.add("Número de Comparações");
         typeList.add("Número de Indicações Geral");
         typeList.add("Ranking marcas mais populares");
         typeList.add("Visualizações Gerais");
@@ -78,7 +78,7 @@ class ReportController {
     def loadPeriodList(){
     	
     	periodList = new ArrayList();
-		periodList.add("Mês Atual");
+        periodList.add("Mês Atual");
         periodList.add("Mês Anterior");
         periodList.add("Todo o tempo");
         periodList.add("Personalizado");
@@ -91,20 +91,20 @@ class ReportController {
     	
     	reportList = new ArrayList();
     	for ( i in 0..15 ) {
-		    reportList.add(LOREN_IPSUM + " " + i);
-		}
-		return reportList
+            reportList.add(LOREN_IPSUM + " " + i);
+        }
+        return reportList
     }
 
     def loadAccessList(){
     	
     	accessList = new ArrayList();
-		accessList.add("Privado");
+        accessList.add("Privado");
         accessList.add("Compartilhado");
 		
-		return accessList
+        return accessList
     }
-     def loadProductList(){
+    def loadProductList(){
         
         productList = new ArrayList();
         productList.add("Calça Jeans");
@@ -133,7 +133,7 @@ class ReportController {
         return collectionList
     }
 
-     def loadCategoryList(){
+    def loadCategoryList(){
         
         categoryList = new ArrayList();
         categoryList.add("Categoria A");

@@ -78,7 +78,7 @@
                             <g:message code="brand.form.edit.dt_created"/>
                         </label>
                         <div  class="col-md-4 col-wd148">
-                            <input name="brandCreationDate" id="date-picker" class="form-control form-control-inline input-small date-picker" size="16" type="text" value="${brand.getDataCriacaoTratada()}" tabindex="3"/></i>
+                            <input name="brandCreationDate" id="date-picker" class="form-control form-control-inline input-small date-picker" size="16" type="text" value="${brand.getDataCriacaoTratada()}" tabindex="3" /></i>
                         </div>
                     </div>
                     <!-- COUNTRY -->

@@ -23,10 +23,10 @@ class IndustryController {
         cityList = loadCity();
 
     	[channelList: channelList, 
-        additionalList: additionalList,
-        countryList: countryList,
-        stateList: stateList,
-        cityList: cityList
+            additionalList: additionalList,
+            countryList: countryList,
+            stateList: stateList,
+            cityList: cityList
         ]
     	
     }

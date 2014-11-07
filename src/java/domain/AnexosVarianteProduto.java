@@ -33,11 +33,12 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "AnexosVarianteProduto.findByIdAnexoImagemVideo", query = "SELECT a FROM AnexosVarianteProduto a WHERE a.idAnexoImagemVideo = :idAnexoImagemVideo"),
     @NamedQuery(name = "AnexosVarianteProduto.findByAnexo", query = "SELECT a FROM AnexosVarianteProduto a WHERE a.anexo = :anexo")})
 public class AnexosVarianteProduto implements Serializable {
+
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ANEXOS_VARIANTE_PRODUTO_SEQ")
-    @SequenceGenerator(name = "ANEXOS_VARIANTE_PRODUTO_SEQ", sequenceName="ANEXOS_VARIANTE_PRODUTO_SEQ")
+    @SequenceGenerator(name = "ANEXOS_VARIANTE_PRODUTO_SEQ", sequenceName = "ANEXOS_VARIANTE_PRODUTO_SEQ")
 
     @Basic(optional = false)
     @Column(name = "ID_ANEXO_IMAGEM_VIDEO", nullable = false, precision = 19, scale = 0)
@@ -109,5 +110,5 @@ public class AnexosVarianteProduto implements Serializable {
     public String toString() {
         return "domain.AnexosVarianteProduto[ idAnexoImagemVideo=" + idAnexoImagemVideo + " ]";
     }
-    
+
 }

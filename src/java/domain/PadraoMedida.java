@@ -36,12 +36,13 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "PadraoMedida.findById", query = "SELECT p FROM PadraoMedida p WHERE p.id = :id"),
     @NamedQuery(name = "PadraoMedida.findByDescricao", query = "SELECT p FROM PadraoMedida p WHERE p.descricao = :descricao")})
 public class PadraoMedida implements Serializable {
+
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PADRAO_MEDIDA_SEQ")
-    @SequenceGenerator(name = "PADRAO_MEDIDA_SEQ", sequenceName="PADRAO_MEDIDA_SEQ")
-    
+    @SequenceGenerator(name = "PADRAO_MEDIDA_SEQ", sequenceName = "PADRAO_MEDIDA_SEQ")
+
     @Basic(optional = false)
     @Column(name = "ID", nullable = false, precision = 19, scale = 0)
     private BigDecimal id;
@@ -123,5 +124,5 @@ public class PadraoMedida implements Serializable {
     public String toString() {
         return "domain.PadraoMedida[ id=" + id + " ]";
     }
-    
+
 }

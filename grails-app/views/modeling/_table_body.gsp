@@ -3,7 +3,7 @@
 <div class="portlet-title">
 		
 	<div class="actions">
-		<a href="${createLink(controller:'modeling',action:'create',params:[id:0])}" class="btn btn-default red btn-sm">
+		<a href="${createLink(controller:'modeling',action:'edit',params:[modelingId:null])}" class="btn btn-default red btn-sm">
 			<i class="fa fa-pencil">
 				</i> <g:message code="brand.form.action.new"/> 
 		</a>
@@ -65,35 +65,35 @@
 		</tr>
 		</thead>
 		<tbody>
-		<g:each var="model" in="${modelList}" status="i">
+		<g:each var="modeling" in="${modelingList}" status="i">
 			<tr class="odd gradeX">
 				
 				<td>
-					<a href="${createLink(controller:'modeling',action:'edit',params:[modelingId:model.getId()])}" class="t-column">
-					 ${model.getNome()}
+					<a href="${createLink(controller:'modeling',action:'edit',params:[modelingId:modeling.getId()])}" class="t-column">
+					 ${modeling.getNome()}
 					</a>
 				</td>
 				<td>
-					<a href="${createLink(controller:'modeling',action:'edit',params:[modelingId:model.getId()])}" class="t-column">
-					 ${model.getMarcaList().size()}</a>
+					<a href="${createLink(controller:'modeling',action:'edit',params:[modelingId:modeling.getId()])}" class="t-column">
+					 ${modeling.getMarcaList().size()}</a>
 				</td>
-				<td><a href="${createLink(controller:'modeling',action:'edit',params:[modelingId:model.getId()])}" class="t-column">
-					 ${model.getCategoriaList().size()} </a>
+				<td><a href="${createLink(controller:'modeling',action:'edit',params:[modelingId:modeling.getId()])}" class="t-column">
+					 ${modeling.getCategoriaList().size()} </a>
 				</td>
-				<td><a href="${createLink(controller:'modeling',action:'edit',params:[modelingId:model.getId()])}" class="t-column">
-					 ${model} </a>
+				<td><a href="${createLink(controller:'modeling',action:'edit',params:[modelingId:modeling.getId()])}" class="t-column">
+					 ${modeling} </a>
 				</td>
-				<td><a href="${createLink(controller:'modeling',action:'edit',params:[modelingId:model.getId()])}" class="t-column">
-					 ${model.getQuantidadeDeColecoes()} </a>
+				<td><a href="${createLink(controller:'modeling',action:'edit',params:[modelingId:modeling.getId()])}" class="t-column">
+					 ${modeling.getQuantidadeDeColecoes()} </a>
 				</td>
-				<td><a href="${createLink(controller:'modeling',action:'edit',params:[modelingId:model.getId()])}" class="t-column">
-					 ${model.getQuantidadeDeProdutos()} </a>
+				<td><a href="${createLink(controller:'modeling',action:'edit',params:[modelingId:modeling.getId()])}" class="t-column">
+					 ${modeling.getQuantidadeDeProdutos()} </a>
 				</td>
-				<td><a href="${createLink(controller:'modeling',action:'edit',params:[modelingId:model.getId()])}" class="t-column">
-					 ${model} </a>
+				<td><a href="${createLink(controller:'modeling',action:'edit',params:[modelingId:modeling.getId()])}" class="t-column">
+					 ${modeling} </a>
 				</td>
-				<td><a href="${createLink(controller:'modeling',action:'edit',params:[modelingId:model.getId()])}" class="t-column">
-					 ${model.getStatusTratado()} </a>
+				<td><a href="${createLink(controller:'modeling',action:'edit',params:[modelingId:modeling.getId()])}" class="t-column">
+					 ${modeling.getStatusTratado()} </a>
 				</td>
 				
 				<td>

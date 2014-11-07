@@ -58,7 +58,7 @@
                                 <div class="col-md-3" style="margin-left: 14px;">
                                     <div class="form-group">
                                         <div  class="col-md-4">
-                                            <input id="date-picker-start" class="form-control form-control-inline input-small date-picker " size="16" type="text" value="${collection.formataData(collection.getVigenciaInicial())}" tabindex="4"/></i>
+                                            <input id="date-picker-start" class="form-control form-control-inline input-small date-picker " size="16" type="text" value="${collection.getVigenciaInicialTratada()}" tabindex="4"/></i>
                                         </div>
                                     </div>
                                 </div>
@@ -70,7 +70,7 @@
                                 <div class="col-md-1" style="margin-left: 0px;">
                                     <div class="form-group">
                                         <div  class="col-md-4">
-                                            <input id="date-picker-end" class="form-control form-control-inline input-small date-picker" size="16" type="text" value="${collection.formataData(collection.getVigenciaFinal())}" tabindex="5"/></i>
+                                            <input id="date-picker-end" class="form-control form-control-inline input-small date-picker" size="16" type="text" value="${collection.getVigenciaFinalTratada()}" tabindex="5"/></i>
                                         </div>
                                     </div>
                                 </div>

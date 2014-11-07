@@ -7,6 +7,7 @@ package domain;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import javax.persistence.Basic;
@@ -44,11 +45,12 @@ import utils.OracleBoolean;
     @NamedQuery(name = "Modelagem.findByDescricao", query = "SELECT m FROM Modelagem m WHERE m.descricao = :descricao"),
     @NamedQuery(name = "Modelagem.findByIdInternoIndustria", query = "SELECT m FROM Modelagem m WHERE m.idInternoIndustria = :idInternoIndustria")})
 public class Modelagem implements Serializable {
+
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "MODELAGEM_SEQ")
-    @SequenceGenerator(name = "MODELAGEM_SEQ", sequenceName="MODELAGEM_SEQ")
+    @SequenceGenerator(name = "MODELAGEM_SEQ", sequenceName = "MODELAGEM_SEQ")
 
     @Basic(optional = false)
     @Column(name = "ID", nullable = false, precision = 19, scale = 0)
@@ -94,6 +96,7 @@ public class Modelagem implements Serializable {
     }
 
     public String getNome() {
+        if(nome == null) return "";
         return nome;
     }
 
@@ -102,6 +105,7 @@ public class Modelagem implements Serializable {
     }
 
     public Character getStatus() {
+        if(status == null) return ' ';
         return status;
     }
 
@@ -110,6 +114,7 @@ public class Modelagem implements Serializable {
     }
 
     public Character getGenero() {
+        if(genero == null) return ' ';
         return genero;
     }
 
@@ -118,6 +123,7 @@ public class Modelagem implements Serializable {
     }
 
     public String getDescricao() {
+        if(descricao == null) return "";
         return descricao;
     }
 
@@ -126,6 +132,7 @@ public class Modelagem implements Serializable {
     }
 
     public String getIdInternoIndustria() {
+        if(idInternoIndustria == null) return "";
         return idInternoIndustria;
     }
 
@@ -135,6 +142,7 @@ public class Modelagem implements Serializable {
 
     @XmlTransient
     public List<Marca> getMarcaList() {
+        if(marcaList == null) return new ArrayList();
         return marcaList;
     }
 
@@ -144,6 +152,7 @@ public class Modelagem implements Serializable {
 
     @XmlTransient
     public List<Categoria> getCategoriaList() {
+        if(categoriaList == null) return new ArrayList();
         return categoriaList;
     }
 
@@ -153,6 +162,7 @@ public class Modelagem implements Serializable {
 
     @XmlTransient
     public List<ModelagemDadosTamanho> getModelagemDadosTamanhoList() {
+        if(modelagemDadosTamanhoList == null) return new ArrayList();
         return modelagemDadosTamanhoList;
     }
 
@@ -184,35 +194,63 @@ public class Modelagem implements Serializable {
     public String toString() {
         return "domain.Modelagem[ id=" + id + " ]";
     }
-    
+
     //TODO Rever Regra de Negócio
-    public int getQuantidadeDeColecoes(){
+    public int getQuantidadeDeColecoes() {
         return 0;
     }
-    
+
     //TODO Rever Regra de Negócio
-    public int getQuantidadeDeProdutos(){
+    public int getQuantidadeDeProdutos() {
         return 0;
     }
-    
-    public String getStatusTratado(){
-        if(Objects.equals(getStatus(), OracleBoolean.TRUE.getValue())) return "Ativo";
+
+    public String getStatusTratado() {
+        if (Objects.equals(getStatus(), OracleBoolean.TRUE.getValue())) {
+            return "Ativo";
+        }
         return "Inativo";
     }
-    
-    public String isMascChecked(){
-        if(getGenero().equals(Genero.MASCULINO.getDescricao())) return "checked";
+
+    public String isMascChecked() {
+        if (getGenero().equals(Genero.MASCULINO.getDescricao())) {
+            return "checked";
+        }
         return "";
     }
-    
-    public String isFemChecked(){
-        if(getGenero().equals(Genero.FEMININO.getDescricao())) return "checked";
+
+    public String isFemChecked() {
+        if (getGenero().equals(Genero.FEMININO.getDescricao())) {
+            return "checked";
+        }
         return "";
     }
-    
-    public String isUnissexChecked(){
-        if(getGenero().equals(Genero.UNISSEX.getDescricao())) return "checked";
+
+    public String isUnissexChecked() {
+        if (id == null) {
+            return "checked";
+        }
+        if (getGenero().equals(Genero.UNISSEX.getDescricao())) {
+            return "checked";
+        }
         return "";
     }
-    
+
+    public String isActive() {
+        if (id == null) {
+            return "checked";
+        }
+        if (getStatus().equals(OracleBoolean.TRUE.getValue())) {
+            return "checked";
+        }
+        return "";
+    }
+
+    public String isInactive() {
+        if (getStatus().equals(OracleBoolean.FALSE.getValue())) {
+            return "checked";
+        }
+        return "";
+    }
+
 }

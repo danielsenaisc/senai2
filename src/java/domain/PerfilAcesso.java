@@ -39,11 +39,12 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "PerfilAcesso.findById", query = "SELECT p FROM PerfilAcesso p WHERE p.id = :id"),
     @NamedQuery(name = "PerfilAcesso.findByIdTipoPermissao", query = "SELECT p FROM PerfilAcesso p WHERE p.idTipoPermissao = :idTipoPermissao")})
 public class PerfilAcesso implements Serializable {
+
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PERFIL_ACESSO_SEQ")
-    @SequenceGenerator(name = "PERFIL_ACESSO_SEQ", sequenceName="PERFIL_ACESSO_SEQ")
+    @SequenceGenerator(name = "PERFIL_ACESSO_SEQ", sequenceName = "PERFIL_ACESSO_SEQ")
 
     @Basic(optional = false)
     @Column(name = "ID", nullable = false, precision = 19, scale = 0)
@@ -120,5 +121,5 @@ public class PerfilAcesso implements Serializable {
     public String toString() {
         return "domain.PerfilAcesso[ id=" + id + " ]";
     }
-    
+
 }

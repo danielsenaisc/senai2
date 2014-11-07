@@ -38,10 +38,11 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Idiomas.findById", query = "SELECT i FROM Idiomas i WHERE i.id = :id"),
     @NamedQuery(name = "Idiomas.findByDescricao", query = "SELECT i FROM Idiomas i WHERE i.descricao = :descricao")})
 public class Idiomas implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "IDIOMAS_SEQ")
-    @SequenceGenerator(name = "IDIOMAS_SEQ", sequenceName="IDIOMAS_SEQ")
+    @SequenceGenerator(name = "IDIOMAS_SEQ", sequenceName = "IDIOMAS_SEQ")
 
     @Basic(optional = false)
     @Column(name = "ID", nullable = false)
@@ -138,5 +139,5 @@ public class Idiomas implements Serializable {
     public String toString() {
         return "domain.Idiomas[ id=" + id + " ]";
     }
-    
+
 }

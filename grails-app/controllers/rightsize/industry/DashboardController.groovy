@@ -8,23 +8,23 @@ import control.ProductControl
 
 class DashboardController {
 
-	ProductControl produtoControl = new ProductControl();
-	CollectionControl colecaoControl = new CollectionControl();
-	BrandControl marcaControl = new BrandControl();
-	ModelingControl modelagemControl = new ModelingControl();
+    ProductControl produtoControl = new ProductControl();
+    CollectionControl colecaoControl = new CollectionControl();
+    BrandControl marcaControl = new BrandControl();
+    ModelingControl modelagemControl = new ModelingControl();
 	
 	
-	def productRankingList = new ArrayList();
-	def bestCollectionsList = new ArrayList();
+    def productRankingList = new ArrayList();
+    def bestCollectionsList = new ArrayList();
     def alertList = new ArrayList();
 
-	def brandCount = new Integer(0);
-	def activeProductCount = new Integer(0);
-	def inactiveProductCount = new Integer(0);
-	def activeCollectionCount = new Integer(0);
-	def inactiveCollectionCount = new Integer(0);
-	def activeModelCount = new Integer(0);
-	def inactiveModelCount = new Integer(0);
+    def brandCount = new Integer(0);
+    def activeProductCount = new Integer(0);
+    def inactiveProductCount = new Integer(0);
+    def activeCollectionCount = new Integer(0);
+    def inactiveCollectionCount = new Integer(0);
+    def activeModelCount = new Integer(0);
+    def inactiveModelCount = new Integer(0);
 
     def LOREN_IPSUM = "Lorem ipsum"
 
@@ -46,16 +46,16 @@ class DashboardController {
     	inactiveModelCount = getInactiveModelCount();
 
     	[productRankingList: productRankingList, 
-    	 bestCollectionsList: bestCollectionsList,
-         alertList: alertList,
-    	 brandCount: brandCount,
-    	 activeModelCount: activeModelCount,
-    	 inactiveModelCount: inactiveModelCount,
-    	 activeCollectionCount: activeCollectionCount,
-    	 inactiveCollectionCount: inactiveCollectionCount,
-    	 activeProductCount: activeProductCount,
-    	 inactiveProductCount: inactiveProductCount
-    	 ]
+            bestCollectionsList: bestCollectionsList,
+            alertList: alertList,
+            brandCount: brandCount,
+            activeModelCount: activeModelCount,
+            inactiveModelCount: inactiveModelCount,
+            activeCollectionCount: activeCollectionCount,
+            inactiveCollectionCount: inactiveCollectionCount,
+            activeProductCount: activeProductCount,
+            inactiveProductCount: inactiveProductCount
+        ]
 
     }
 
@@ -66,7 +66,7 @@ class DashboardController {
     }
 
     def loadBestCollections(){
-		return colecaoControl.getBestColections();
+        return colecaoControl.getBestColections();
     }
 
     def loadAlertList(){

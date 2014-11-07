@@ -30,10 +30,11 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Composicao.findById", query = "SELECT c FROM Composicao c WHERE c.id = :id"),
     @NamedQuery(name = "Composicao.findByDescricao", query = "SELECT c FROM Composicao c WHERE c.descricao = :descricao")})
 public class Composicao implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "COMPOSICAO_SEQ")
-    @SequenceGenerator(name = "COMPOSICAO_SEQ", sequenceName="COMPOSICAO_SEQ")
+    @SequenceGenerator(name = "COMPOSICAO_SEQ", sequenceName = "COMPOSICAO_SEQ")
 
     @Basic(optional = false)
     @Column(name = "ID", nullable = false)
@@ -94,5 +95,5 @@ public class Composicao implements Serializable {
     public String toString() {
         return "domain.Composicao[ id=" + id + " ]";
     }
-    
+
 }

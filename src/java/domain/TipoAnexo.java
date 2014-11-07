@@ -36,10 +36,11 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "TipoAnexo.findByDescricaoReduzida", query = "SELECT t FROM TipoAnexo t WHERE t.descricaoReduzida = :descricaoReduzida"),
     @NamedQuery(name = "TipoAnexo.findByDescricao", query = "SELECT t FROM TipoAnexo t WHERE t.descricao = :descricao")})
 public class TipoAnexo implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "TIPO_ANEXO_SEQ")
-    @SequenceGenerator(name = "TIPO_ANEXO_SEQ", sequenceName="TIPO_ANEXO_SEQ")
+    @SequenceGenerator(name = "TIPO_ANEXO_SEQ", sequenceName = "TIPO_ANEXO_SEQ")
 
     @Basic(optional = false)
     @Column(name = "ID", nullable = false)
@@ -123,5 +124,5 @@ public class TipoAnexo implements Serializable {
     public String toString() {
         return "domain.TipoAnexo[ id=" + id + " ]";
     }
-    
+
 }

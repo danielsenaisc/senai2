@@ -34,12 +34,13 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "MarcaCanal.findByObservacoes", query = "SELECT m FROM MarcaCanal m WHERE m.observacoes = :observacoes"),
     @NamedQuery(name = "MarcaCanal.findById", query = "SELECT m FROM MarcaCanal m WHERE m.id = :id")})
 public class MarcaCanal implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Column(name = "FORMA_ACESSO", length = 100)
     private String formaAcesso;
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "MARCA_CANAL_SEQ")
-    @SequenceGenerator(name = "MARCA_CANAL_SEQ", sequenceName="MARCA_CANAL_SEQ")
+    @SequenceGenerator(name = "MARCA_CANAL_SEQ", sequenceName = "MARCA_CANAL_SEQ")
 
     @Basic(optional = false)
     @Column(name = "OBSERVACOES", nullable = false, length = 100)
@@ -141,5 +142,5 @@ public class MarcaCanal implements Serializable {
     public String toString() {
         return "domain.MarcaCanal[ observacoes=" + observacoes + " ]";
     }
-    
+
 }

@@ -31,11 +31,12 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "CanalComunicacao.findById", query = "SELECT c FROM CanalComunicacao c WHERE c.id = :id"),
     @NamedQuery(name = "CanalComunicacao.findByDescricaoReduzida", query = "SELECT c FROM CanalComunicacao c WHERE c.descricaoReduzida = :descricaoReduzida")})
 public class CanalComunicacao implements Serializable {
+
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CANAL_COMUNICACAO_SEQ")
-    @SequenceGenerator(name = "CANAL_COMUNICACAO_SEQ", sequenceName="CANAL_COMUNICACAO_SEQ")
+    @SequenceGenerator(name = "CANAL_COMUNICACAO_SEQ", sequenceName = "CANAL_COMUNICACAO_SEQ")
 
     @Basic(optional = false)
     @Column(name = "ID", nullable = false, precision = 19, scale = 0)
@@ -96,5 +97,5 @@ public class CanalComunicacao implements Serializable {
     public String toString() {
         return "domain.CanalComunicacao[ id=" + id + " ]";
     }
-    
+
 }

@@ -9,6 +9,7 @@ public class BrandControl {
 
     /**
      * Retorna todos as marcas cadastradas no banco de dados.
+     *
      * @return Lista de Marcas.
      */
     public ArrayList<Marca> selectAll() {
@@ -20,8 +21,10 @@ public class BrandControl {
      *
      * @param marca Marca a ser adicionada no banco.
      */
-    public void add(Marca marca) throws NullPointerException{
-        if(hasNullValues(marca)) throw new NullPointerException();
+    public void add(Marca marca) throws NullPointerException {
+        if (hasNullValues(marca)) {
+            throw new NullPointerException();
+        }
         Conexao.persist(marca);
     }
 
@@ -36,7 +39,7 @@ public class BrandControl {
 
     //TODO
     public void update(Marca marca) {
-        //TODO
+
     }
 
     public Marca findById(Long id) {
@@ -48,21 +51,33 @@ public class BrandControl {
         }
         return marcaDeRetorno;
     }
-    
+
     private boolean hasNullValues(Marca marca) {
-        if(marca.getNome().equals("")) return true;
+        if (marca.getNome().equals("")) {
+            return true;
+        }
         System.out.println("nome ok");
-        if(marca.getDataCriacao() == null) return true;
+        if (marca.getDataCriacao() == null) {
+            return true;
+        }
         System.out.println("data ok");
-        if(marca.getIdadeInicial() == 0l) return true;
+        if (marca.getIdadeInicial() == 0l) {
+            return true;
+        }
         System.out.println("idade inicial ok");
-        if(marca.getIdadeFinal() == 0l) return true;
+        if (marca.getIdadeFinal() == 0l) {
+            return true;
+        }
         System.out.println("idade final ok");
-        if(marca.getStatus().equals(' ')) return true;
+        if (marca.getStatus().equals(' ')) {
+            return true;
+        }
         System.out.println("status ok");
-        if(marca.getIndustriaId() == null) return true;
+        if (marca.getIndustriaId() == null) {
+            return true;
+        }
         System.out.println("industriaID ok");
         return false;
     }
-    
+
 }

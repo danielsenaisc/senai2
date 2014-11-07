@@ -17,6 +17,7 @@ import javax.persistence.Query;
  * @author brunoazzi
  */
 public class Conexao {
+
     private static final String PERSISTENCE_UNIT = "TesteDependenciaOraclePU";
 
     private static final EntityManagerFactory factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT);
@@ -29,13 +30,14 @@ public class Conexao {
     }
 
     protected static void commit() {
-    	if (em.getTransaction().isActive()) {
+        if (em.getTransaction().isActive()) {
             em.getTransaction().commit();
         }
     }
 
     /**
      * Método que permite a persistencia de Objetos no Banco de Dados
+     *
      * @param aThis Objeto a ser persistida
      */
     public static void persist(Object aThis) {
@@ -46,6 +48,7 @@ public class Conexao {
 
     /**
      * Método que permite a remoção de Entidades do Banco de Dados
+     *
      * @param aThis Objeto a ser removida
      */
     protected static void remove(Object aThis) {
@@ -53,8 +56,8 @@ public class Conexao {
         em.remove(aThis);
         commit();
     }
-    
-    protected static List<Object> namedQuery(String namedQuery){
+
+    protected static List<Object> namedQuery(String namedQuery) {
         Query query = em.createNamedQuery(namedQuery);
         return query.getResultList();
     }
@@ -69,19 +72,19 @@ public class Conexao {
         return query.getResultList();
     }
 
-    protected static List<Object> namedQuery(String namedQuery, Object value, String parameter){
-    	List<Object> result;
-    	
-    	getTransaction();
-        	Query query = em.createNamedQuery(namedQuery);
-        	query.setParameter(parameter, value);
-        	result = query.getResultList();
+    protected static List<Object> namedQuery(String namedQuery, Object value, String parameter) {
+        List<Object> result;
+
+        getTransaction();
+        Query query = em.createNamedQuery(namedQuery);
+        query.setParameter(parameter, value);
+        result = query.getResultList();
         commit();
-        
+
         return result;
     }
-    
-    protected static Object singleResultNamedQuery(String namedQuery, List<Object> values, String[] parameters){
+
+    protected static Object singleResultNamedQuery(String namedQuery, List<Object> values, String[] parameters) {
         Query query = em.createNamedQuery(namedQuery);
 
         for (int iterador = 0; iterador < values.size(); iterador++) {
@@ -90,13 +93,13 @@ public class Conexao {
 
         return query.getSingleResult();
     }
-    
+
     protected static Object singleResultNamedQuery(String namedQuery, Object value, String parameter) {
         Query query = em.createNamedQuery(namedQuery);
         query.setParameter(parameter, value);
         return query.getSingleResult();
     }
-    
+
     protected static List<Object> queryResultList(String query) {
         Query selectAll = em.createNamedQuery(query);
         return selectAll.getResultList();
@@ -106,10 +109,9 @@ public class Conexao {
         Query select = em.createNamedQuery(query);
         return select.getSingleResult();
     }
-    
+
     protected static EntityManager getEm() {
-		return em;
-	}
-    
-    
+        return em;
+    }
+
 }

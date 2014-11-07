@@ -34,11 +34,12 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "ModelagemDadosTamanho.findByValorMedidaInicial", query = "SELECT m FROM ModelagemDadosTamanho m WHERE m.valorMedidaInicial = :valorMedidaInicial"),
     @NamedQuery(name = "ModelagemDadosTamanho.findByValorMedidaFinal", query = "SELECT m FROM ModelagemDadosTamanho m WHERE m.valorMedidaFinal = :valorMedidaFinal")})
 public class ModelagemDadosTamanho implements Serializable {
+
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "MODELAGEM_DADOS_TAMANHO_SEQ")
-    @SequenceGenerator(name = "MODELAGEM_DADOS_TAMANHO_SEQ", sequenceName="MODELAGEM_DADOS_TAMANHO_SEQ")
+    @SequenceGenerator(name = "MODELAGEM_DADOS_TAMANHO_SEQ", sequenceName = "MODELAGEM_DADOS_TAMANHO_SEQ")
 
     @Basic(optional = false)
     @Column(name = "ID_SEQUENCIAL_ORDEM", nullable = false, precision = 19, scale = 0)
@@ -166,5 +167,5 @@ public class ModelagemDadosTamanho implements Serializable {
     public String toString() {
         return "domain.ModelagemDadosTamanho[ idSequencialOrdem=" + idSequencialOrdem + " ]";
     }
-    
+
 }

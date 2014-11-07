@@ -2,10 +2,8 @@ package control;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-
 import utils.OracleBoolean;
 import domain.Modelagem;
-import domain.Produtos;
 import javax.persistence.NoResultException;
 
 public class ModelingControl {
@@ -35,6 +33,9 @@ public class ModelingControl {
      * @param modelagem Modelagem a ser adicionada no banco.
      */
     public void add(Modelagem modelagem) {
+        if (hasNullValues(modelagem)) {
+            throw new NullPointerException();
+        }
         Conexao.persist(modelagem);
     }
 
@@ -52,13 +53,42 @@ public class ModelingControl {
         //TODO
     }
 
-    public Modelagem findById(BigDecimal id){
-        Modelagem modelagemDeRetorno = new Modelagem();        
+    public Modelagem findById(BigDecimal id) {
+        Modelagem modelagemDeRetorno = new Modelagem();
         try {
             modelagemDeRetorno = (Modelagem) Conexao.singleResultNamedQuery("Modelagem.findById", id, "id");
         } catch (NoResultException e) {
             System.out.println(e.getMessage());
-        }       
+        }
         return modelagemDeRetorno;
+    }
+
+    private boolean hasNullValues(Modelagem modelagem) {
+        if (modelagem.getNome().equals("")) {
+            return true;
+        }
+        System.out.println("nome ok");
+
+        if (modelagem.getGenero().equals(' ')) {
+            return true;
+        }
+        System.out.println("genero ok");
+
+        if (modelagem.getDescricao().equals("")) {
+            return true;
+        }
+        System.out.println("descricao ok");
+
+        if (modelagem.getStatus().equals(' ')) {
+            return true;
+        }
+        System.out.println("status ok");
+
+        if (modelagem.getIdInternoIndustria().equals("")) {
+            return true;
+        }
+        System.out.println("idInternoIndustri ok");
+
+        return false;
     }
 }

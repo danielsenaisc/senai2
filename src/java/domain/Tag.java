@@ -36,10 +36,11 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Tag.findById", query = "SELECT t FROM Tag t WHERE t.id = :id"),
     @NamedQuery(name = "Tag.findByDescricao", query = "SELECT t FROM Tag t WHERE t.descricao = :descricao")})
 public class Tag implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "TAG_SEQ")
-    @SequenceGenerator(name = "TAG_SEQ", sequenceName="TAG_SEQ")
+    @SequenceGenerator(name = "TAG_SEQ", sequenceName = "TAG_SEQ")
 
     @Basic(optional = false)
     @Column(name = "ID", nullable = false)
@@ -125,5 +126,5 @@ public class Tag implements Serializable {
     public String toString() {
         return "domain.Tag[ id=" + id + " ]";
     }
-    
+
 }

@@ -99,7 +99,9 @@ public class Produtos implements Serializable {
     }
 
     public String getNome() {
-        if(nome == null) return "";
+        if (nome == null) {
+            return "";
+        }
         return nome;
     }
 
@@ -108,7 +110,9 @@ public class Produtos implements Serializable {
     }
 
     public Character getStatus() {
-        if(status == null) return ' ';
+        if (status == null) {
+            return ' ';
+        }
         return status;
     }
 
@@ -117,7 +121,9 @@ public class Produtos implements Serializable {
     }
 
     public Character getGenero() {
-        if(genero == null) return ' ';
+        if (genero == null) {
+            return ' ';
+        }
         return genero;
     }
 
@@ -126,7 +132,9 @@ public class Produtos implements Serializable {
     }
 
     public String getReferencia() {
-        if(referencia == null) return "";
+        if (referencia == null) {
+            return "";
+        }
         return referencia;
     }
 
@@ -135,7 +143,9 @@ public class Produtos implements Serializable {
     }
 
     public String getDescricao() {
-        if(descricao == null) return "";
+        if (descricao == null) {
+            return "";
+        }
         return descricao;
     }
 
@@ -144,7 +154,9 @@ public class Produtos implements Serializable {
     }
 
     public Long getLikes() {
-        if(likes == null) return 0l;
+        if (likes == null) {
+            return 0l;
+        }
         return likes;
     }
 
@@ -153,7 +165,9 @@ public class Produtos implements Serializable {
     }
 
     public Long getDislikes() {
-        if(dislikes == null) return 0l;
+        if (dislikes == null) {
+            return 0l;
+        }
         return dislikes;
     }
 
@@ -163,7 +177,9 @@ public class Produtos implements Serializable {
 
     @XmlTransient
     public List<Tag> getTagList() {
-        if(tagList == null) return new ArrayList();
+        if (tagList == null) {
+            return new ArrayList();
+        }
         return tagList;
     }
 
@@ -173,7 +189,9 @@ public class Produtos implements Serializable {
 
     @XmlTransient
     public List<TipoMedidaProdutos> getTipoMedidaProdutosList() {
-        if(tipoMedidaProdutosList == null) return new ArrayList();
+        if (tipoMedidaProdutosList == null) {
+            return new ArrayList();
+        }
         return tipoMedidaProdutosList;
     }
 
@@ -224,50 +242,81 @@ public class Produtos implements Serializable {
 
     public String getListaDeTagsTratada() {
         String retorno = "";
-        if(getTagList().size() <= 0) return retorno;
-        
+        if (getTagList().size() <= 0) {
+            return retorno;
+        }
+
         for (Tag tagList1 : getTagList()) {
             retorno += (tagList1.getDescricao() + ",");
         }
-        
+
         retorno = retorno.substring(0, retorno.length() - 1);
 
         return retorno;
     }
 
     public String isMascChecked() {
-        if (getGenero().equals(Genero.MASCULINO.getDescricao())) return "checked";
+        if (getGenero().equals(Genero.MASCULINO.getDescricao())) {
+            return "checked";
+        }
         return "";
     }
 
     public String isFemChecked() {
-        if (getGenero().equals(Genero.FEMININO.getDescricao())) return "checked";
+        if (getGenero().equals(Genero.FEMININO.getDescricao())) {
+            return "checked";
+        }
         return "";
     }
 
     public String isUnissexChecked() {
-        if (getGenero().equals(Genero.UNISSEX.getDescricao())) return "checked";
+        if (getGenero().equals(Genero.UNISSEX.getDescricao())) {
+            return "checked";
+        }
         return "";
     }
-    
-    public String isActiveChecked(){
-        if(getStatus().equals(OracleBoolean.TRUE.getValue())) return "checked";
+
+    public String isActiveChecked() {
+        if (getStatus().equals(OracleBoolean.TRUE.getValue())) {
+            return "checked";
+        }
         return "";
     }
-    
-    public String isInactiveChecked(){
-        if(getStatus().equals(OracleBoolean.FALSE.getValue())) return "checked";
+
+    public String isInactiveChecked() {
+        if (getStatus().equals(OracleBoolean.FALSE.getValue())) {
+            return "checked";
+        }
         return "";
     }
-    
+
     //TODO rever Regras de Negocio
-    public int getQuantidadeVariantes(){
+    public int getQuantidadeVariantes() {
         return 0;
     }
-    
-    public String getStatusTratado(){
-        if(getStatus().equals(OracleBoolean.TRUE.getValue())) return "Ativo";
+
+    public String getStatusTratado() {
+        if (getStatus().equals(OracleBoolean.TRUE.getValue())) {
+            return "Ativo";
+        }
         return "Inativo";
     }
     
+    public String isActive() {
+        if (id == null) {
+            return "checked";
+        }
+        if (getStatus().equals(OracleBoolean.TRUE.getValue())) {
+            return "checked";
+        }
+        return "";
+    }
+
+    public String isInactive() {
+        if (getStatus().equals(OracleBoolean.FALSE.getValue())) {
+            return "checked";
+        }
+        return "";
+    }
+
 }

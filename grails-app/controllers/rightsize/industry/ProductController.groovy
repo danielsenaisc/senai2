@@ -36,14 +36,14 @@ class ProductController {
        
 
         return [collectionList: collectionList, product: product, gradeList: gradeList, variantList: variantList, 
-        productList: productList, 
-        attachmentList:[ "/css/global/plugins/jcrop/demos/demo_files/image1.jpg",
+            productList: productList, 
+            attachmentList:[ "/css/global/plugins/jcrop/demos/demo_files/image1.jpg",
                         "/css/global/plugins/jcrop/demos/demo_files/image1.jpg"],
-        attrlist: attrlist]
+            attrlist: attrlist]
     }
 
-     def create() { 
-       redirect(controller:"product", action:"edit");
+    def create() { 
+        redirect(controller:"product", action:"edit");
     }
 
     private loadProduct(){
@@ -70,7 +70,7 @@ class ProductController {
 
     }
 
-     private loadAttribs(){
+    private loadAttribs(){
 
         attrlist = new ArrayList();
         attrlist.add("Tipo de Lavagem");

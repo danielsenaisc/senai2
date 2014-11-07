@@ -32,6 +32,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import utils.Formatador;
 import utils.Genero;
 
 /**
@@ -54,13 +55,14 @@ import utils.Genero;
     @NamedQuery(name = "Colecao.findByIdLivre", query = "SELECT c FROM Colecao c WHERE c.idLivre = :idLivre"),
     @NamedQuery(name = "Colecao.findByLikes", query = "SELECT c FROM Colecao c WHERE c.likes = :likes"),
     @NamedQuery(name = "Colecao.findByDislikes", query = "SELECT c FROM Colecao c WHERE c.dislikes = :dislikes")})
-    @NamedQuery(name = "Colecao.selectOrderByLikes", query = "SELECT c FROM Colecao c ORDER BY likes")
+@NamedQuery(name = "Colecao.selectOrderByLikes", query = "SELECT c FROM Colecao c ORDER BY likes")
 public class Colecao implements Serializable {
+
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "COLECAO_SEQ")
-    @SequenceGenerator(name = "COLECAO_SEQ", sequenceName="COLECAO_SEQ")
+    @SequenceGenerator(name = "COLECAO_SEQ", sequenceName = "COLECAO_SEQ")
 
     @Basic(optional = false)
     @Column(name = "ID", nullable = false, precision = 19, scale = 0)
@@ -135,7 +137,9 @@ public class Colecao implements Serializable {
     }
 
     public String getNome() {
-        if(nome == null) return "";
+        if (nome == null) {
+            return "";
+        }
         return nome;
     }
 
@@ -144,16 +148,20 @@ public class Colecao implements Serializable {
     }
 
     public Date getVigenciaInicial() {
-        if(vigenciaInicial == null) return new Date();
+        if (vigenciaInicial == null) {
+            return new Date();
+        }
         return vigenciaInicial;
     }
 
-    public void setVigenciaInicial(Date vigenciaInicial) {        
+    public void setVigenciaInicial(Date vigenciaInicial) {
         this.vigenciaInicial = vigenciaInicial;
     }
 
-    public Date getVigenciaFinal() {   
-        if(vigenciaFinal == null) return new Date();
+    public Date getVigenciaFinal() {
+        if (vigenciaFinal == null) {
+            return new Date();
+        }
         return vigenciaFinal;
     }
 
@@ -162,7 +170,9 @@ public class Colecao implements Serializable {
     }
 
     public String getDescricao() {
-        if(descricao == null) return "";
+        if (descricao == null) {
+            return "";
+        }
         return descricao;
     }
 
@@ -171,7 +181,9 @@ public class Colecao implements Serializable {
     }
 
     public Long getIdadeInicial() {
-        if(idadeInicial == null) return 1l;
+        if (idadeInicial == null) {
+            return 1l;
+        }
         return idadeInicial;
     }
 
@@ -180,7 +192,9 @@ public class Colecao implements Serializable {
     }
 
     public Long getIdadeFinal() {
-        if(idadeFinal == null) return 1l;
+        if (idadeFinal == null) {
+            return 1l;
+        }
         return idadeFinal;
     }
 
@@ -189,7 +203,9 @@ public class Colecao implements Serializable {
     }
 
     public Character getGenero() {
-        if(genero == null) return ' ';
+        if (genero == null) {
+            return ' ';
+        }
         return genero;
     }
 
@@ -198,7 +214,9 @@ public class Colecao implements Serializable {
     }
 
     public String getIdLivre() {
-        if(idLivre == null) return "";
+        if (idLivre == null) {
+            return "";
+        }
         return idLivre;
     }
 
@@ -207,7 +225,9 @@ public class Colecao implements Serializable {
     }
 
     public Long getLikes() {
-        if(likes == null) return 0l;
+        if (likes == null) {
+            return 0l;
+        }
         return likes;
     }
 
@@ -216,7 +236,9 @@ public class Colecao implements Serializable {
     }
 
     public Long getDislikes() {
-        if(dislikes == null) return 0l;
+        if (dislikes == null) {
+            return 0l;
+        }
         return dislikes;
     }
 
@@ -225,8 +247,10 @@ public class Colecao implements Serializable {
     }
 
     @XmlTransient
-    public List<Tag> getTagList() {  
-        if(tagList == null) return new ArrayList();
+    public List<Tag> getTagList() {
+        if (tagList == null) {
+            return new ArrayList();
+        }
         return tagList;
     }
 
@@ -236,7 +260,9 @@ public class Colecao implements Serializable {
 
     @XmlTransient
     public List<Pais> getPaisList() {
-        if(paisList == null) return new ArrayList();
+        if (paisList == null) {
+            return new ArrayList();
+        }
         return paisList;
     }
 
@@ -246,7 +272,9 @@ public class Colecao implements Serializable {
 
     @XmlTransient
     public List<Estilo> getEstiloList() {
-        if(estiloList == null) return new ArrayList();
+        if (estiloList == null) {
+            return new ArrayList();
+        }
         return estiloList;
     }
 
@@ -256,7 +284,9 @@ public class Colecao implements Serializable {
 
     @XmlTransient
     public List<AnexoColecao> getAnexoColecaoList() {
-        if(anexoColecaoList == null) return new ArrayList();
+        if (anexoColecaoList == null) {
+            return new ArrayList();
+        }
         return anexoColecaoList;
     }
 
@@ -266,7 +296,9 @@ public class Colecao implements Serializable {
 
     @XmlTransient
     public List<Produtos> getProdutosList() {
-        if(produtosList == null) return new ArrayList();
+        if (produtosList == null) {
+            return new ArrayList();
+        }
         return produtosList;
     }
 
@@ -275,7 +307,9 @@ public class Colecao implements Serializable {
     }
 
     public Marca getMarcaId() {
-        if(marcaId == null) return new Marca();
+        if (marcaId == null) {
+            return new Marca();
+        }
         return marcaId;
     }
 
@@ -284,7 +318,9 @@ public class Colecao implements Serializable {
     }
 
     public ColecaoStatus getColecaoStatusId() {
-        if(colecaoStatusId == null) return new ColecaoStatus();
+        if (colecaoStatusId == null) {
+            return new ColecaoStatus();
+        }
         return colecaoStatusId;
     }
 
@@ -315,63 +351,90 @@ public class Colecao implements Serializable {
     @Override
     public String toString() {
         return getNome();
-    }    
-    
-    public String getVigencia(){
+    }
+
+    public String getVigencia() {
         //TODO revisar regras de negocio
-    	if(vigenciaInicial == null) return "N/A";
-    	if(vigenciaFinal == null) return "N/A";
-    		
-    	long diff = vigenciaFinal.getTime() - vigenciaInicial.getTime();
-        return (diff / (1000 * 60 * 60 * 24))+" dias";
-    }   
-    
-    public String getListaDeTagsTratada(){
+        if (vigenciaInicial == null) {
+            return "N/A";
+        }
+        if (vigenciaFinal == null) {
+            return "N/A";
+        }
+
+        long diff = vigenciaFinal.getTime() - vigenciaInicial.getTime();
+        return (diff / (1000 * 60 * 60 * 24)) + " dias";
+    }
+
+    public String getListaDeTagsTratada() {
         String retorno = "";
-        if(getTagList().size() <= 0) return retorno;
-        
+        if (getTagList().size() <= 0) {
+            return retorno;
+        }
+
         for (Tag tagList1 : tagList) {
-            retorno += (tagList1.getDescricao()+",");
+            retorno += (tagList1.getDescricao() + ",");
         }
-        retorno  = retorno.substring(0, retorno.length()-1);
+        retorno = retorno.substring(0, retorno.length() - 1);
         return retorno;
     }
-    
-    public String getListaDePaisesTratada(){
+
+    public String getListaDePaisesTratada() {
         String retorno = "";
-        if(getPaisList().size() <= 0) return retorno;
-        
+        if (getPaisList().size() <= 0) {
+            return retorno;
+        }
+
         for (Pais paisList1 : getPaisList()) {
-            retorno += (paisList1.getNome()+",");
+            retorno += (paisList1.getNome() + ",");
         }
-        retorno  = retorno.substring(0, retorno.length()-1);
+        retorno = retorno.substring(0, retorno.length() - 1);
         return retorno;
     }
-    
-    public String getListaDeEstilosTratada(){
-        String retorno = "";          
-        if(getEstiloList().size() <= 0) return retorno;
-        
+
+    public String getListaDeEstilosTratada() {
+        String retorno = "";
+        if (getEstiloList().size() <= 0) {
+            return retorno;
+        }
+
         for (Estilo estiloList1 : getEstiloList()) {
-            retorno += (estiloList1.getDescricao()+ ",");
+            retorno += (estiloList1.getDescricao() + ",");
         }
-        
-        retorno = retorno.substring(0, retorno.length()-1);
+
+        retorno = retorno.substring(0, retorno.length() - 1);
         return retorno;
     }
-    
-    public String isMascChecked(){
-        if(getGenero().equals(Genero.MASCULINO.getDescricao())) return "checked";
+
+    public String isMascChecked() {
+        if (getGenero().equals(Genero.MASCULINO.getDescricao())) {
+            return "checked";
+        }
+        return "";
+    }
+
+    public String isFemChecked() {
+        if (getGenero().equals(Genero.FEMININO.getDescricao())) {
+            return "checked";
+        }
+        return "";
+    }
+
+    public String isUnissexChecked() {
+        if (id == null) {
+            return "checked";
+        }
+        if (getGenero().equals(Genero.UNISSEX.getDescricao())) {
+            return "checked";
+        }
         return "";
     }
     
-    public String isFemChecked(){
-        if(getGenero().equals(Genero.FEMININO.getDescricao())) return "checked";
-        return "";
+    public String getVigenciaInicialTratada(){
+        return Formatador.formataData(getVigenciaInicial());
     }
     
-    public String isUnissexChecked(){
-        if(getGenero().equals(Genero.UNISSEX.getDescricao())) return "checked";
-        return "";
+    public String getVigenciaFinalTratada(){
+        return Formatador.formataData(getVigenciaFinal());
     }
 }

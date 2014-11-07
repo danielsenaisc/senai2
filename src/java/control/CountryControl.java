@@ -13,9 +13,9 @@ import java.util.ArrayList;
  * @author Gustavo Calandrini
  */
 public class CountryControl {
-    
-    public ArrayList<Pais> selectAll(){
+
+    public ArrayList<Pais> selectAll() {
         return new ArrayList(Conexao.namedQuery("Pais.findAll"));
     }
-    
+
 }

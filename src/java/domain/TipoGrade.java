@@ -36,11 +36,12 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "TipoGrade.findById", query = "SELECT t FROM TipoGrade t WHERE t.id = :id"),
     @NamedQuery(name = "TipoGrade.findByDescricao", query = "SELECT t FROM TipoGrade t WHERE t.descricao = :descricao")})
 public class TipoGrade implements Serializable {
+
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "TIPO_GRADE_SEQ")
-    @SequenceGenerator(name = "TIPO_GRADE_SEQ", sequenceName="TIPO_GRADE_SEQ")
+    @SequenceGenerator(name = "TIPO_GRADE_SEQ", sequenceName = "TIPO_GRADE_SEQ")
 
     @Basic(optional = false)
     @Column(name = "ID", nullable = false, precision = 19, scale = 0)
@@ -134,5 +135,5 @@ public class TipoGrade implements Serializable {
     public String toString() {
         return "domain.TipoGrade[ id=" + id + " ]";
     }
-    
+
 }

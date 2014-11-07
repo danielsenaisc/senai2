@@ -32,6 +32,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import utils.Formatador;
 import utils.Genero;
 import utils.OracleBoolean;
 
@@ -54,10 +55,11 @@ import utils.OracleBoolean;
     @NamedQuery(name = "Marca.findByIdadeFinal", query = "SELECT m FROM Marca m WHERE m.idadeFinal = :idadeFinal"),
     @NamedQuery(name = "Marca.findByStatus", query = "SELECT m FROM Marca m WHERE m.status = :status")})
 public class Marca implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "MARCA_SEQ")
-    @SequenceGenerator(name = "MARCA_SEQ", sequenceName="MARCA_SEQ")
+    @SequenceGenerator(name = "MARCA_SEQ", sequenceName = "MARCA_SEQ")
     @Basic(optional = false)
     @Column(name = "ID", nullable = false)
     private Long id;
@@ -128,7 +130,9 @@ public class Marca implements Serializable {
     }
 
     public String getNome() {
-        if(nome == null) return "";
+        if (nome == null) {
+            return "";
+        }
         return nome;
     }
 
@@ -137,7 +141,9 @@ public class Marca implements Serializable {
     }
 
     public String getDescricao() {
-        if(descricao == null) return "";
+        if (descricao == null) {
+            return "";
+        }
         return descricao;
     }
 
@@ -155,7 +161,9 @@ public class Marca implements Serializable {
     }
 
     public Date getDataCriacao() {
-        if(dataCriacao == null) return new Date();
+        if (dataCriacao == null) {
+            return new Date();
+        }
         return dataCriacao;
     }
 
@@ -164,7 +172,9 @@ public class Marca implements Serializable {
     }
 
     public Character getGenero() {
-        if(genero == null) return ' ';
+        if (genero == null) {
+            return ' ';
+        }
         return genero;
     }
 
@@ -191,7 +201,9 @@ public class Marca implements Serializable {
     }
 
     public Character getStatus() {
-        if(status == null) return ' ';
+        if (status == null) {
+            return ' ';
+        }
         return status;
     }
 
@@ -201,7 +213,9 @@ public class Marca implements Serializable {
 
     @XmlTransient
     public List<Estilo> getEstiloList() {
-        if(estiloList == null) return new ArrayList();
+        if (estiloList == null) {
+            return new ArrayList();
+        }
         return estiloList;
     }
 
@@ -211,7 +225,9 @@ public class Marca implements Serializable {
 
     @XmlTransient
     public List<Modelagem> getModelagemList() {
-        if(modelagemList == null) return new ArrayList();
+        if (modelagemList == null) {
+            return new ArrayList();
+        }
         return modelagemList;
     }
 
@@ -221,7 +237,9 @@ public class Marca implements Serializable {
 
     @XmlTransient
     public List<Pais> getPaisList() {
-        if(paisList == null) return new ArrayList();
+        if (paisList == null) {
+            return new ArrayList();
+        }
         return paisList;
     }
 
@@ -231,7 +249,9 @@ public class Marca implements Serializable {
 
     @XmlTransient
     public List<MarcaCanal> getMarcaCanalList() {
-        if(marcaCanalList == null) return new ArrayList();
+        if (marcaCanalList == null) {
+            return new ArrayList();
+        }
         return marcaCanalList;
     }
 
@@ -249,7 +269,9 @@ public class Marca implements Serializable {
 
     @XmlTransient
     public List<Colecao> getColecaoList() {
-        if(colecaoList == null) return new ArrayList();
+        if (colecaoList == null) {
+            return new ArrayList();
+        }
         return colecaoList;
     }
 
@@ -279,95 +301,117 @@ public class Marca implements Serializable {
 
     @Override
     public String toString() {
-        return "domain.Marca[ id=" + id + " ]";
+        return getNome();
     }
-    
+
     /* CUSTOM METHODS */
-    
-    public int getQuantidadeProdutos(){
+    public int getQuantidadeProdutos() {
         int quantidadeDeProdutos = 0;
-        
-        for (Colecao colecaoList: getColecaoList()) {
+
+        for (Colecao colecaoList : getColecaoList()) {
             quantidadeDeProdutos += colecaoList.getProdutosList().size();
         }
-        
+
         return quantidadeDeProdutos;
     }
-    
-    public String getStatusTratado(){
-        if(getStatus() == OracleBoolean.TRUE.getValue()) return "Ativo";
+
+    public String getStatusTratado() {
+        if (getStatus().equals(OracleBoolean.TRUE.getValue())) {
+            return "Ativo";
+        }
         return "Inativo";
     }
-    
-    public String getDataCriacaoTratada(){
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        return dateFormat.format(getDataCriacao());
+
+    public String getDataCriacaoTratada() {
+        return Formatador.formataData(getDataCriacao());
     }
-    
-    public String isMascChecked(){
-        if(getGenero().equals(Genero.MASCULINO.getDescricao())) return "checked";
-        return "";
-    }
-    
-    public String isFemChecked(){
-        if(getGenero().equals(Genero.FEMININO.getDescricao())) return "checked";
-        return "";
-    }
-    
-    public String isUnissexChecked(){
-        if(getGenero().equals(Genero.UNISSEX.getDescricao())) return "checked";
-        return "";
-    }
-    
-    public String getEstiloListTratado(){
-        String retorno = "";
-        
-        if(getEstiloList().size() <= 0) return retorno;
-        
-        for (Estilo style : getEstiloList()) {
-            retorno += (style.getDescricao()+",");
+
+    public String isMascChecked() {
+        if (getGenero().equals(Genero.MASCULINO.getDescricao())) {
+            return "checked";
         }
-        
-        retorno = retorno.substring(0, retorno.length()-1);
+        return "";
+    }
+
+    public String isFemChecked() {
+        if (getGenero().equals(Genero.FEMININO.getDescricao())) {
+            return "checked";
+        }
+        return "";
+    }
+
+    public String isUnissexChecked() {
+        //retorno default para marcasVazias;
+        if (getId() == null) {
+            return "checked";
+        }
+        if (getGenero().equals(Genero.UNISSEX.getDescricao())) {
+            return "checked";
+        }
+        return "";
+    }
+
+    public String getEstiloListTratado() {
+        String retorno = "";
+
+        if (getEstiloList().size() <= 0) {
+            return retorno;
+        }
+
+        for (Estilo style : getEstiloList()) {
+            retorno += (style.getDescricao() + ",");
+        }
+
+        retorno = retorno.substring(0, retorno.length() - 1);
 
         return retorno;
     }
-    
-    public String getLocationsListTratado(){
+
+    public String getLocationsListTratado() {
         String retorno = "";
-        
-        if(getPaisList().size() <= 0) return retorno;
-        
-        for (Pais location : getPaisList()) {
-            retorno += (location.getNome()+",");
+
+        if (getPaisList().size() <= 0) {
+            return retorno;
         }
-        
-        retorno = retorno.substring(0, retorno.length()-1);
-        
+
+        for (Pais location : getPaisList()) {
+            retorno += (location.getNome() + ",");
+        }
+
+        retorno = retorno.substring(0, retorno.length() - 1);
+
         return retorno;
     }
-    
-    public Pais getDefaultCountry(){
+
+    public Pais getDefaultCountry() {
         //TODO implementar regra para retorno de Marca > Pais
         return new Pais();
     }
-    
-    public String isActive(){
-        if(getStatus().equals(OracleBoolean.TRUE.getValue())) return "checked";
+
+    public String isActive() {
+        //retorno default para marcasVazias;
+        if (getId() == null) {
+            return "checked";
+        }
+        if (getStatus().equals(OracleBoolean.TRUE.getValue())) {
+            return "checked";
+        }
         return "";
     }
-    
-    public String isInactive(){
-        if(getStatus().equals(OracleBoolean.FALSE.getValue())) return "checked";
+
+    public String isInactive() {
+        if (getStatus().equals(OracleBoolean.FALSE.getValue())) {
+            return "checked";
+        }
         return "";
     }
-    
-    public void setDataCriacao(String dataCriacao){
+
+    public void setDataCriacao(String dataCriacao) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        try{
-        this.dataCriacao = simpleDateFormat.parse(dataCriacao);
-        }catch(ParseException ex){
+        try {
+            this.dataCriacao = simpleDateFormat.parse(dataCriacao);
+        } catch (ParseException ex) {
             ex.printStackTrace();
         }
-        }
+    }
 }

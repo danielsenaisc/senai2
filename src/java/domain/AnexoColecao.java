@@ -34,10 +34,11 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "AnexoColecao.findByDescricao", query = "SELECT a FROM AnexoColecao a WHERE a.descricao = :descricao"),
     @NamedQuery(name = "AnexoColecao.findByUrl", query = "SELECT a FROM AnexoColecao a WHERE a.url = :url")})
 public class AnexoColecao implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ANEXO_COLECAO_SEQ")
-    @SequenceGenerator(name = "ANEXO_COLECAO_SEQ", sequenceName="ANEXO_COLECAO_SEQ")
+    @SequenceGenerator(name = "ANEXO_COLECAO_SEQ", sequenceName = "ANEXO_COLECAO_SEQ")
 
     @Basic(optional = false)
     @Column(name = "ID", nullable = false, length = 45)
@@ -140,5 +141,5 @@ public class AnexoColecao implements Serializable {
     public String toString() {
         return "domain.AnexoColecao[ id=" + id + " ]";
     }
-    
+
 }

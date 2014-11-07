@@ -13,9 +13,9 @@ import java.util.ArrayList;
  * @author IST-08-PC
  */
 public class AttachmentCollectionControl {
-    
-    public ArrayList<AnexoColecao> selectAll(){       
+
+    public ArrayList<AnexoColecao> selectAll() {
         return new ArrayList(Conexao.namedQuery("AnexoColecao.findAll"));
     }
-    
+
 }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<div class="portlet box blue-madison" style="height:400px;width=500px;">
+<div class="portlet box blue-madison" style="height:400px; width=500px;">
 	<div class="portlet-title">
 		<div class="caption">
 			<i class="fa fa-bar-chart-o"></i><g:message code="dashboard.form.pierchart.title"/>

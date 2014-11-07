@@ -51,8 +51,7 @@
 						<div class="col-md-1" style="margin-left: 20px;">
 							<div class="form-group">
 								<div class="form-group">
-									<g:select name="age" from="${0..99}" value="${collection.getIdadeFinal()}"
-	          							noSelection="['':' - ']" class="form-control input-small age-select" tabindex="11"/>
+									<g:select name="age" from="${0..99}" value="${collection.getIdadeFinal()}" noSelection="['':' - ']" class="form-control input-small age-select" tabindex="11"/>
 								</div>
 							</div>
 						</div>

@@ -34,6 +34,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import utils.Formatador;
 import utils.Genero;
+import utils.OracleBoolean;
 
 /**
  *

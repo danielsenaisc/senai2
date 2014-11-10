@@ -48,6 +48,7 @@ public class BrandControl {
             marcaDeRetorno = (Marca) Conexao.singleResultNamedQuery("Marca.findById", id, "id");
         } catch (NoResultException e) {
             //TODO tratar
+            e.printStackTrace();
         }
         return marcaDeRetorno;
     }

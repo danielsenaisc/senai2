@@ -29,6 +29,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import utils.Genero;
 import utils.OracleBoolean;
+import utils.RadioOptions;
 
 /**
  *
@@ -257,37 +258,37 @@ public class Produtos implements Serializable {
 
     public String isMascChecked() {
         if (getGenero().equals(Genero.MASCULINO.getDescricao())) {
-            return "checked";
+            return RadioOptions.CHECKED.getOption();
         }
-        return "";
+        return RadioOptions.UNCHECkED.getOption();
     }
 
     public String isFemChecked() {
         if (getGenero().equals(Genero.FEMININO.getDescricao())) {
-            return "checked";
+            return RadioOptions.CHECKED.getOption();
         }
-        return "";
+        return RadioOptions.UNCHECkED.getOption();
     }
 
     public String isUnissexChecked() {
         if (getGenero().equals(Genero.UNISSEX.getDescricao())) {
-            return "checked";
+            return RadioOptions.CHECKED.getOption();
         }
-        return "";
+        return RadioOptions.UNCHECkED.getOption();
     }
 
     public String isActiveChecked() {
         if (getStatus().equals(OracleBoolean.TRUE.getValue())) {
-            return "checked";
+            return RadioOptions.CHECKED.getOption();
         }
-        return "";
+        return RadioOptions.UNCHECkED.getOption();
     }
 
     public String isInactiveChecked() {
         if (getStatus().equals(OracleBoolean.FALSE.getValue())) {
-            return "checked";
+            return RadioOptions.CHECKED.getOption();
         }
-        return "";
+        return RadioOptions.UNCHECkED.getOption();
     }
 
     //TODO rever Regras de Negocio
@@ -304,19 +305,19 @@ public class Produtos implements Serializable {
     
     public String isActive() {
         if (id == null) {
-            return "checked";
+            return RadioOptions.CHECKED.getOption();
         }
         if (getStatus().equals(OracleBoolean.TRUE.getValue())) {
-            return "checked";
+            return RadioOptions.CHECKED.getOption();
         }
-        return "";
+        return RadioOptions.UNCHECkED.getOption();
     }
 
     public String isInactive() {
         if (getStatus().equals(OracleBoolean.FALSE.getValue())) {
-            return "checked";
+            return RadioOptions.CHECKED.getOption();
         }
-        return "";
+        return RadioOptions.UNCHECkED.getOption();
     }
 
 }

@@ -7,7 +7,6 @@ package domain;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -34,7 +33,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import utils.Formatador;
 import utils.Genero;
-import utils.OracleBoolean;
+import utils.RadioOptions;
 
 /**
  *
@@ -409,26 +408,26 @@ public class Colecao implements Serializable {
 
     public String isMascChecked() {
         if (getGenero().equals(Genero.MASCULINO.getDescricao())) {
-            return "checked";
+            return RadioOptions.CHECKED.getOption();
         }
-        return "";
+        return RadioOptions.UNCHECkED.getOption();
     }
 
     public String isFemChecked() {
         if (getGenero().equals(Genero.FEMININO.getDescricao())) {
-            return "checked";
+            return RadioOptions.CHECKED.getOption();
         }
-        return "";
+        return RadioOptions.UNCHECkED.getOption();
     }
 
     public String isUnissexChecked() {
         if (id == null) {
-            return "checked";
+            return RadioOptions.CHECKED.getOption();
         }
         if (getGenero().equals(Genero.UNISSEX.getDescricao())) {
-            return "checked";
+            return RadioOptions.CHECKED.getOption();
         }
-        return "";
+        return RadioOptions.UNCHECkED.getOption();
     }
     
     public String getVigenciaInicialTratada(){

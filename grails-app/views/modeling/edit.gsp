@@ -75,9 +75,6 @@
 
                         </div>
 
-                        <div class="col-md-12" style="margin-top:16px">
-                            <a href="${createLink(controller:'modeling', action:'saveModeling', params:[modelingId:modeling.getId()])}" style="float:right;margin-right:15px" class="btn blue" >Salvar</a>
-                        </div>
                     <!-- END ROW -->
                     </div>
 

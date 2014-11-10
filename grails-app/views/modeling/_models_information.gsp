@@ -260,6 +260,11 @@
                                     <a id="new-row" href="javascript:" class="btn btn-circle btn-sm blue-madison" style="margin-left: 25px;"><i class="fa fa-plus-circle"></i> <g:message code="modeling.form.edit.models.newmeasure"/> </a>
                                 </div>
                             </div><!--end scrollable-->
+
+                            <div class="col-md-12" style="margin-top:16px">
+                                <a href="${createLink(controller:'modeling', action:'saveModeling', params:[modelingId:modeling.getId()])}" style="float:right;margin-right:15px" class="btn blue" >Salvar</a>
+                            </div>
+
                         </div><!--end portlet-->
                     </div>
                 </div>

@@ -35,6 +35,7 @@ import javax.xml.bind.annotation.XmlTransient;
 import utils.Formatador;
 import utils.Genero;
 import utils.OracleBoolean;
+import utils.RadioOptions;
 
 /**
  *
@@ -328,27 +329,27 @@ public class Marca implements Serializable {
 
     public String isMascChecked() {
         if (getGenero().equals(Genero.MASCULINO.getDescricao())) {
-            return "checked";
+            return RadioOptions.CHECKED.getOption();
         }
-        return "";
+        return RadioOptions.UNCHECkED.getOption();
     }
 
     public String isFemChecked() {
         if (getGenero().equals(Genero.FEMININO.getDescricao())) {
-            return "checked";
+            return RadioOptions.CHECKED.getOption();
         }
-        return "";
+        return RadioOptions.UNCHECkED.getOption();
     }
 
     public String isUnissexChecked() {
         //retorno default para marcasVazias;
         if (getId() == null) {
-            return "checked";
+            return RadioOptions.CHECKED.getOption();
         }
         if (getGenero().equals(Genero.UNISSEX.getDescricao())) {
-            return "checked";
+            return RadioOptions.CHECKED.getOption();
         }
-        return "";
+        return RadioOptions.UNCHECkED.getOption();
     }
 
     public String getEstiloListTratado() {
@@ -391,19 +392,19 @@ public class Marca implements Serializable {
     public String isActive() {
         //retorno default para marcasVazias;
         if (getId() == null) {
-            return "checked";
+            return RadioOptions.CHECKED.getOption();
         }
         if (getStatus().equals(OracleBoolean.TRUE.getValue())) {
-            return "checked";
+            RadioOptions.CHECKED.getOption();
         }
-        return "";
+        return RadioOptions.UNCHECkED.getOption();
     }
 
     public String isInactive() {
         if (getStatus().equals(OracleBoolean.FALSE.getValue())) {
-            return "checked";
+            return RadioOptions.CHECKED.getOption();
         }
-        return "";
+        return RadioOptions.UNCHECkED.getOption();
     }
 
     public void setDataCriacao(String dataCriacao) {

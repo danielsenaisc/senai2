@@ -32,7 +32,7 @@
                             <div class="form-group">
                                 <div class="form-group">
                                     <g:select name="brandInitialAge" from="${ageList}" value="${brand.getIdadeInicial()}" 
-                                        noSelection="['':' - ']" class="form-control input-small age-select" tabindex="8"/>
+                                        class="form-control input-small age-select" tabindex="8"/>
                                 </div>
                             </div>
                         </div>
@@ -45,7 +45,7 @@
                             <div class="form-group">
                                 <div class="form-group">
                                     <g:select name="brandFinalAge" from="${ageList}" value="${brand.getIdadeFinal()}" 
-                                        noSelection="['':' - ']" class="form-control input-small age-select" tabindex="9"/>
+                                        class="form-control input-small age-select" tabindex="9"/>
                                 </div>
                             </div>
                         </div>

@@ -25,7 +25,6 @@ class CollectionController {
 	
     def index() { 
     	collectionList = loadCollection();
-
         [collectionList: collectionList]
     }
 
@@ -38,9 +37,10 @@ class CollectionController {
         statusList = loadStatus();
         userList = loadUser();
         attachmentsList = loadAttachments();
-        brandList = loadBrands();       
-        return [collection: collection, statusList: statusList, userList: userList, attachmentsList: attachmentsList, brandList: brandList]
-
+        brandList = loadBrands();     
+        
+        return [collection: collection, statusList: statusList, userList: userList, 
+                attachmentsList: attachmentsList, brandList: brandList]
     }
 
     def create() { 
@@ -50,17 +50,25 @@ class CollectionController {
     private
 
     def loadCollection(){
+        if(colecaoControl.selectAll().size() <=0) return new ArrayList();
 	return colecaoControl.selectAll();
     }
 
     def loadBrands(){        
+        if(marcaControl.selectAll().size() <=0) return new ArrayList();
         return marcaControl.selectAll();
     }
 
     def loadStatus(){
+        if(colecaoStatusControl.selectAll().size() <=0) return new ArrayList();
         return colecaoStatusControl.selectAll();             
     }
 
+    def loadAttachments(){   
+        if(anexoColecaoControl.selectAll().size() <=0) return new ArrayList();
+        return anexoColecaoControl.selectAll();        
+    }
+    
     def loadUser(){
         
         userList = new ArrayList();
@@ -72,9 +80,5 @@ class CollectionController {
         userList.add("Claudinei da Silva");
        
         return userList
-    }
-
-    def loadAttachments(){        
-        return anexoColecaoControl.selectAll();        
     }
 }

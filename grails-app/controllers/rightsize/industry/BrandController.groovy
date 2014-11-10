@@ -45,31 +45,31 @@ class BrandController {
         countryList = loadCountrys();
                 
         return [brand: brand , brandChannelList: brandChannelList, 
-            ageList: ageList, audienceList: audienceList, channelList: channelList,
-            countryList: countryList]
+                ageList: ageList, audienceList: audienceList, 
+                channelList: channelList, countryList: countryList]
     }
 
-    def loadBrand(){
+    private def loadBrand(){
         if(marcaControl.selectAll().size() <=0) return new ArrayList();
     	return marcaControl.selectAll();
     }
 
-    def loadBrandChannels(Marca brand){
+    private def loadBrandChannels(Marca brand){
         if(brand.getId() == null) return new ArrayList<Canal>();
         return brand.getMarcaCanalList();
     }
 	 
-    def loadCountrys(){
+    private def loadCountrys(){
         if(paisControl.selectAll().size() <=0) return new ArrayList();
         return paisControl.selectAll();
     }
     
-    def loadChannels(){
+    private def loadChannels(){
         if(canalControl.selectAll().size() <=0) return new ArrayList();
         return canalControl.selectAll();
     }
     
-    def loadAudienceList(){
+    private def loadAudienceList(){
         if(abrangenciaControl.selectAll().size() <= 0) return new ArrayList();
         return abrangenciaControl.selectAll(); 
     }
@@ -84,30 +84,26 @@ class BrandController {
         
         if(params.brandId != null && params.brandId.isLong()) novaMarca = marcaControl.findById(params.brandId.toLong());
         
-        //TODO novaMarca.setImage()
-        //TODO novaMarca.novoPais();
+        industriaAtual = industryControl.findById(new BigDecimal(idIndustria));
         
+        novaMarca.setIndustriaId(industriaAtual);
         novaMarca.setNome(params.brandName);
         novaMarca.setDescricao(params.brandDescription);
-        novaMarca.setDataCriacao(Formatter.stringToDate(params.brandCreationDate));
+        novaMarca.setDataCriacao(Formatador.stringToDate(params.brandCreationDate));
         novaMarca.setStatus(params.isBrandActive.toCharacter());
-
-        //TODO channels table
-        //criaCanaisAssociadosAMarca(/* params allChannels  */);
-        
-        //TODO estrategia correta para adicionar localizacoes
-        //        println(params.brandAudienceLocalization);
-        
         novaMarca.setIdadeInicial(params.brandInitialAge.toLong());
         novaMarca.setIdadeFinal(params.brandFinalAge.toLong());
         novaMarca.setGenero(params.brandOptionRadioGenre.toCharacter());
         
+        //TODO channels table
+        //criaCanaisAssociadosAMarca(/* params allChannels  */);
+        //TODO estrategia correta para adicionar localizacoes
+        //        
+        //        println(params.brandAudienceLocalization);
+        //TODO novaMarca.setImage()
+        //TODO novaMarca.novoPais();
         //TODO Elaborar estrategia correta para adicionar estilos
         //        println(params.brandAudienceStyles)
-
-        industriaAtual = industryControl.findById(new BigDecimal(idIndustria));
-        
-        novaMarca.setIndustriaId(industriaAtual);
         
         try{
             marcaControl.add(novaMarca);

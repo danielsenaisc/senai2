@@ -14,7 +14,7 @@ import java.math.BigDecimal;
  */
 public class IndustryControl {
 
-    public static Industria findById(BigDecimal id) {
+    public Industria findById(BigDecimal id) {
         return (Industria) Conexao.singleResultNamedQuery("Industria.findById", id, "id");
     }
 

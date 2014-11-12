@@ -14,6 +14,28 @@ import java.util.ArrayList;
  */
 public class CountryControl {
 
+    Pais pais;
+    
+    public CountryControl() {
+    }
+
+    public CountryControl(Pais pais) {
+        this.pais = pais;
+    }
+
+    public void setPais(Pais pais) {
+        this.pais = pais;
+    }
+
+    public Pais getPais() {
+        return pais;
+    }
+    
+    public boolean hasPais(){
+        if(pais == null) return false;
+        return true;
+    }
+
     public ArrayList<Pais> selectAll() {
         return new ArrayList(Conexao.namedQuery("Pais.findAll"));
     }

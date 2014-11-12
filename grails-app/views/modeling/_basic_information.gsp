@@ -86,11 +86,11 @@
                     <label class="col-md-2 control-label"><g:message code="modeling.table.column.gender"/></label>
                     <div class="col-md-6 radio-list">
                         <label class="radio-inline">
-                            <input type="radio" name="collectionOptionRadioGenre" id="optionsRadios4" value="M" tabindex="10" ${modeling.isMascChecked()}> <g:message code="report.form.edit.gender-male"/> </label>
+                            <input type="radio" name="collectionOptionRadioGenre" id="optionsRadios4" value="M" tabindex="10" ${innerModelingControl.isMascChecked(modeling)}> <g:message code="report.form.edit.gender-male"/> </label>
                         <label class="radio-inline">
-                            <input type="radio" name="collectionOptionRadioGenre" id="optionsRadios5" value="F" tabindex="11" ${modeling.isFemChecked()}> <g:message code="report.form.edit.gender-female"/> </label>
+                            <input type="radio" name="collectionOptionRadioGenre" id="optionsRadios5" value="F" tabindex="11" ${innerModelingControl.isFemChecked(modeling)}> <g:message code="report.form.edit.gender-female"/> </label>
                         <label class="radio-inline">
-                            <input type="radio" name="collectionOptionRadioGenre" id="optionsRadios6" value="U" tabindex="12" ${modeling.isUnissexChecked()}> <g:message code="report.form.edit.gender-unissex"/> </label>
+                            <input type="radio" name="collectionOptionRadioGenre" id="optionsRadios6" value="U" tabindex="12" ${innerModelingControl.isUnissexChecked(modeling)}> <g:message code="report.form.edit.gender-unissex"/> </label>
                     </div>
                 </div>
 

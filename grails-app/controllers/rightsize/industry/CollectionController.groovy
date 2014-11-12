@@ -23,9 +23,9 @@ class CollectionController {
     def attachmentsList = new ArrayList();
     def brandList = new ArrayList();
 	
-    def index() { 
+    def index() {
     	collectionList = loadCollection();
-        [collectionList: collectionList]
+        [collectionList: collectionList, innerCollectionControl: colecaoControl]
     }
 
 
@@ -40,7 +40,7 @@ class CollectionController {
         brandList = loadBrands();     
         
         return [collection: collection, statusList: statusList, userList: userList, 
-                attachmentsList: attachmentsList, brandList: brandList]
+                attachmentsList: attachmentsList, brandList: brandList, innerCollectionControl: colecaoControl]
     }
 
     def create() { 

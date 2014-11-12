@@ -58,7 +58,7 @@
                                 <div class="col-md-3" style="margin-left: 14px;">
                                     <div class="form-group">
                                         <div  class="col-md-4">
-                                            <input id="date-picker-start" class="form-control form-control-inline input-small date-picker " size="16" type="text" value="${collection.getVigenciaInicialTratada()}" tabindex="4"/></i>
+                                            <input id="date-picker-start" class="form-control form-control-inline input-small date-picker " size="16" type="text" value="${innerCollectionControl.getVigenciaInicialTratada(collection)}" tabindex="4"/></i>
                                         </div>
                                     </div>
                                 </div>
@@ -70,7 +70,7 @@
                                 <div class="col-md-1" style="margin-left: 0px;">
                                     <div class="form-group">
                                         <div  class="col-md-4">
-                                            <input id="date-picker-end" class="form-control form-control-inline input-small date-picker" size="16" type="text" value="${collection.getVigenciaFinalTratada()}" tabindex="5"/></i>
+                                            <input id="date-picker-end" class="form-control form-control-inline input-small date-picker" size="16" type="text" value="${innerCollectionControl.getVigenciaFinalTratada(collection)}" tabindex="5"/></i>
                                         </div>
                                     </div>
                                 </div>
@@ -91,7 +91,7 @@
                         <div class="form-group">
                             <label class="control-label col-md-3"><g:message code="collection.form.edit.tags"/></label>
                             <div class="col-md-9 col-wid399" tabindex="7">
-                                <input id="collection_tags" type="text" class="form-control tags col-wid399" value="${collection.getListaDeTagsTratada()}" />
+                                <input id="collection_tags" type="text" class="form-control tags col-wid399" value="${innerCollectionControl.getListaDeTagsTratada(collection)}" />
                             </div>
                         </div>
 

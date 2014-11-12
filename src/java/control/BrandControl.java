@@ -1,11 +1,42 @@
 package control;
 
+import domain.Colecao;
+import domain.Estilo;
 import java.util.ArrayList;
 
 import domain.Marca;
+import domain.Pais;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import javax.persistence.NoResultException;
+import utils.Formatador;
+import utils.Genero;
+import utils.OracleBoolean;
+import utils.RadioOptions;
 
 public class BrandControl {
+    
+    Marca marca;
+
+    public BrandControl() {
+    }
+
+    public BrandControl(Marca marca) {
+        this.marca = marca;
+    }
+
+    public Marca getMarca() {
+        return marca;
+    }
+
+    public void setMarca(Marca marca) {
+        this.marca = marca;
+    }
+    
+    public boolean hasMarca(){
+        if(marca == null) return false;
+        return true;
+    }
 
     /**
      * Retorna todos as marcas cadastradas no banco de dados.
@@ -81,4 +112,115 @@ public class BrandControl {
         return false;
     }
 
+    public int getQuantidadeProdutos(Marca marca) {
+        int quantidadeDeProdutos = 0;
+
+        for (Colecao colecaoList : marca.getColecaoList()) {
+            quantidadeDeProdutos += colecaoList.getProdutosList().size();
+        }
+
+        return quantidadeDeProdutos;
+    }
+
+    public String getStatusTratado(Marca marca) {
+        if (marca.getStatus().equals(OracleBoolean.TRUE.getValue())) {
+            return "Ativo";
+        }
+        return "Inativo";
+    }
+
+    public String getDataCriacaoTratada(Marca marca) {
+        return Formatador.formataData(marca.getDataCriacao());
+    }
+
+    public String isMascChecked(Marca marca) {
+        if (marca.getGenero().equals(Genero.MASCULINO.getDescricao())) {
+            return RadioOptions.CHECKED.getOption();
+        }
+        return RadioOptions.UNCHECkED.getOption();
+    }
+
+    public String isFemChecked(Marca marca) {
+        if (marca.getGenero().equals(Genero.FEMININO.getDescricao())) {
+            return RadioOptions.CHECKED.getOption();
+        }
+        return RadioOptions.UNCHECkED.getOption();
+    }
+
+    public String isUnissexChecked(Marca marca) {
+        //retorno default para marcasVazias;
+        if (marca.getId() == null) {
+            return RadioOptions.CHECKED.getOption();
+        }
+        if (marca.getGenero().equals(Genero.UNISSEX.getDescricao())) {
+            return RadioOptions.CHECKED.getOption();
+        }
+        return RadioOptions.UNCHECkED.getOption();
+    }
+
+    public String getEstiloListTratado(Marca marca) {
+        String retorno = "";
+
+        if (marca.getEstiloList().size() <= 0) {
+            return retorno;
+        }
+
+        for (Estilo style : marca.getEstiloList()) {
+            retorno += (style.getDescricao() + ",");
+        }
+
+        retorno = retorno.substring(0, retorno.length() - 1);
+
+        return retorno;
+    }
+
+    public String getLocationsListTratado(Marca marca) {
+        String retorno = "";
+
+        if (marca.getPaisList().size() <= 0) {
+            return retorno;
+        }
+
+        for (Pais location : marca.getPaisList()) {
+            retorno += (location.getNome() + ",");
+        }
+
+        retorno = retorno.substring(0, retorno.length() - 1);
+
+        return retorno;
+    }
+
+    public Pais getDefaultCountry(Marca marca) {
+        //TODO implementar regra para retorno de Marca > Pais
+        return new Pais();
+    }
+
+    public String isActive(Marca marca) {
+        //retorno default para marcasVazias;
+        if (getMarca().getId() == null) {
+            return RadioOptions.CHECKED.getOption();
+        }
+        if (getMarca().getStatus().equals(OracleBoolean.TRUE.getValue())) {
+            return RadioOptions.CHECKED.getOption();
+        }
+        return RadioOptions.UNCHECkED.getOption();
+    }
+    
+    public String isInactive(Marca marca) {
+        if (getMarca().getStatus().equals(OracleBoolean.FALSE.getValue())) {
+            return RadioOptions.CHECKED.getOption();
+        }
+        return RadioOptions.UNCHECkED.getOption();
+    }
+
+    //TODO revisar
+    public void setDataCriacao(String dataCriacao) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            getMarca().setDataCriacao(simpleDateFormat.parse(dataCriacao));
+        } catch (ParseException ex) {
+            ex.printStackTrace();
+        }
+    }
+    
 }

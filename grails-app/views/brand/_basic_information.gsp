@@ -78,7 +78,7 @@
                             <g:message code="brand.form.edit.dt_created"/>
                         </label>
                         <div  class="col-md-4 col-wd148">
-                            <input name="brandCreationDate" id="date-picker" class="form-control form-control-inline input-small date-picker" size="16" type="text" value="${brand.getDataCriacaoTratada()}" tabindex="3" /></i>
+                            <input name="brandCreationDate" id="date-picker" class="form-control form-control-inline input-small date-picker" size="16" type="text" value="${innerBrandControl.getDataCriacaoTratada(brand)}" tabindex="3" /></i>
                         </div>
                     </div>
                     <!-- COUNTRY -->
@@ -86,7 +86,7 @@
                         <label class="control-label col-md-2"><g:message code="brand.form.edit.country"/></label>
                         <div class="col-md-8" style="margin-right: 10px; margin-left: 12px;">
                             <div class="form-group">
-                                <g:select name="countryListComboBox" from="${countryList}" value="${brand.getDefaultCountry()}" class="form-control input-small col-wd148" tabindex="4"/>
+                                <g:select name="countryListComboBox" from="${countryList}" value="${innerBrandControl.getDefaultCountry(brand)}" class="form-control input-small col-wd148" tabindex="4"/>
                             </div>
                         </div>
                     </div>	
@@ -98,9 +98,9 @@
                     </div>
                     <div  class="col-md-4">
                         <label class="radio-inline">
-                            <input type="radio" name="isBrandActive" id="optionsRadios4" value="Y" tabindex="5" ${brand.isActive()} > Ativa </label>
+                            <input type="radio" name="isBrandActive" id="optionsRadios4" value="Y" tabindex="5" ${innerBrandControl.isActive(brand)} > Ativa </label>
                         <label class="radio-inline">
-                            <input type="radio" name="isBrandActive" id="optionsRadios5" value="N" tabindex="6" ${brand.isInactive()} > Inativa </label>
+                            <input type="radio" name="isBrandActive" id="optionsRadios5" value="N" tabindex="6" ${innerBrandControl.isInactive(brand)} > Inativa </label>
                     </div>
                 </div>
 

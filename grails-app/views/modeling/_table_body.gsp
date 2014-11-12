@@ -84,16 +84,16 @@
 					 ${modeling} </a>
 				</td>
 				<td><a href="${createLink(controller:'modeling',action:'edit',params:[modelingId:modeling.getId()])}" class="t-column">
-					 ${modeling.getQuantidadeDeColecoes()} </a>
+					 ${innerModelingControl.getQuantidadeDeColecoes(modeling)} </a>
 				</td>
 				<td><a href="${createLink(controller:'modeling',action:'edit',params:[modelingId:modeling.getId()])}" class="t-column">
-					 ${modeling.getQuantidadeDeProdutos()} </a>
+					 ${innerModelingControl.getQuantidadeDeProdutos(modeling)} </a>
 				</td>
 				<td><a href="${createLink(controller:'modeling',action:'edit',params:[modelingId:modeling.getId()])}" class="t-column">
 					 ${modeling} </a>
 				</td>
 				<td><a href="${createLink(controller:'modeling',action:'edit',params:[modelingId:modeling.getId()])}" class="t-column">
-					 ${modeling.getStatusTratado()} </a>
+					 ${innerModelingControl.getStatusTratado(modeling)} </a>
 				</td>
 				
 				<td>

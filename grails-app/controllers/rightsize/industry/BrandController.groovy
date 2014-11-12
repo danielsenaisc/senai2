@@ -30,8 +30,9 @@ class BrandController {
     def ageList = 0..99
 	
     def index() { 
+        BrandControl innerBrandControl = new BrandControl();
 	brandList = loadBrand();
-        [brandList: brandList]
+        [brandList: brandList, innerBrandControl: innerBrandControl]
     }
 
     def edit() { 
@@ -39,26 +40,31 @@ class BrandController {
         
         if(params.brandId != null && params.brandId.isLong()) brand = marcaControl.findById(params.brandId.toLong());  
         
+        BrandControl innerBrandControl = new BrandControl(brand);
+        
         brandChannelList = loadBrandChannels(brand);
         channelList = loadChannels();
         audienceList = loadAudienceList();
         countryList = loadCountrys();
+        
+        println(innerBrandControl.getQuantidadeProdutos(brand))
                 
-        return [brand: brand , brandChannelList: brandChannelList, 
+        return [brand: brand , brandChannelList: brandChannelList, innerBrandControl: innerBrandControl,
                 ageList: ageList, audienceList: audienceList, 
                 channelList: channelList, countryList: countryList]
     }
 
+    private def loadBrandChannels(Marca innerBrand){
+        BrandControl innerBrandControl = new BrandControl(innerBrand);
+        if(innerBrandControl.getMarca().getId() == null) return new ArrayList<Canal>();
+        return innerBrandControl.getMarca().getMarcaCanalList();
+    }
+    
     private def loadBrand(){
         if(marcaControl.selectAll().size() <=0) return new ArrayList();
     	return marcaControl.selectAll();
     }
-
-    private def loadBrandChannels(Marca brand){
-        if(brand.getId() == null) return new ArrayList<Canal>();
-        return brand.getMarcaCanalList();
-    }
-	 
+ 
     private def loadCountrys(){
         if(paisControl.selectAll().size() <=0) return new ArrayList();
         return paisControl.selectAll();
@@ -72,11 +78,6 @@ class BrandController {
     private def loadAudienceList(){
         if(abrangenciaControl.selectAll().size() <= 0) return new ArrayList();
         return abrangenciaControl.selectAll(); 
-    }
-    
-    private def isSelected(Long matchItem, Long listItem){
-        if(matchItem == listItem) return "checked"
-        return "";
     }
     
     def saveBrand(){

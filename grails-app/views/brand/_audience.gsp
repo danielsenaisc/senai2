@@ -20,7 +20,7 @@
                     <div class="col-md-4">
                         <label class="control-label col-md-6"><g:message code="brand.form.edit.audiente.location"/></label>
                         <div class="col-md-2" tabindex="7">
-                            <input name="brandAudienceLocalization" id="location_tag" type="text" class="form-control tags medium" value="${brand.getLocationsListTratado()}"/>
+                            <input name="brandAudienceLocalization" id="location_tag" type="text" class="form-control tags medium" value="${innerBrandControl.getLocationsListTratado(brand)}"/>
                         </div>
                     </div>
                 </div>
@@ -57,11 +57,11 @@
                     <label class="col-md-2 control-label"><g:message code="product.table.column.gender"/></label>
                     <div class="col-md-6 radio-list">
                         <label class="radio-inline">
-                            <input type="radio" name="brandOptionRadioGenre" id="optionsRadios4" value="M" tabindex="10" ${brand.isMascChecked()} > Masc. </label>
+                            <input type="radio" name="brandOptionRadioGenre" id="optionsRadios4" value="M" tabindex="10" ${innerBrandControl.isMascChecked(brand)} > Masc. </label>
                         <label class="radio-inline">
-                            <input type="radio" name="brandOptionRadioGenre" id="optionsRadios5" value="F" tabindex="11" ${brand.isFemChecked()} > Fem. </label>
+                            <input type="radio" name="brandOptionRadioGenre" id="optionsRadios5" value="F" tabindex="11" ${innerBrandControl.isFemChecked(brand)} > Fem. </label>
                         <label class="radio-inline">
-                            <input type="radio" name="brandOptionRadioGenre" id="optionsRadios6" value="U" tabindex="12" ${brand.isUnissexChecked()} > Unissex </label>
+                            <input type="radio" name="brandOptionRadioGenre" id="optionsRadios6" value="U" tabindex="12" ${innerBrandControl.isUnissexChecked(brand)} > Unissex </label>
                     </div>
                 </div>
 
@@ -70,7 +70,7 @@
                         <div class="form-group">
                             <label class="control-label col-md-6"><g:message code="brand.form.edit.audiente.styles"/></label>
                             <div class="col-md-6" tabindex="13">
-                                <input name="brandAudienceStyles" id="style_tag" type="text" class="form-control tags medium" value="${brand.getEstiloListTratado()}"/>
+                                <input name="brandAudienceStyles" id="style_tag" type="text" class="form-control tags medium" value="${innerBrandControl.getEstiloListTratado(brand)}"/>
                             </div>
                         </div>
                     </div>

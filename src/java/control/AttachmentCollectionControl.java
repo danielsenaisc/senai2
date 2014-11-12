@@ -14,6 +14,30 @@ import java.util.ArrayList;
  */
 public class AttachmentCollectionControl {
 
+    private AnexoColecao anexoColecao;
+
+    public AttachmentCollectionControl() {
+    }
+
+    public AttachmentCollectionControl(AnexoColecao anexoColecao) {
+        this.anexoColecao = anexoColecao;
+    }
+    
+    public AnexoColecao getAnexoColecao() {
+        return anexoColecao;
+    }
+
+    public void setAnexoColecao(AnexoColecao anexoColecao) {
+        this.anexoColecao = anexoColecao;
+    }
+
+    public boolean hasAnexoColecao() {
+        if (anexoColecao == null) {
+            return false;
+        }
+        return true;
+    }
+
     public ArrayList<AnexoColecao> selectAll() {
         return new ArrayList(Conexao.namedQuery("AnexoColecao.findAll"));
     }

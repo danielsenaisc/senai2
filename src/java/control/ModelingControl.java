@@ -4,9 +4,33 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import utils.OracleBoolean;
 import domain.Modelagem;
+import java.util.Objects;
 import javax.persistence.NoResultException;
+import utils.Genero;
 
 public class ModelingControl {
+    
+    Modelagem modelagem;
+
+    public ModelingControl() {
+    }
+
+    public ModelingControl(Modelagem modelagem) {
+        this.modelagem = modelagem;
+    }
+
+    public Modelagem getModelagem() {
+        return modelagem;
+    }
+
+    public void setModelagem(Modelagem modelagem) {
+        this.modelagem = modelagem;
+    }
+    
+    public boolean hasModelagem(){
+        if(modelagem == null) return false;
+        return true;
+    }
 
     /**
      * Retorna todos as modelagens que correspondem ao status especificado.
@@ -90,5 +114,63 @@ public class ModelingControl {
         System.out.println("idInternoIndustri ok");
 
         return false;
+    }
+    
+    //TODO Rever Regra de Negócio
+    public int getQuantidadeDeColecoes(Modelagem modelagem) {
+        return 0;
+    }
+
+    //TODO Rever Regra de Negócio
+    public int getQuantidadeDeProdutos(Modelagem modelagem) {
+        return 0;
+    }
+
+    public String getStatusTratado(Modelagem modelagem) {
+        if (Objects.equals(modelagem.getStatus(), OracleBoolean.TRUE.getValue())) {
+            return "Ativo";
+        }
+        return "Inativo";
+    }
+
+    public String isMascChecked(Modelagem modelagem) {
+        if (modelagem.getGenero().equals(Genero.MASCULINO.getDescricao())) {
+            return "checked";
+        }
+        return "";
+    }
+
+    public String isFemChecked(Modelagem modelagem) {
+        if (modelagem.getGenero().equals(Genero.FEMININO.getDescricao())) {
+            return "checked";
+        }
+        return "";
+    }
+
+    public String isUnissexChecked(Modelagem modelagem) {
+        if (modelagem.getId() == null) {
+            return "checked";
+        }
+        if (modelagem.getGenero().equals(Genero.UNISSEX.getDescricao())) {
+            return "checked";
+        }
+        return "";
+    }
+
+    public String isActive(Modelagem modelagem) {
+        if (modelagem.getId() == null) {
+            return "checked";
+        }
+        if (modelagem.getStatus().equals(OracleBoolean.TRUE.getValue())) {
+            return "checked";
+        }
+        return "";
+    }
+
+    public String isInactive(Modelagem modelagem) {
+        if (modelagem.getStatus().equals(OracleBoolean.FALSE.getValue())) {
+            return "checked";
+        }
+        return "";
     }
 }

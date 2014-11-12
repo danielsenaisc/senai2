@@ -13,7 +13,29 @@ import java.util.ArrayList;
  * @author Gustavo Calandrini
  */
 public class AbrangenceControl {
+    
+    private Abrangencia abrangencia;
 
+    public AbrangenceControl() {
+    }
+
+    public AbrangenceControl(Abrangencia abrangencia) {
+        this.abrangencia = abrangencia;
+    }
+     
+    public boolean hasAbrangencia(){
+        if(abrangencia == null) return false;
+        return true;
+    }
+
+    public void setAbrangencia(Abrangencia abrangencia) {
+        this.abrangencia = abrangencia;
+    }
+
+    public Abrangencia getAbrangencia() {
+        return abrangencia;
+    }
+    
     /**
      * Retorna todos as Abrangencias cadastradas no banco de dados.
      *

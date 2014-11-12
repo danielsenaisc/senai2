@@ -20,7 +20,7 @@ class ModelingController {
 	
     def index() {  
     	modelingList = loadModels();
-        [modelingList: modelingList]
+        [modelingList: modelingList, innerModelingControl: modelagemControl]
     }
 
     def edit() {           
@@ -32,7 +32,8 @@ class ModelingController {
         brandList = loadBrand();
         categoryList = loadCategory();       
         
-        return [modelingList: modelingList, modeling: modeling, brandList : brandList, categoryList: categoryList, gradeList:[]]
+        return [modelingList: modelingList, modeling: modeling, brandList : brandList, 
+                categoryList: categoryList, gradeList:[], innerModelingControl: modelagemControl]
     }
 
     def loadModels(){

@@ -14,6 +14,28 @@ import javax.persistence.NoResultException;
  * @author IST-08-PC
  */
 public class CategoryControl {
+    
+    Categoria categoria;
+
+    public CategoryControl() {
+    }
+
+    public CategoryControl(Categoria categoria) {
+        this.categoria = categoria;
+    }
+
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
+    }
+    
+    public boolean hasCategoria(){
+        if(categoria == null) return false;
+        return true;
+    }
 
     public ArrayList<Categoria> selectAll() {
         return new ArrayList(Conexao.namedQuery("Categoria.findAll"));

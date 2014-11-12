@@ -69,10 +69,10 @@
                             ${brand.getColecaoList().size()}</a>
                     </td>
                     <td><a href="${createLink(controller:'brand',action:'edit',params:[brandId:brand.getId()])}" class="t-column">
-                            ${brand.getQuantidadeProdutos()} </a>
+                            ${innerBrandControl.getQuantidadeProdutos(brand)} </a>
                     </td>
                     <td><a href="${createLink(controller:'brand',action:'edit',params:[brandId:brand.getId()])}" class="t-column">
-                            ${brand.getStatusTratado()} </a>
+                            ${innerBrandControl.getStatusTratado(brand)} </a>
                     </td>
 
 

@@ -28,7 +28,7 @@
                     <div class="col-md-4">
                         <label class="control-label col-md-6"><g:message code="collection.form.edit.audiente.location"/></label>
                         <div class="col-md-2" tabindex="9">
-                            <input id="location_tag" type="text" class="form-control tags medium" value="${collection.getListaDePaisesTratada()}" />
+                            <input id="location_tag" type="text" class="form-control tags medium" value="${innerCollectionControl.getListaDePaisesTratada(collection)}" />
                         </div>
                     </div>
                 </div>
@@ -63,11 +63,11 @@
                     <label class="col-md-2 control-label"> <g:message code="product.table.column.gender"/> </label>
                     <div class="col-md-6 radio-list" >
                         <label class="radio-inline">
-                            <input type="radio" name="optionRadioGenre" id="optionsRadios4" value="M" tabindex="12" ${collection.isMascChecked()} > Masc. </label>
+                            <input type="radio" name="optionRadioGenre" id="optionsRadios4" value="M" tabindex="12" ${innerCollectionControl.isMascChecked(collection)} > Masc. </label>
                         <label class="radio-inline">
-                            <input type="radio" name="optionRadioGenre" id="optionsRadios5" value="F" tabindex="13" ${collection.isFemChecked()} > Fem. </label>
+                            <input type="radio" name="optionRadioGenre" id="optionsRadios5" value="F" tabindex="13" ${innerCollectionControl.isFemChecked(collection)} > Fem. </label>
                         <label class="radio-inline">
-                            <input type="radio" name="optionRadioGenre" id="optionsRadios6" value="U" tabindex="14" ${collection.isUnissexChecked()} > Unissex </label>
+                            <input type="radio" name="optionRadioGenre" id="optionsRadios6" value="U" tabindex="14" ${innerCollectionControl.isUnissexChecked(collection)} > Unissex </label>
                     </div>
                 </div>
                 <!-- STYLE -->
@@ -76,7 +76,7 @@
                         <div class="form-group">
                             <label class="control-label col-md-6"><g:message code="collection.form.edit.audiente.styles"/></label>
                             <div class="col-md-6" tabindex="15">
-                                <input id="style_tag" type="text" class="form-control tags medium" value="${collection.getListaDeEstilosTratada()}"/>
+                                <input id="style_tag" type="text" class="form-control tags medium" value="${innerCollectionControl.getListaDeEstilosTratada(collection)}"/>
                             </div>
                         </div>
                     </div>

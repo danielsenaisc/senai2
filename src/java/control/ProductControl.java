@@ -8,6 +8,28 @@ import domain.Produtos;
 import javax.persistence.NoResultException;
 
 public class ProductControl {
+    
+    Produtos produtos;
+
+    public ProductControl() {
+    }
+
+    public ProductControl(Produtos produtos) {
+        this.produtos = produtos;
+    }
+
+    public Produtos getProdutos() {
+        return produtos;
+    }
+
+    public void setProdutos(Produtos produtos) {
+        this.produtos = produtos;
+    }
+    
+    public boolean hasProduto(){
+        if(produtos == null) return false;
+        return true;
+    }
 
     /**
      * Retorna todos os produtos cadastrados no banco de dados.

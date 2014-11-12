@@ -13,6 +13,28 @@ import java.util.ArrayList;
  * @author IST-08-PC
  */
 public class CollectionStatusControl {
+    
+    ColecaoStatus colecaoStatus;
+
+    public CollectionStatusControl() {
+    }
+
+    public CollectionStatusControl(ColecaoStatus colecaoStatus) {
+        this.colecaoStatus = colecaoStatus;
+    }
+
+    public ColecaoStatus getColecaoStatus() {
+        return colecaoStatus;
+    }
+
+    public void setColecaoStatus(ColecaoStatus colecaoStatus) {
+        this.colecaoStatus = colecaoStatus;
+    }
+    
+    public boolean hasColecaoStatus(){
+        if(colecaoStatus == null) return false;
+        return true;
+    }
 
     public ArrayList<ColecaoStatus> selectAll() {
         return new ArrayList(Conexao.namedQuery("ColecaoStatus.findAll"));

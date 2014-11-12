@@ -74,7 +74,7 @@
 					 ${collection.getMarcaId().getNome()} </a>
 				</td>
 				<td><a href="${createLink(controller:'collection',action:'edit',params:[collectionId:collection.getId()])}" class="t-column">
-					 ${collection.getVigencia()} </a>
+					 ${innerCollectionControl.getVigencia(collection)} </a>
 				</td>
 				<td><a href="${createLink(controller:'collection',action:'edit',params:[collectionId:collection.getId()])}" class="t-column">
 					 ${collection.getProdutosList().size()} </a>

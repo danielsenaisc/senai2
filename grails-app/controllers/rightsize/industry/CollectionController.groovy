@@ -1,12 +1,13 @@
 package rightsize.industry
 
-import control.AttachmentCollectionControl
-import control.BrandControl
-import control.CategoryControl
+import control.AttachmentCollectionControl;
+import control.BrandControl;
+import control.CategoryControl;
 import control.CollectionControl;
-import control.CollectionStatusControl
+import control.CollectionStatusControl;
 import domain.Colecao;
-import domain.ColecaoStatus
+import domain.ColecaoStatus;
+import utils.Formatador;
 
 class CollectionController {
     CollectionControl colecaoControl = new CollectionControl();
@@ -43,7 +44,30 @@ class CollectionController {
                 attachmentsList: attachmentsList, brandList: brandList, innerCollectionControl: colecaoControl]
     }
 
-    def create() { 
+    def saveCollection() { 
+        Colecao novaColecao = new Colecao();
+        
+        //BASIC INFORMATION
+        novaColecao.setNome(params.collectionName);
+        novaColecao.setMarcaId(marcaControl.findByDescricao(params.brandListComboBox));
+        novaColecao.setIdLivre(params.collectionFreeId);
+        novaColecao.setVigenciaInicial(Formatador.stringToDate(params.collectionInitalVigence));
+        novaColecao.setVigenciaFinal(Formatador.stringToDate(params.collectionFinalVigence));
+        novaColecao.setDescricao(params.collectionDescription);
+        //TODO novaColecao.setTagList();
+        novaColecao.setColecaoStatusId(colecaoStatusControl.findByDescricao(params.statusListComboBox));
+        
+        //AUDIENCE
+        //TODO novaColecao.setPaisList();
+        novaColecao.setIdadeInicial(params.collectionInitialAge);
+        novaColecao.setIdadeFinal(params.collectionFinalAge);
+        novaColecao.setGenero(params.CollectionOptionRadioGenre.toCharacter());
+        //TODO  novaColecao.setEstiloList();
+        
+        //TODO TEAM
+        
+        //ATTACHMENTS
+        //TODO novaColecao.setAnexoColecaoList();
     	redirect(controller:"collection", action:"edit");
     }
 

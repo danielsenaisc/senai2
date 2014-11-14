@@ -223,4 +223,14 @@ public class BrandControl {
         }
     }
     
+    public Marca findByDescricao(String descricao){
+        Marca marcaDeRetorno = new Marca();
+        try {
+            marcaDeRetorno = (Marca) Conexao.singleResultNamedQuery("Marca.findByDescricao", descricao, "descricao");
+        } catch (Exception e) {
+            e.getStackTrace();
+        }
+        return marcaDeRetorno;
+    }
+    
 }

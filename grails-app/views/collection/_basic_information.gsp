@@ -31,12 +31,8 @@
                         <div class="form-group">
                             <label class="col-md-3 control-label"><g:message code="collection.form.edit.brand"/></label>
                             <div class="col-md-8" style="margin-right: 10px; margin-left: 12px;">
-                                <div class="form-group">
-                                    <select class="form-control input-medium brand-select" tabindex="2"/>
-                                    <g:each var="brand" in="${brandList}">
-                                        <option> <g:message code="${brand.getNome()}"/> </option>
-                                    </g:each>
-                                    </select>
+                                <div class="form-group">                                    
+                                    <g:select name="brandListComboBox" from="${brandList}" value="${collection.getMarcaId()}" class="form-control input-medium brand-select" tabindex="2" />
                                 </div>
                             </div>
                         </div>
@@ -46,7 +42,7 @@
                             <label class="col-md-3 control-label"><g:message code="collection.form.edit.code"/></label>
                             <div class="col-md-3">
                                 <div class="input-icon right">
-                                    <input type="text" class="form-control input-xlarge col-wid399" tabindex="3" name="codigoLivre" value="${collection.getIdLivre()}">
+                                    <input name="collectionFreeId" type="text" class="form-control input-xlarge col-wid399" tabindex="3"  value="${collection.getIdLivre()}">
                                 </div>
                             </div>
                         </div>
@@ -58,7 +54,7 @@
                                 <div class="col-md-3" style="margin-left: 14px;">
                                     <div class="form-group">
                                         <div  class="col-md-4">
-                                            <input id="date-picker-start" class="form-control form-control-inline input-small date-picker " size="16" type="text" value="${innerCollectionControl.getVigenciaInicialTratada(collection)}" tabindex="4"/></i>
+                                            <input name="collectionInitalVigence" id="date-picker-start" class="form-control form-control-inline input-small date-picker " size="16" type="text"  value="${innerCollectionControl.getVigenciaInicialTratada(collection)}" tabindex="4"/></i>
                                         </div>
                                     </div>
                                 </div>
@@ -70,7 +66,7 @@
                                 <div class="col-md-1" style="margin-left: 0px;">
                                     <div class="form-group">
                                         <div  class="col-md-4">
-                                            <input id="date-picker-end" class="form-control form-control-inline input-small date-picker" size="16" type="text" value="${innerCollectionControl.getVigenciaFinalTratada(collection)}" tabindex="5"/></i>
+                                            <input name="collectionFinalVigence" id="date-picker-end" class="form-control form-control-inline input-small date-picker" size="16" type="text" value="${innerCollectionControl.getVigenciaFinalTratada(collection)}" tabindex="5"/></i>
                                         </div>
                                     </div>
                                 </div>
@@ -82,7 +78,7 @@
                             <label class="col-md-3 control-label"><g:message code="collection.form.edit.description"/></label>
                             <div class="col-md-3">
                                 <div class="input-icon right">
-                                    <textarea class="form-control input-xlarge col-wid399" rows="7" tabindex="6" maxlength="600" > ${collection.getDescricao()} </textarea>
+                                    <textarea name="collectionDescription" class="form-control input-xlarge col-wid399" rows="7" tabindex="6" maxlength="600" > ${collection.getDescricao()} </textarea>
                                 </div>
                             </div>
                         </div>

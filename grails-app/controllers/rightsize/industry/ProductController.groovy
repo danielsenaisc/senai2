@@ -1,13 +1,17 @@
 package rightsize.industry
 
+import control.CategoryControl
 import control.CollectionControl
 import control.ProductControl;
+import domain.Categoria
+import domain.Colecao
 import domain.Produtos
 
 class ProductController {
     
     ProductControl produtoControl = new ProductControl();
     CollectionControl colecaoControl = new CollectionControl();
+    CategoryControl categoriaControl = new CategoryControl();
     
     def productList = new ArrayList();
     def gradeList = new ArrayList();
@@ -42,7 +46,27 @@ class ProductController {
             attrlist: attrlist]
     }
 
-    def create() { 
+    def saveProduct() { 
+        Produtos novoProduto = new Produtos();
+        if(params.productId != null && params.productId.isBigDecimal()) novoProduto = produtoControl.findById(params.productId.toBigDecimal());
+        
+        Colecao collectionProduct = new Colecao();
+        if(params.collectionProductId != null && params.collectionProductId.isBigDecimal()) collectionProduct = colecaoControl.findById(params.collectionProduct.toBigDecimal());
+        
+        Categoria categoryProduct = new Categoria();
+        if(params.categoryProductId != null && params.categoryProductId.isLong()) categoryProduct = categoriaControl.findById(params.categoryProductId.toLong());
+        
+        novoProduto.setNome(params.productName);
+        novoProduto.setColecaoId(collectionProduct);
+        novoProduto.setCategoriaId(categoryProduct);
+        novoProduto.setGenero(params.productOptionRadioGenre.toCharacter());
+        novoProduto.setReferencia(params.productReference);
+        //TODO  novoProduto.setTagList();
+        novoProduto.setDescricao(params.productDescription);
+        novoProduto.setStatus(params.productOptionRadioStatus.toCharacter());
+        //TODO DadosModelagem, Variantes e Atributos da peça
+        
+        
         redirect(controller:"product", action:"edit");
     }
 

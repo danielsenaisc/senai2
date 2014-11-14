@@ -40,4 +40,13 @@ public class CollectionStatusControl {
         return new ArrayList(Conexao.namedQuery("ColecaoStatus.findAll"));
     }
 
+    public ColecaoStatus findByDescricao(String descricao){
+        ColecaoStatus colecaoStatusDeRetorno = new ColecaoStatus();
+        try {
+            colecaoStatusDeRetorno = (ColecaoStatus) Conexao.singleResultNamedQuery("ColecaoStatus.findByDescricao", descricao, "descricao");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }        
+        return colecaoStatusDeRetorno;
+    }
 }

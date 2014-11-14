@@ -39,7 +39,7 @@
                         <div class="col-md-1" style="margin-left: 30px;">
                             <div class="form-group">
                                 <div class="form-group">
-                                    <g:select name="age" from="${0..99}" value="${collection.getIdadeInicial()}" class="form-control input-small age-select" tabindex="10"/>
+                                    <g:select name="collectionInitialAge" from="${0..99}" value="${collection.getIdadeInicial()}" class="form-control input-small age-select" tabindex="10"/>
                                 </div>
                             </div>
                         </div>
@@ -51,7 +51,7 @@
                         <div class="col-md-1" style="margin-left: 20px;">
                             <div class="form-group">
                                 <div class="form-group">
-                                    <g:select name="age" from="${0..99}" value="${collection.getIdadeFinal()}" class="form-control input-small age-select" tabindex="11"/>
+                                    <g:select name="collectionFinalAge" from="${0..99}" value="${collection.getIdadeFinal()}" class="form-control input-small age-select" tabindex="11"/>
                                 </div>
                             </div>
                         </div>
@@ -63,11 +63,11 @@
                     <label class="col-md-2 control-label"> <g:message code="product.table.column.gender"/> </label>
                     <div class="col-md-6 radio-list" >
                         <label class="radio-inline">
-                            <input type="radio" name="optionRadioGenre" id="optionsRadios4" value="M" tabindex="12" ${innerCollectionControl.isMascChecked(collection)} > Masc. </label>
+                            <input type="radio" name="CollectionOptionRadioGenre" id="optionsRadios4" value="M" tabindex="12" ${innerCollectionControl.isMascChecked(collection)} > Masc. </label>
                         <label class="radio-inline">
-                            <input type="radio" name="optionRadioGenre" id="optionsRadios5" value="F" tabindex="13" ${innerCollectionControl.isFemChecked(collection)} > Fem. </label>
+                            <input type="radio" name="CollectionOptionRadioGenre" id="optionsRadios5" value="F" tabindex="13" ${innerCollectionControl.isFemChecked(collection)} > Fem. </label>
                         <label class="radio-inline">
-                            <input type="radio" name="optionRadioGenre" id="optionsRadios6" value="U" tabindex="14" ${innerCollectionControl.isUnissexChecked(collection)} > Unissex </label>
+                            <input type="radio" name="CollectionOptionRadioGenre" id="optionsRadios6" value="U" tabindex="14" ${innerCollectionControl.isUnissexChecked(collection)} > Unissex </label>
                     </div>
                 </div>
                 <!-- STYLE -->

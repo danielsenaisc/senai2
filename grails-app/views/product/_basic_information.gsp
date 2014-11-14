@@ -99,11 +99,11 @@
                     <label class="col-md-2 control-label"><g:message code="product.table.column.gender"/></label>
                     <div class="col-md-6 radio-list">
                         <label class="radio-inline">
-                            <input type="radio" name="optionRadioGenre" id="optionsRadios4" value="M" tabindex="10" ${product.isMascChecked()}> Masc. </label>
+                            <input type="radio" name="productOptionRadioGenre" id="optionsRadios4" value="M" tabindex="10" ${product.isMascChecked()}> Masc. </label>
                         <label class="radio-inline">
-                            <input type="radio" name="optionRadioGenre" id="optionsRadios5" value="F" tabindex="11" ${product.isFemChecked()}> Fem. </label>
+                            <input type="radio" name="productOptionRadioGenre" id="optionsRadios5" value="F" tabindex="11" ${product.isFemChecked()}> Fem. </label>
                         <label class="radio-inline">
-                            <input type="radio" name="optionRadioGenre" id="optionsRadios6" value="U" tabindex="12" ${product.isUnissexChecked()}> Unissex </label>
+                            <input type="radio" name="productOptionRadioGenre" id="optionsRadios6" value="U" tabindex="12" ${product.isUnissexChecked()}> Unissex </label>
                     </div>
                 </div>
 
@@ -112,7 +112,7 @@
                     <label class="col-md-2 control-label"><g:message code="product.form.edit.reference"/></label>
                     <div class="col-md-2">
                         <div class="input-icon right">
-                            <input type="text" class="form-control input-200" value="${product.getReferencia()}">
+                            <input name="productReference" type="text" class="form-control input-200" value="${product.getReferencia()}">
                         </div>
                     </div>
                 </div>	
@@ -132,7 +132,7 @@
                     <label class="col-md-2 control-label"><g:message code="product.form.edit.description"/></label>
                     <div class="col-md-3">
                         <div class="input-icon right">
-                            <textarea class="form-control input-xlarge" rows="6" maxlength="600"> ${product.getDescricao()} </textarea>
+                            <textarea name="productDescription" class="form-control input-xlarge" rows="6" maxlength="600"> ${product.getDescricao()} </textarea>
                         </div>
                     </div>
                 </div>
@@ -142,9 +142,9 @@
                     <label class="col-md-2 control-label"></label>
                     <div class="col-md-3 radio-list">
                         <label class="radio-inline">
-                            <input type="radio" name="optionRadioStatus" id="optionsRadios4" value="true" ${product.isActiveChecked()}> <g:message code="form.default.active.a"/> </label>
+                            <input type="radio" name="productOptionRadioStatus" id="optionsRadios4" value="true" ${product.isActiveChecked()}> <g:message code="form.default.active.a"/> </label>
                         <label class="radio-inline">
-                            <input type="radio" name="optionRadioStatus" id="optionsRadios5" value="false" ${product.isInactiveChecked()}> <g:message code="form.default.inactive.a"/> </label>
+                            <input type="radio" name="productOptionRadioStatus" id="optionsRadios5" value="false" ${product.isInactiveChecked()}> <g:message code="form.default.inactive.a"/> </label>
                     </div>
                 </div>
 

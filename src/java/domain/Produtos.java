@@ -27,10 +27,6 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
-import utils.Genero;
-import utils.OracleBoolean;
-import utils.RadioOptions;
-
 /**
  *
  * @author IST-08-PC
@@ -238,86 +234,6 @@ public class Produtos implements Serializable {
 
     @Override
     public String toString() {
-        return "domain.Produtos[ id=" + id + " ]";
-    }
-
-    public String getListaDeTagsTratada() {
-        String retorno = "";
-        if (getTagList().size() <= 0) {
-            return retorno;
-        }
-
-        for (Tag tagList1 : getTagList()) {
-            retorno += (tagList1.getDescricao() + ",");
-        }
-
-        retorno = retorno.substring(0, retorno.length() - 1);
-
-        return retorno;
-    }
-
-    public String isMascChecked() {
-        if (getGenero().equals(Genero.MASCULINO.getDescricao())) {
-            return RadioOptions.CHECKED.getOption();
-        }
-        return RadioOptions.UNCHECkED.getOption();
-    }
-
-    public String isFemChecked() {
-        if (getGenero().equals(Genero.FEMININO.getDescricao())) {
-            return RadioOptions.CHECKED.getOption();
-        }
-        return RadioOptions.UNCHECkED.getOption();
-    }
-
-    public String isUnissexChecked() {
-        if (getGenero().equals(Genero.UNISSEX.getDescricao())) {
-            return RadioOptions.CHECKED.getOption();
-        }
-        return RadioOptions.UNCHECkED.getOption();
-    }
-
-    public String isActiveChecked() {
-        if (getStatus().equals(OracleBoolean.TRUE.getValue())) {
-            return RadioOptions.CHECKED.getOption();
-        }
-        return RadioOptions.UNCHECkED.getOption();
-    }
-
-    public String isInactiveChecked() {
-        if (getStatus().equals(OracleBoolean.FALSE.getValue())) {
-            return RadioOptions.CHECKED.getOption();
-        }
-        return RadioOptions.UNCHECkED.getOption();
-    }
-
-    //TODO rever Regras de Negocio
-    public int getQuantidadeVariantes() {
-        return 0;
-    }
-
-    public String getStatusTratado() {
-        if (getStatus().equals(OracleBoolean.TRUE.getValue())) {
-            return "Ativo";
-        }
-        return "Inativo";
-    }
-    
-    public String isActive() {
-        if (id == null) {
-            return RadioOptions.CHECKED.getOption();
-        }
-        if (getStatus().equals(OracleBoolean.TRUE.getValue())) {
-            return RadioOptions.CHECKED.getOption();
-        }
-        return RadioOptions.UNCHECkED.getOption();
-    }
-
-    public String isInactive() {
-        if (getStatus().equals(OracleBoolean.FALSE.getValue())) {
-            return RadioOptions.CHECKED.getOption();
-        }
-        return RadioOptions.UNCHECkED.getOption();
-    }
-
+        return "Produtos{" + "id=" + id + '}';
+    }      
 }

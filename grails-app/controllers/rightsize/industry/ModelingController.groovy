@@ -58,7 +58,7 @@ class ModelingController {
         
 //        novaModelagem.setNome(params.modelingName);
 //        novaModelagem.setStatus(OracleBoolean.TRUE.getValue());
-//        novaModelagem.setGenero(params.collectionOptionRadioGenre);
+//        novaModelagem.setGenero(params.modelingOptionRadioGenre);
 //        novaModelagem.setDescricao(params.modelingDescription);
 //        novaModelagem.setIdInternoIndustria(params.modelingIndustryInternId);
 

@@ -5,7 +5,10 @@ import java.util.ArrayList;
 
 import utils.OracleBoolean;
 import domain.Produtos;
+import domain.Tag;
 import javax.persistence.NoResultException;
+import utils.Genero;
+import utils.RadioOptions;
 
 public class ProductControl {
     
@@ -45,8 +48,8 @@ public class ProductControl {
      *
      * @param produto Produto a ser adicionado no banco.
      */
-    public void add(Produtos produto) {
-        Conexao.persist(produto);
+    public void add(Produtos produtos) {
+        Conexao.persist(produtos);
     }
 
     /**
@@ -54,8 +57,8 @@ public class ProductControl {
      *
      * @param produto Produto a ser removido permanentemente no banco.
      */
-    public void delete(Produtos produto) {
-        Conexao.remove(produto);
+    public void delete(Produtos produtos) {
+        Conexao.remove(produtos);
     }
 
     //TODO
@@ -119,5 +122,84 @@ public class ProductControl {
         }
 
         return produtoDeRetorno;
+    }
+    
+    public String getListaDeTagsTratada(Produtos produtos) {
+        String retorno = "";
+        if (produtos.getTagList().size() <= 0) {
+            return retorno;
+        }
+
+        for (Tag tagList1 : produtos.getTagList()) {
+            retorno += (tagList1.getDescricao() + ",");
+        }
+
+        retorno = retorno.substring(0, retorno.length() - 1);
+
+        return retorno;
+    }
+
+    public String isMascChecked(Produtos produtos) {
+        if (produtos.getGenero().equals(Genero.MASCULINO.getDescricao())) {
+            return RadioOptions.CHECKED.getOption();
+        }
+        return RadioOptions.UNCHECkED.getOption();
+    }
+
+    public String isFemChecked(Produtos produtos) {
+        if (produtos.getGenero().equals(Genero.FEMININO.getDescricao())) {
+            return RadioOptions.CHECKED.getOption();
+        }
+        return RadioOptions.UNCHECkED.getOption();
+    }
+
+    public String isUnissexChecked(Produtos produtos) {
+        if (produtos.getGenero().equals(Genero.UNISSEX.getDescricao())) {
+            return RadioOptions.CHECKED.getOption();
+        }
+        return RadioOptions.UNCHECkED.getOption();
+    }
+
+    public String isActiveChecked(Produtos produtos) {
+        if (produtos.getStatus().equals(OracleBoolean.TRUE.getValue())) {
+            return RadioOptions.CHECKED.getOption();
+        }
+        return RadioOptions.UNCHECkED.getOption();
+    }
+
+    public String isInactiveChecked(Produtos produtos) {
+        if (produtos.getStatus().equals(OracleBoolean.FALSE.getValue())) {
+            return RadioOptions.CHECKED.getOption();
+        }
+        return RadioOptions.UNCHECkED.getOption();
+    }      
+    
+    public String isActive(Produtos produtos) {
+        if (produtos.getId() == null) {
+            return RadioOptions.CHECKED.getOption();
+        }
+        if (produtos.getStatus().equals(OracleBoolean.TRUE.getValue())) {
+            return RadioOptions.CHECKED.getOption();
+        }
+        return RadioOptions.UNCHECkED.getOption();
+    }
+
+    public String isInactive(Produtos produtos) {
+        if (produtos.getStatus().equals(OracleBoolean.FALSE.getValue())) {
+            return RadioOptions.CHECKED.getOption();
+        }
+        return RadioOptions.UNCHECkED.getOption();
+    }    
+    
+    public String getStatusTratado(Produtos produtos) {
+        if (produtos.getStatus().equals(OracleBoolean.TRUE.getValue())) {
+            return "Ativo";
+        }
+        return "Inativo";
+    }
+    
+    //TODO rever Regras de Negocio
+    public int getQuantidadeVariantes() {
+        return 0;
     }
 }

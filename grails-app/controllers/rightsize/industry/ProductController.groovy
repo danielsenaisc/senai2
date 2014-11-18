@@ -22,12 +22,14 @@ class ProductController {
     def LOREN_IPSUM = "Lorem ipsum"
 	
     def index() { 
+        ProductControl innerProductControl = new ProductControl();
     	productList = loadProduct();
 
-        [productList: productList]
+        [productList: productList, innerProductControl:innerProductControl]
     }
 
     def edit() { 
+        ProductControl innerProductControl = new ProductControl();
         Produtos product = new Produtos();  
         
         if(params.productId != null && params.productId.isBigDecimal()) product = produtoControl.findById(params.productId.toBigDecimal());        
@@ -36,10 +38,9 @@ class ProductController {
         gradeList = loadGrade();
         variantList = loadVariant();
         productList = loadProduct();
-        attrlist = loadAttribs();    
-       
+        attrlist = loadAttribs();        
 
-        return [collectionList: collectionList, product: product, gradeList: gradeList, variantList: variantList, 
+        return [product: product, innerProductControl: innerProductControl, collectionList: collectionList, gradeList: gradeList, variantList: variantList,             
             productList: productList, 
             attachmentList:[ "/css/global/plugins/jcrop/demos/demo_files/image1.jpg",
                         "/css/global/plugins/jcrop/demos/demo_files/image1.jpg"],

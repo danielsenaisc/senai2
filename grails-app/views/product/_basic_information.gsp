@@ -99,11 +99,11 @@
                     <label class="col-md-2 control-label"><g:message code="product.table.column.gender"/></label>
                     <div class="col-md-6 radio-list">
                         <label class="radio-inline">
-                            <input type="radio" name="productOptionRadioGenre" id="optionsRadios4" value="M" tabindex="10" ${product.isMascChecked()}> Masc. </label>
+                            <input type="radio" name="productOptionRadioGenre" id="optionsRadios4" value="M" tabindex="10" ${innerProductControl.isMascChecked(product)}> Masc. </label>
                         <label class="radio-inline">
-                            <input type="radio" name="productOptionRadioGenre" id="optionsRadios5" value="F" tabindex="11" ${product.isFemChecked()}> Fem. </label>
+                            <input type="radio" name="productOptionRadioGenre" id="optionsRadios5" value="F" tabindex="11" ${innerProductControl.isFemChecked(product)}> Fem. </label>
                         <label class="radio-inline">
-                            <input type="radio" name="productOptionRadioGenre" id="optionsRadios6" value="U" tabindex="12" ${product.isUnissexChecked()}> Unissex </label>
+                            <input type="radio" name="productOptionRadioGenre" id="optionsRadios6" value="U" tabindex="12" ${innerProductControl.isUnissexChecked(product)}> Unissex </label>
                     </div>
                 </div>
 
@@ -122,7 +122,7 @@
                     <label class="col-md-2 control-label"><g:message code="product.form.edit.tags"/></label>
                     <div class="col-md-2">
                         <div class="input-icon ">
-                            <input id="style_tag" type="text" class="form-control tags input-xlarge" value="${product.getListaDeTagsTratada()}" />
+                            <input id="style_tag" type="text" class="form-control tags input-xlarge" value="${innerProductControl.getListaDeTagsTratada(product)}" />
                         </div>
                     </div>
                 </div>
@@ -142,9 +142,9 @@
                     <label class="col-md-2 control-label"></label>
                     <div class="col-md-3 radio-list">
                         <label class="radio-inline">
-                            <input type="radio" name="productOptionRadioStatus" id="optionsRadios4" value="true" ${product.isActiveChecked()}> <g:message code="form.default.active.a"/> </label>
+                            <input type="radio" name="productOptionRadioStatus" id="optionsRadios4" value="true" ${innerProductControl.isActiveChecked(product)}> <g:message code="form.default.active.a"/> </label>
                         <label class="radio-inline">
-                            <input type="radio" name="productOptionRadioStatus" id="optionsRadios5" value="false" ${product.isInactiveChecked()}> <g:message code="form.default.inactive.a"/> </label>
+                            <input type="radio" name="productOptionRadioStatus" id="optionsRadios5" value="false" ${innerProductControl.isInactiveChecked(product)}> <g:message code="form.default.inactive.a"/> </label>
                     </div>
                 </div>
 

@@ -4,8 +4,7 @@
     <div class="portlet-title">
         <div class="caption">
             <g:message code="collection.form.edit.audience"/>
-            <a href="javascript:;" class="popovers" data-container="body" data-trigger="hover" 
-            data-content="Como realizar esse cadastro!" data-original-title="Mais informações" data-placement="top">
+            <a href="javascript:;" class="popovers" data-container="body" data-trigger="hover" data-content="Como realizar esse cadastro!" data-original-title="Mais informações" data-placement="top">
             <i class="fa fa-info-circle popovers" ></i> 
             </a>
         </div>

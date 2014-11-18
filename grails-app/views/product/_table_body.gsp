@@ -91,10 +91,10 @@
 					 ${product.getColecaoId().getNome()} </a>
 				</td>
 				<td><a href="${createLink(controller:'product',action:'edit',params:[productId:product.getId()])}" class="t-column">
-					 ${product.getQuantidadeVariantes()} </a>
+					 ${innerProductControl.getQuantidadeVariantes()} </a>
 				</td>
 				<td><a href="${createLink(controller:'product',action:'edit',params:[productId:product.getId()])}" class="t-column">
-					 ${product.getStatusTratado()} </a>
+					 ${innerProductControl.getStatusTratado(product)} </a>
 				</td>
 				
 				<td>
